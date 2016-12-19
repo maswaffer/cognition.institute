@@ -1,0 +1,8 @@
+<div style="width:100%; text-align:center;">
+    <letter-grid (letterClicked)="addLetter($event)"></letter-grid>
+    <br/><br/>
+    <recalled-letters [letterList]="lettersRecalled"></recalled-letters>
+    <br/>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Clear</button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Finished</button>
+</div>
