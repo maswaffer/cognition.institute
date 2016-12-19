@@ -11,4 +11,8 @@ export class LetterRecall{
     addLetter(event: Object){
         this.lettersRecalled += event.value;
     }
+
+    clear(){
+        this.lettersRecalled = '';
+    }
 }

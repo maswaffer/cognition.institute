@@ -16,6 +16,9 @@ let LetterRecall = class LetterRecall {
     addLetter(event) {
         this.lettersRecalled += event.value;
     }
+    clear() {
+        this.lettersRecalled = '';
+    }
 };
 LetterRecall = __decorate([
     core_1.Component({

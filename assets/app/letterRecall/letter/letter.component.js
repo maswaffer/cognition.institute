@@ -13,11 +13,9 @@ let LetterComponent = class LetterComponent {
     constructor() {
         this.displayLetter = 'loading...';
         this.selected = new core_1.EventEmitter();
-        this.isSelected = false;
     }
     select() {
         this.selected.emit({ value: this.displayLetter });
-        this.isSelected = true;
     }
 };
 __decorate([
