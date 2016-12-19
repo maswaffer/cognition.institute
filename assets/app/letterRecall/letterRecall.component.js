@@ -11,15 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 let LetterRecall = class LetterRecall {
     constructor() {
+        this.response = new core_1.EventEmitter();
         this.lettersRecalled = '';
     }
-    addLetter(event) {
-        this.lettersRecalled += event.value;
+    addLetter(letter) {
+        this.lettersRecalled += letter;
     }
     clear() {
         this.lettersRecalled = '';
     }
+    submit() {
+        this.response.emit(this.lettersRecalled);
+    }
 };
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], LetterRecall.prototype, "response", void 0);
 LetterRecall = __decorate([
     core_1.Component({
         selector: 'letter-recall',

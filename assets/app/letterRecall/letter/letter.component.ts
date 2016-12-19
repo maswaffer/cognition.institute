@@ -11,6 +11,6 @@ export class LetterComponent{
     @Output() selected = new EventEmitter<string>();
 
     select(){
-        this.selected.emit({value: this.displayLetter});
+        this.selected.emit(this.displayLetter);
     }
 }

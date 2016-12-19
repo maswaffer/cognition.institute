@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
+const http_1 = require("@angular/http");
 const app_component_1 = require("./app.component");
 const letterRecall_component_1 = require("./letterRecall/letterRecall.component");
 const letterGrid_component_1 = require("./letterRecall/letterGrid/letterGrid.component");
 const letter_component_1 = require("./letterRecall/letter/letter.component");
 const recalledLetters_component_1 = require("./letterRecall/recalledLetters/recalledLetters.component");
+const reading_component_1 = require("./reading/reading.component");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,8 +25,9 @@ AppModule = __decorate([
             letterGrid_component_1.LetterGridComponent,
             letter_component_1.LetterComponent,
             letterRecall_component_1.LetterRecall,
-            recalledLetters_component_1.RecalledLettersComponent],
-        imports: [platform_browser_1.BrowserModule],
+            recalledLetters_component_1.RecalledLettersComponent,
+            reading_component_1.ReadingComponent],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule],
         bootstrap: [app_component_1.AppComponent],
     }),
     __metadata("design:paramtypes", [])

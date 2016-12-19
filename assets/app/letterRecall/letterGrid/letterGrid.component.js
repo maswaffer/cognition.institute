@@ -13,8 +13,8 @@ let LetterGridComponent = class LetterGridComponent {
     constructor() {
         this.letterClicked = new core_1.EventEmitter();
     }
-    letterSelected(event) {
-        this.letterClicked.emit({ value: event.value });
+    letterSelected(letter) {
+        this.letterClicked.emit(letter);
     }
 };
 __decorate([

@@ -9,30 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-let LetterComponent = class LetterComponent {
-    constructor() {
-        this.displayLetter = 'loading...';
-        this.selected = new core_1.EventEmitter();
+const sentence_service_js_1 = require("../services/sentence.service.js");
+let ReadingComponent = class ReadingComponent {
+    constructor(sentenceService) {
+        this.sentenceService = sentenceService;
     }
-    select() {
-        this.selected.emit(this.displayLetter);
+    getSentences() {
+        this.sentenceService.getSentences()
+            .subscribe(sentences => this.sentences = sentences, error => this.errorMessage = error);
+    }
+    ngOnInit() {
+        this.getSentences();
     }
 };
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], LetterComponent.prototype, "displayLetter", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", Object)
-], LetterComponent.prototype, "selected", void 0);
-LetterComponent = __decorate([
+ReadingComponent = __decorate([
     core_1.Component({
-        selector: 'letter',
-        templateUrl: 'app/letterRecall/letter/letter.component.html',
-        styleUrls: ['app/letterRecall/letter/letter.component.css']
+        selector: 'reading-portion',
+        templateUrl: 'app/reading/reading.component.html',
+        providers: [sentence_service_js_1.SentenceService]
     }),
-    __metadata("design:paramtypes", [])
-], LetterComponent);
-exports.LetterComponent = LetterComponent;
-//# sourceMappingURL=letter.component.js.map
+    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService])
+], ReadingComponent);
+exports.ReadingComponent = ReadingComponent;
+//# sourceMappingURL=reading.component.js.map

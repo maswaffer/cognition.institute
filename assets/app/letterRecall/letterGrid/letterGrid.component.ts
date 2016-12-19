@@ -8,7 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class LetterGridComponent{
     @Output() letterClicked = new EventEmitter<string>();
 
-    letterSelected(event){
-        this.letterClicked.emit({value: event.value});
+    letterSelected(letter: Object){
+        this.letterClicked.emit(letter as string);
     }
 }
