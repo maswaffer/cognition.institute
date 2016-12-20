@@ -17,6 +17,7 @@ const letterGrid_component_1 = require("./letterRecall/letterGrid/letterGrid.com
 const letter_component_1 = require("./letterRecall/letter/letter.component");
 const recalledLetters_component_1 = require("./letterRecall/recalledLetters/recalledLetters.component");
 const reading_component_1 = require("./reading/reading.component");
+const sentenceDisplay_component_1 = require("./reading/sentence/sentenceDisplay.component");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -26,7 +27,8 @@ AppModule = __decorate([
             letter_component_1.LetterComponent,
             letterRecall_component_1.LetterRecall,
             recalledLetters_component_1.RecalledLettersComponent,
-            reading_component_1.ReadingComponent],
+            reading_component_1.ReadingComponent,
+            sentenceDisplay_component_1.SentenceDisplayComponent],
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule],
         bootstrap: [app_component_1.AppComponent],
     }),

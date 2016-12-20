@@ -13,13 +13,21 @@ const sentence_service_js_1 = require("../services/sentence.service.js");
 let ReadingComponent = class ReadingComponent {
     constructor(sentenceService) {
         this.sentenceService = sentenceService;
+        this.currentSentence = new sentence_service_js_1.Sentence();
     }
     getSentences() {
         this.sentenceService.getSentences()
-            .subscribe(sentences => this.sentences = sentences, error => this.errorMessage = error);
+            .subscribe(sentences => { this.sentences = sentences; this.currentSentence = this.sentences[0]; }, error => this.errorMessage = error);
     }
     ngOnInit() {
         this.getSentences();
+    }
+    next() {
+        var idx = this.sentences.map(function (x) { return x.id; }).indexOf(this.currentSentence.id);
+        idx += 1;
+        if (idx < this.sentences.length) {
+            this.currentSentence = this.sentences[idx];
+        }
     }
 };
 ReadingComponent = __decorate([

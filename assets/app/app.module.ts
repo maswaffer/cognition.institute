@@ -7,6 +7,7 @@ import {LetterGridComponent} from './letterRecall/letterGrid/letterGrid.componen
 import {LetterComponent} from './letterRecall/letter/letter.component';
 import {RecalledLettersComponent} from './letterRecall/recalledLetters/recalledLetters.component';
 import {ReadingComponent} from './reading/reading.component';
+import {SentenceDisplayComponent} from './reading/sentence/sentenceDisplay.component'
  
 @NgModule({
     declarations: [AppComponent, 
@@ -14,7 +15,8 @@ import {ReadingComponent} from './reading/reading.component';
                     LetterComponent,
                     LetterRecall,
                     RecalledLettersComponent,
-                    ReadingComponent],
+                    ReadingComponent,
+                    SentenceDisplayComponent],
     imports:      [BrowserModule, HttpModule],
     bootstrap:    [AppComponent],
 })

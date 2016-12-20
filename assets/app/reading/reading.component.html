@@ -1,5 +1,2 @@
-<ul>
-  <li *ngFor="let sentence of sentences" >
-    {{ sentence.text }}
-  </li>
-</ul>
+<sentence-display [sentence] = "currentSentence"></sentence-display>
+<button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next</button>
