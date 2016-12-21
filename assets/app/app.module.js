@@ -11,31 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
-const router_1 = require("@angular/router");
 const app_component_1 = require("./app.component");
-const letterRecall_component_1 = require("./letterRecall/letterRecall.component");
 const letterGrid_component_1 = require("./letterRecall/letterGrid/letterGrid.component");
 const letter_component_1 = require("./letterRecall/letter/letter.component");
 const recalledLetters_component_1 = require("./letterRecall/recalledLetters/recalledLetters.component");
-const reading_component_1 = require("./reading/reading.component");
 const sentenceDisplay_component_1 = require("./reading/sentence/sentenceDisplay.component");
+const app_routing_module_1 = require("./app-routing.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule,
+        imports: [
+            platform_browser_1.BrowserModule,
             http_1.HttpModule,
-            router_1.RouterModule.forRoot([
-                { path: 'reading', component: reading_component_1.ReadingComponent },
-                { path: 'letters', component: letterRecall_component_1.LetterRecall },
-            ])],
-        declarations: [app_component_1.AppComponent,
+            app_routing_module_1.AppRoutingModule
+        ],
+        declarations: [
+            app_component_1.AppComponent,
+            app_routing_module_1.routedComponents,
             letterGrid_component_1.LetterGridComponent,
             letter_component_1.LetterComponent,
-            letterRecall_component_1.LetterRecall,
             recalledLetters_component_1.RecalledLettersComponent,
-            reading_component_1.ReadingComponent,
-            sentenceDisplay_component_1.SentenceDisplayComponent],
+            sentenceDisplay_component_1.SentenceDisplayComponent
+        ],
         bootstrap: [app_component_1.AppComponent],
     }),
     __metadata("design:paramtypes", [])

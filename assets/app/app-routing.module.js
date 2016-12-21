@@ -9,31 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-let LetterRecallComponent = class LetterRecallComponent {
-    constructor() {
-        this.response = new core_1.EventEmitter();
-        this.lettersRecalled = '';
-    }
-    addLetter(letter) {
-        this.lettersRecalled += letter;
-    }
-    clear() {
-        this.lettersRecalled = '';
-    }
-    submit() {
-        this.response.emit(this.lettersRecalled);
-    }
+const router_1 = require("@angular/router");
+const letterRecall_component_1 = require("./letterRecall/letterRecall.component");
+const reading_component_1 = require("./reading/reading.component");
+const routes = [
+    { path: 'reading', component: reading_component_1.ReadingComponent },
+    { path: 'letters', component: letterRecall_component_1.LetterRecallComponent },
+];
+let AppRoutingModule = class AppRoutingModule {
 };
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", Object)
-], LetterRecallComponent.prototype, "response", void 0);
-LetterRecallComponent = __decorate([
-    core_1.Component({
-        selector: 'letter-recall',
-        templateUrl: 'app/letterRecall/letterRecall.component.html'
+AppRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [router_1.RouterModule.forRoot(routes)],
+        exports: [router_1.RouterModule]
     }),
     __metadata("design:paramtypes", [])
-], LetterRecallComponent);
-exports.LetterRecallComponent = LetterRecallComponent;
-//# sourceMappingURL=letterRecall.component.js.map
+], AppRoutingModule);
+exports.AppRoutingModule = AppRoutingModule;
+exports.routedComponents = [
+    reading_component_1.ReadingComponent,
+    letterRecall_component_1.LetterRecallComponent
+];
+//# sourceMappingURL=app-routing.module.js.map

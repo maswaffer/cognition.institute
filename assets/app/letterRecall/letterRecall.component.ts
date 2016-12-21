@@ -5,7 +5,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
     templateUrl: 'app/letterRecall/letterRecall.component.html'
 })
 
-export class LetterRecall{
+export class LetterRecallComponent{
     @Output() response = new EventEmitter<string>();
 
     lettersRecalled = '';
