@@ -22,7 +22,7 @@ let SentenceService = class SentenceService {
     }
     getSentences() {
         return this.http
-            .get('/sentence')
+            .get('/api/v1/sentence')
             .map((response) => response.json())
             .do(data => console.log('data:' + data))
             .catch(this.handleError);
