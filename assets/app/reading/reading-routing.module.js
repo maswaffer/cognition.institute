@@ -10,21 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
-const letterRecall_component_1 = require("./letterRecall/letterRecall.component");
+const reading_component_1 = require("./reading.component");
 const routes = [
-    { path: 'letters', component: letterRecall_component_1.LetterRecallComponent },
+    { path: 'reading', component: reading_component_1.ReadingComponent },
 ];
-let AppRoutingModule = class AppRoutingModule {
+let ReadingRoutingModule = class ReadingRoutingModule {
 };
-AppRoutingModule = __decorate([
+ReadingRoutingModule = __decorate([
     core_1.NgModule({
-        imports: [router_1.RouterModule.forRoot(routes)],
+        imports: [router_1.RouterModule.forChild(routes)],
         exports: [router_1.RouterModule]
     }),
     __metadata("design:paramtypes", [])
-], AppRoutingModule);
-exports.AppRoutingModule = AppRoutingModule;
-exports.routedComponents = [
-    letterRecall_component_1.LetterRecallComponent
+], ReadingRoutingModule);
+exports.ReadingRoutingModule = ReadingRoutingModule;
+exports.readingRoutedComponents = [
+    reading_component_1.ReadingComponent
 ];
-//# sourceMappingURL=app-routing.module.js.map
+//# sourceMappingURL=reading-routing.module.js.map

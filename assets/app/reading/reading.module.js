@@ -11,32 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
-const app_component_1 = require("./app.component");
-const letterGrid_component_1 = require("./letterRecall/letterGrid/letterGrid.component");
-const letter_component_1 = require("./letterRecall/letter/letter.component");
-const recalledLetters_component_1 = require("./letterRecall/recalledLetters/recalledLetters.component");
-const reading_module_1 = require("./reading/reading.module");
-const app_routing_module_1 = require("./app-routing.module");
-let AppModule = class AppModule {
+const sentenceDisplay_component_1 = require("./sentence/sentenceDisplay.component");
+const reading_routing_module_1 = require("./reading-routing.module");
+let ReadingModule = class ReadingModule {
 };
-AppModule = __decorate([
+ReadingModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
-            app_routing_module_1.AppRoutingModule,
-            reading_module_1.ReadingModule
+            reading_routing_module_1.ReadingRoutingModule
         ],
         declarations: [
-            app_component_1.AppComponent,
-            app_routing_module_1.routedComponents,
-            letterGrid_component_1.LetterGridComponent,
-            letter_component_1.LetterComponent,
-            recalledLetters_component_1.RecalledLettersComponent
-        ],
-        bootstrap: [app_component_1.AppComponent],
+            reading_routing_module_1.readingRoutedComponents,
+            sentenceDisplay_component_1.SentenceDisplayComponent
+        ]
     }),
     __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], ReadingModule);
+exports.ReadingModule = ReadingModule;
+//# sourceMappingURL=reading.module.js.map
