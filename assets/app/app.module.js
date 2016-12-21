@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
+const router_1 = require("@angular/router");
 const app_component_1 = require("./app.component");
 const letterRecall_component_1 = require("./letterRecall/letterRecall.component");
 const letterGrid_component_1 = require("./letterRecall/letterGrid/letterGrid.component");
@@ -22,6 +23,12 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule,
+            http_1.HttpModule,
+            router_1.RouterModule.forRoot([
+                { path: 'reading', component: reading_component_1.ReadingComponent },
+                { path: 'letters', component: letterRecall_component_1.LetterRecall },
+            ])],
         declarations: [app_component_1.AppComponent,
             letterGrid_component_1.LetterGridComponent,
             letter_component_1.LetterComponent,
@@ -29,7 +36,6 @@ AppModule = __decorate([
             recalledLetters_component_1.RecalledLettersComponent,
             reading_component_1.ReadingComponent,
             sentenceDisplay_component_1.SentenceDisplayComponent],
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule],
         bootstrap: [app_component_1.AppComponent],
     }),
     __metadata("design:paramtypes", [])
