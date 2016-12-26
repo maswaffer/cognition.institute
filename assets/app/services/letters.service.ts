@@ -3,20 +3,19 @@ import{Http, Response} from '@angular/http';
 import{Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-export class Sentence{
-    constructor();
-    constructor( text?: string, response?: boolean, createdAt?: string, updatedAt?:string, id?: number){}
+export class Letters{
+    constructor( text: string, createdAt: string, updatedAt:string, id: number){}
 }
 
 @Injectable()
-export class SentenceService{
+export class LettersService{
     constructor(private http: Http){}
 
-    getSentences(){
+    getLetters(){
         return this.http
-            .get('/api/v1/sentence')
-            .map((response: Response) => <Sentence[]>response.json())
-            .do(data => console.log('data:' + data))
+            .get('/api/v1/letters')
+            .map((response: Response) => <Letters[]>response.json())
+            .do(data => console.log('letter data:' + data))
             .catch(this.handleError);
     }
 

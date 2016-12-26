@@ -1,19 +1,26 @@
 import { Component } from '@angular/core';
 import { Sentence, SentenceService } from '../services/sentence.service.js';
+import { Letters, LettersService } from '../services/letters.service.js';
 
 @Component({
     selector: 'reading-portion',
     templateUrl: 'app/reading/reading.component.html',
-    providers: [SentenceService]
+    providers: [
+        SentenceService,
+        LettersService
+    ]
 })
 
 export class ReadingComponent {
 
     sentences: Sentence[];
+    letters: Letters[];
     currentSentence = new Sentence();
+    currentLettersSet: Letters;
+    currentLetter: string;
     errorMessage: string;
 
-    constructor(private sentenceService: SentenceService) { }
+    constructor(private sentenceService: SentenceService, private lettersService: LettersService) { }
 
     getSentences() {
         this.sentenceService.getSentences()
@@ -23,8 +30,22 @@ export class ReadingComponent {
             );
     }
 
+    getLetters(){
+        this.lettersService.getLetters()
+            .subscribe(
+                letters => { 
+                    console.log('letters' + letters);
+                    this.letters = letters; 
+                    this.currentLettersSet = letters[0]; 
+                    this.currentLetter = letters[0].text;
+                },
+                error => this.errorMessage = <any> error
+            );
+    }
+
     ngOnInit() {
         this.getSentences();
+        this.getLetters();
     }
 
     next() {
