@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Sentence } from 'app/services/sentence.service'
+import { Sentence } from '../../services/sentence.service'
 
 @Component({
     selector: 'sentence-display', 

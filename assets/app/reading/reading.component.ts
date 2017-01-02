@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sentence, SentenceService } from '../services/sentence.service.js';
 import { Letters, LettersService } from '../services/letters.service.js';
 
@@ -11,7 +11,7 @@ import { Letters, LettersService } from '../services/letters.service.js';
     ]
 })
 
-export class ReadingComponent {
+export class ReadingComponent implements OnInit{
 
     sentences: Sentence[];
     letters: Letters[];
@@ -19,6 +19,8 @@ export class ReadingComponent {
     currentLettersSet: Letters;
     currentLetter: string;
     errorMessage: string;
+    trial = 0;
+    round = 0;
 
     constructor(private sentenceService: SentenceService, private lettersService: LettersService) { }
 
@@ -37,15 +39,15 @@ export class ReadingComponent {
                     console.log('letters' + letters);
                     this.letters = letters; 
                     this.currentLettersSet = letters[0]; 
-                    this.currentLetter = letters[0].text;
+                    this.currentLetter = letters[0].text.substring(0,1);
                 },
                 error => this.errorMessage = <any> error
             );
     }
 
     ngOnInit() {
-        this.getSentences();
         this.getLetters();
+        this.getSentences();
     }
 
     next() {
@@ -54,5 +56,13 @@ export class ReadingComponent {
         if (idx < this.sentences.length) {
             this.currentSentence = this.sentences[idx];
         }
+    }
+
+    setCurrentLetter(){
+        this.currentLetter = this.currentLettersSet[this.trial].text.substring(this.round, this.round+1);
+    }
+
+    setCurrentSentence(){
+        this.currentSentence = this.sentences[this.round]
     }
 }

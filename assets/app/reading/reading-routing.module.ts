@@ -4,7 +4,7 @@ import { ReadingComponent } from './reading.component';
 
 const routes: Routes = [
     { path: 'reading', component: ReadingComponent },
-])];
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

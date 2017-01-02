@@ -5,7 +5,7 @@ import { LetterRecallComponent } from './letterRecall/letterRecall.component';
 
 const routes: Routes = [
     { path: 'letters', component: LetterRecallComponent },
-])];
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

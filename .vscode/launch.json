@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch localhost with sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:1337/",
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}/assets/app/"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
@@ -20,6 +28,7 @@
             "port": 5858,
             "outFiles": [],
             "sourceMaps": true
-        }
+        },
+        
     ]
 }

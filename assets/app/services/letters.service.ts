@@ -4,6 +4,10 @@ import{Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 export class Letters{
+    text: string;
+    createdAt: string;
+    updatedAt: string;
+    id: number;
     constructor( text: string, createdAt: string, updatedAt:string, id: number){}
 }
 

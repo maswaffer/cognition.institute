@@ -12,19 +12,19 @@ const core_1 = require("@angular/core");
 const http_1 = require("@angular/http");
 const Observable_1 = require("rxjs/Observable");
 require("rxjs/Rx");
-class Sentence {
-    constructor(text, response, createdAt, updatedAt, id) { }
+class Letters {
+    constructor(text, createdAt, updatedAt, id) { }
 }
-exports.Sentence = Sentence;
-let SentenceService = class SentenceService {
+exports.Letters = Letters;
+let LettersService = class LettersService {
     constructor(http) {
         this.http = http;
     }
-    getSentences() {
+    getLetters() {
         return this.http
-            .get('/api/v1/sentence')
+            .get('/api/v1/letters')
             .map((response) => response.json())
-            .do(data => console.log('sentence data:' + data))
+            .do(data => console.log('letter data:' + data))
             .catch(this.handleError);
     }
     handleError(error) {
@@ -33,9 +33,9 @@ let SentenceService = class SentenceService {
         return Observable_1.Observable.throw(msg);
     }
 };
-SentenceService = __decorate([
+LettersService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], SentenceService);
-exports.SentenceService = SentenceService;
-//# sourceMappingURL=sentence.service.js.map
+], LettersService);
+exports.LettersService = LettersService;
+//# sourceMappingURL=letters.service.js.map

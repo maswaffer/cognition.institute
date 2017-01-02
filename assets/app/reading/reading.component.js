@@ -10,16 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require("@angular/core");
 const sentence_service_js_1 = require("../services/sentence.service.js");
+const letters_service_js_1 = require("../services/letters.service.js");
 let ReadingComponent = class ReadingComponent {
-    constructor(sentenceService) {
+    constructor(sentenceService, lettersService) {
         this.sentenceService = sentenceService;
+        this.lettersService = lettersService;
         this.currentSentence = new sentence_service_js_1.Sentence();
+        this.trial = 0;
+        this.round = 0;
     }
     getSentences() {
         this.sentenceService.getSentences()
             .subscribe(sentences => { this.sentences = sentences; this.currentSentence = this.sentences[0]; }, error => this.errorMessage = error);
     }
+    getLetters() {
+        this.lettersService.getLetters()
+            .subscribe(letters => {
+            console.log('letters' + letters);
+            this.letters = letters;
+            this.currentLettersSet = letters[0];
+            this.currentLetter = letters[0].text.substring(0, 1);
+        }, error => this.errorMessage = error);
+    }
     ngOnInit() {
+        this.getLetters();
         this.getSentences();
     }
     next() {
@@ -29,14 +43,23 @@ let ReadingComponent = class ReadingComponent {
             this.currentSentence = this.sentences[idx];
         }
     }
+    setCurrentLetter() {
+        this.currentLetter = this.currentLettersSet[this.trial].text.substring(this.round, this.round + 1);
+    }
+    setCurrentSentence() {
+        this.currentSentence = this.sentences[this.round];
+    }
 };
 ReadingComponent = __decorate([
     core_1.Component({
         selector: 'reading-portion',
         templateUrl: 'app/reading/reading.component.html',
-        providers: [sentence_service_js_1.SentenceService]
+        providers: [
+            sentence_service_js_1.SentenceService,
+            letters_service_js_1.LettersService
+        ]
     }),
-    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService])
+    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService])
 ], ReadingComponent);
 exports.ReadingComponent = ReadingComponent;
 //# sourceMappingURL=reading.component.js.map

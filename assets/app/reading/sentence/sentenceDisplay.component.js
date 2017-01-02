@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-const sentence_service_1 = require("app/services/sentence.service");
+const sentence_service_1 = require("../../services/sentence.service");
 let SentenceDisplayComponent = class SentenceDisplayComponent {
     constructor() {
         this.sentence = new sentence_service_1.Sentence();
