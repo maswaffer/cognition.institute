@@ -11,43 +11,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const sentence_service_js_1 = require("../services/sentence.service.js");
 const letters_service_js_1 = require("../services/letters.service.js");
+const reading_model_js_1 = require("./reading.model.js");
 let ReadingComponent = class ReadingComponent {
-    constructor(sentenceService, lettersService) {
+    constructor(sentenceService, lettersService, tk) {
         this.sentenceService = sentenceService;
         this.lettersService = lettersService;
-        this.currentSentence = new sentence_service_js_1.Sentence();
+        this.tk = tk;
         this.trial = 0;
         this.round = 0;
     }
-    getSentences() {
-        this.sentenceService.getSentences()
-            .subscribe(sentences => { this.sentences = sentences; this.currentSentence = this.sentences[0]; }, error => this.errorMessage = error);
-    }
-    getLetters() {
-        this.lettersService.getLetters()
-            .subscribe(letters => {
-            console.log('letters' + letters);
-            this.letters = letters;
-            this.currentLettersSet = letters[0];
-            this.currentLetter = letters[0].text.substring(0, 1);
-        }, error => this.errorMessage = error);
-    }
+    // getSentences() {
+    //     this.sentenceService.getSentences()
+    //         .subscribe(
+    //         sentences => { this.sentences = sentences; this.currentSentence = this.sentences[0] },
+    //         error => this.errorMessage = <any>error
+    //         );
+    // }
+    // getLetters(){
+    //     this.lettersService.getLetters()
+    //         .subscribe(
+    //             letters => { 
+    //                 console.log('letters' + letters);
+    //                 this.letters = letters; 
+    //                 this.currentLettersSet = letters[0]; 
+    //                 this.currentLetter = letters[0].text.substring(0,1);
+    //             },
+    //             error => this.errorMessage = <any> error
+    //         );
+    // }
     ngOnInit() {
-        this.getLetters();
-        this.getSentences();
+        console.log('on init');
+        this.tk.loadTrials(this.sentenceService, this.lettersService);
+        console.log('done with init');
     }
     next() {
-        var idx = this.sentences.map(function (x) { return x.id; }).indexOf(this.currentSentence.id);
-        idx += 1;
-        if (idx < this.sentences.length) {
-            this.currentSentence = this.sentences[idx];
-        }
-    }
-    setCurrentLetter() {
-        this.currentLetter = this.currentLettersSet[this.trial].text.substring(this.round, this.round + 1);
-    }
-    setCurrentSentence() {
-        this.currentSentence = this.sentences[this.round];
+        // var idx = this.sentences.map(function (x) { return x.id }).indexOf(this.currentSentence.id);
+        // idx += 1;
+        // if (idx < this.sentences.length) {
+        //     this.currentSentence = this.sentences[idx];
+        // }
     }
 };
 ReadingComponent = __decorate([
@@ -56,10 +58,13 @@ ReadingComponent = __decorate([
         templateUrl: 'app/reading/reading.component.html',
         providers: [
             sentence_service_js_1.SentenceService,
-            letters_service_js_1.LettersService
+            letters_service_js_1.LettersService,
+            reading_model_js_1.Trial,
+            reading_model_js_1.TrialFactory,
+            reading_model_js_1.TrialKeeper
         ]
     }),
-    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService])
+    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService, reading_model_js_1.TrialKeeper])
 ], ReadingComponent);
 exports.ReadingComponent = ReadingComponent;
 //# sourceMappingURL=reading.component.js.map
