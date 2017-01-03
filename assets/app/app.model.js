@@ -1,5 +1,5 @@
 "use strict";
-const sentence_service_js_1 = require("../services/sentence.service.js");
+const sentence_service_js_1 = require("./services/sentence.service.js");
 class TrialKeeper {
     constructor() {
         this.tf = new TrialFactory();
@@ -113,4 +113,4 @@ class TrialFactory {
     }
 }
 exports.TrialFactory = TrialFactory;
-//# sourceMappingURL=reading.model.js.map
+//# sourceMappingURL=app.model.js.map

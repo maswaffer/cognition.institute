@@ -7,15 +7,17 @@ import { LetterRecallComponent } from './letterRecall/letterRecall.component';
 import { LetterGridComponent } from './letterRecall/letterGrid/letterGrid.component';
 import { LetterComponent } from './letterRecall/letter/letter.component';
 import { RecalledLettersComponent } from './letterRecall/recalledLetters/recalledLetters.component';
-import { ReadingModule } from './reading/reading.module';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
+import { ReadingModule } from './reading/reading.module';
+import { RspanModule } from './rspan/rspan.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpModule,
         AppRoutingModule,
-        ReadingModule
+        ReadingModule,
+        RspanModule
     ],
     declarations: [
         AppComponent,

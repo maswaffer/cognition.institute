@@ -1,101 +1,139 @@
-"use strict";
-const sentence_service_js_1 = require("../services/sentence.service.js");
-class TrialKeeper {
-    constructor() {
-        this.tf = new TrialFactory();
-        this.trial = 0;
-    }
-    loadTrials(sentenceService, lettersService) {
+import { Sentence, SentenceService } from './services/sentence.service.js';
+import { Letters, LettersService } from './services/letters.service.js';
+
+export class TrialKeeper {
+    trials: Trial[];
+    currentTrial: Trial;
+    tf: TrialFactory = new TrialFactory();
+
+    trial = 0;
+
+
+    loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
         //let tf = new TrialFactory();
         this.tf.finished = () => this.loadCurrentTrial();
         this.tf.loadModels(sentenceService, lettersService);
         //this.trials = this.tf.trials;
     }
-    loadCurrentTrial() {
+
+    loadCurrentTrial(){
         console.log('callback: loadCurrentTrial');
         this.trials = this.tf.trials;
         this.currentTrial = this.trials[0];
         console.log(this.currentTrial.letters.text);
     }
-    next() {
+
+    next(){
         this.currentTrial.next();
     }
 }
-exports.TrialKeeper = TrialKeeper;
-var TrialStage;
-(function (TrialStage) {
-    TrialStage[TrialStage["sentence"] = 0] = "sentence";
-    TrialStage[TrialStage["response"] = 1] = "response";
-    TrialStage[TrialStage["letter"] = 2] = "letter";
-})(TrialStage || (TrialStage = {}));
-class Trial {
-    constructor() {
-        this.currentSentence = new sentence_service_js_1.Sentence();
-        this.round = 0;
-    }
-    populate(s, l) {
+
+enum TrialStage{
+    sentence,
+    response, 
+    letter
+}
+
+export class Trial {
+    sentences: Sentence[];
+    letters: Letters;
+    currentSentence = new Sentence();
+    currentLetter: string;
+    stage: TrialStage;
+
+    round = 0;
+
+    populate(s: Sentence[], l: Letters) {
         this.sentences = s;
         this.letters = l;
         this.currentSentence = s[0];
         this.currentLetter = l.text.substring(0, 1);
         this.stage = TrialStage.sentence;
     }
-    next() {
+
+    next(){
         this.rachet();
-        switch (this.stage) {
+        switch(this.stage)
+        {
             case TrialStage.sentence:
                 this.currentSentence = this.sentences[this.round];
-                break;
+            break;
+
             case TrialStage.response:
-                break;
+            break;
+
             case TrialStage.letter:
                 this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
-                this.round++;
-                break;
+                this.round ++;
+            break;
         }
     }
-    rachet() {
-        switch (this.stage) {
+    
+    private rachet(){
+        switch(this.stage)
+        {
             case TrialStage.sentence:
                 this.stage = TrialStage.response;
-                break;
+            break;
             case TrialStage.response:
                 this.stage = TrialStage.letter;
-                break;
+            break;
             case TrialStage.letter:
                 this.stage = TrialStage.sentence;
-                break;
+            break;
         }
     }
 }
-exports.Trial = Trial;
-class TrialFactory {
+
+export class TrialFactory {
+
+    sentences: Sentence[];
+    letters: Letters[];
+    errorMessage: string;
+    trials: Trial[];
+
+    sentencesLoaded: boolean;
+    lettersLoaded: boolean;
+
+    finished: {(): void;};
+
     constructor() {
         this.sentences = [];
         this.letters = [];
         this.trials = [];
     }
-    loadModels(sentenceService, lettersService) {
+
+    loadModels(sentenceService: SentenceService, lettersService: LettersService) {
         this.getSentences(sentenceService);
         this.getLetters(lettersService);
     }
-    getSentences(sentenceService) {
+
+    private getSentences(sentenceService: SentenceService) {
         sentenceService.getSentences()
-            .subscribe(sentences => {
-            this.sentences = sentences;
-            this.sentencesLoaded = true;
-            this.createTrials();
-        }, error => this.errorMessage = error);
+            .subscribe(
+            sentences => {
+                this.sentences = sentences;
+                this.sentencesLoaded = true;
+                this.createTrials();
+            },
+            error => this.errorMessage = <any>error
+            );
     }
-    getLetters(lettersService) {
+
+    private getLetters(lettersService: LettersService) {
         lettersService.getLetters()
-            .subscribe(letters => {
-            this.letters = letters;
-            this.lettersLoaded = true;
-            this.createTrials();
-        }, error => this.errorMessage = error);
+            .subscribe(
+            letters => {
+                this.letters = letters;
+                this.lettersLoaded = true;
+                this.createTrials();
+            },
+            error => this.errorMessage = <any>error
+            );
     }
-    createTrials() {
+
+    private createTrials() {
+
         if (this.sentencesLoaded && this.lettersLoaded) {
             this.trials = [];
             let si = 0;
@@ -112,5 +150,3 @@ class TrialFactory {
         }
     }
 }
-exports.TrialFactory = TrialFactory;
-//# sourceMappingURL=reading.model.js.map

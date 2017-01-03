@@ -6,6 +6,9 @@ export class TrialKeeper {
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
 
+    trial = 0;
+
+
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
         //let tf = new TrialFactory();
         this.tf.finished = () => this.loadCurrentTrial();
@@ -19,6 +22,16 @@ export class TrialKeeper {
         this.currentTrial = this.trials[0];
         console.log(this.currentTrial.letters.text);
     }
+
+    next(){
+        this.currentTrial.next();
+    }
+}
+
+enum TrialStage{
+    sentence,
+    response, 
+    letter
 }
 
 export class Trial {
@@ -26,12 +39,49 @@ export class Trial {
     letters: Letters;
     currentSentence = new Sentence();
     currentLetter: string;
+    stage: TrialStage;
+
+    round = 0;
 
     populate(s: Sentence[], l: Letters) {
         this.sentences = s;
         this.letters = l;
         this.currentSentence = s[0];
         this.currentLetter = l.text.substring(0, 1);
+        this.stage = TrialStage.sentence;
+    }
+
+    next(){
+        this.rachet();
+        switch(this.stage)
+        {
+            case TrialStage.sentence:
+                this.currentSentence = this.sentences[this.round];
+            break;
+
+            case TrialStage.response:
+            break;
+
+            case TrialStage.letter:
+                this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+                this.round ++;
+            break;
+        }
+    }
+    
+    private rachet(){
+        switch(this.stage)
+        {
+            case TrialStage.sentence:
+                this.stage = TrialStage.response;
+            break;
+            case TrialStage.response:
+                this.stage = TrialStage.letter;
+            break;
+            case TrialStage.letter:
+                this.stage = TrialStage.sentence;
+            break;
+        }
     }
 }
 

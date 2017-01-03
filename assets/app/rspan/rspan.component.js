@@ -11,42 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const sentence_service_js_1 = require("../services/sentence.service.js");
 const letters_service_js_1 = require("../services/letters.service.js");
-const reading_model_js_1 = require("./reading.model.js");
-let ReadingComponent = class ReadingComponent {
-    constructor(sentenceService, lettersService, tk) {
-        this.sentenceService = sentenceService;
-        this.lettersService = lettersService;
-        this.tk = tk;
-    }
+const app_model_js_1 = require("../app.model.js");
+let RspanComponent = class RspanComponent {
     ngOnInit() {
-        console.log('on init');
-        this.tk.loadTrials(this.sentenceService, this.lettersService);
-        console.log('done with init');
-    }
-    next() {
-        this.tk.next();
-    }
-    answer(response) {
-        this.tk.next();
-        this.delayForLetter();
-    }
-    delayForLetter() {
-        setTimeout(() => this.tk.next(), 1000);
     }
 };
-ReadingComponent = __decorate([
+RspanComponent = __decorate([
     core_1.Component({
         selector: 'reading-portion',
-        templateUrl: 'app/reading/reading.component.html',
+        templateUrl: 'app/rspan/rspan.component.html',
         providers: [
             sentence_service_js_1.SentenceService,
             letters_service_js_1.LettersService,
-            reading_model_js_1.Trial,
-            reading_model_js_1.TrialFactory,
-            reading_model_js_1.TrialKeeper
+            app_model_js_1.Trial,
+            app_model_js_1.TrialFactory,
+            app_model_js_1.TrialKeeper
         ]
     }),
-    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService, reading_model_js_1.TrialKeeper])
-], ReadingComponent);
-exports.ReadingComponent = ReadingComponent;
-//# sourceMappingURL=reading.component.js.map
+    __metadata("design:paramtypes", [])
+], RspanComponent);
+exports.RspanComponent = RspanComponent;
+//# sourceMappingURL=rspan.component.js.map

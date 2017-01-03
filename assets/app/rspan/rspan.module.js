@@ -11,34 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
-const app_component_1 = require("./app.component");
-const letterGrid_component_1 = require("./letterRecall/letterGrid/letterGrid.component");
-const letter_component_1 = require("./letterRecall/letter/letter.component");
-const recalledLetters_component_1 = require("./letterRecall/recalledLetters/recalledLetters.component");
-const app_routing_module_1 = require("./app-routing.module");
-const reading_module_1 = require("./reading/reading.module");
-const rspan_module_1 = require("./rspan/rspan.module");
-let AppModule = class AppModule {
+const rspan_routing_module_1 = require("./rspan-routing.module");
+let RspanModule = class RspanModule {
 };
-AppModule = __decorate([
+RspanModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
-            app_routing_module_1.AppRoutingModule,
-            reading_module_1.ReadingModule,
-            rspan_module_1.RspanModule
+            rspan_routing_module_1.RspanRoutingModule
         ],
         declarations: [
-            app_component_1.AppComponent,
-            app_routing_module_1.routedComponents,
-            letterGrid_component_1.LetterGridComponent,
-            letter_component_1.LetterComponent,
-            recalledLetters_component_1.RecalledLettersComponent
-        ],
-        bootstrap: [app_component_1.AppComponent],
+            rspan_routing_module_1.rspanRoutedComponents,
+        ]
     }),
     __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], RspanModule);
+exports.RspanModule = RspanModule;
+//# sourceMappingURL=rspan.module.js.map

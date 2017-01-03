@@ -18,32 +18,8 @@ import { Trial, TrialFactory, TrialKeeper} from './reading.model.js';
 export class ReadingComponent implements OnInit{
 
     errorMessage: string;
-    trial = 0;
-    round = 0;
 
-    constructor(private sentenceService: SentenceService, private lettersService: LettersService, private tk: TrialKeeper) {
-     }
-
-    // getSentences() {
-    //     this.sentenceService.getSentences()
-    //         .subscribe(
-    //         sentences => { this.sentences = sentences; this.currentSentence = this.sentences[0] },
-    //         error => this.errorMessage = <any>error
-    //         );
-    // }
-
-    // getLetters(){
-    //     this.lettersService.getLetters()
-    //         .subscribe(
-    //             letters => { 
-    //                 console.log('letters' + letters);
-    //                 this.letters = letters; 
-    //                 this.currentLettersSet = letters[0]; 
-    //                 this.currentLetter = letters[0].text.substring(0,1);
-    //             },
-    //             error => this.errorMessage = <any> error
-    //         );
-    // }
+    constructor(private sentenceService: SentenceService, private lettersService: LettersService, private tk: TrialKeeper) {}
 
     ngOnInit() {
         console.log('on init');
@@ -52,18 +28,17 @@ export class ReadingComponent implements OnInit{
     }
 
     next() {
-        // var idx = this.sentences.map(function (x) { return x.id }).indexOf(this.currentSentence.id);
-        // idx += 1;
-        // if (idx < this.sentences.length) {
-        //     this.currentSentence = this.sentences[idx];
-        // }
+       this.tk.next();
     }
 
-    // setCurrentLetter(){
-    //     this.currentLetter = this.currentLettersSet[this.trial].text.substring(this.round, this.round+1);
-    // }
+    answer(response: boolean){
+        this.tk.next();
+        this.delayForLetter();
+    }
 
-    // setCurrentSentence(){
-    //     this.currentSentence = this.sentences[this.round]
-    // }
+    delayForLetter(){
+       setTimeout(() => this.tk.next(), 1000);
+    }
+
+   
 }
