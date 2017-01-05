@@ -4,7 +4,7 @@ import { Letters, LettersService } from '../services/letters.service.js';
 import { Trial, TrialFactory, TrialKeeper} from '../app.model.js';
 
 @Component({
-    selector: 'reading-portion',
+    selector: 'rspan',
     templateUrl: 'app/rspan/rspan.component.html',
     providers: [
         SentenceService,

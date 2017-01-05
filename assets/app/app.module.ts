@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule,  } from './app-routing.module';
-import { ReadingModule } from './reading/reading.module';
 import { RspanModule } from './rspan/rspan.module';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { RspanModule } from './rspan/rspan.module';
         BrowserModule,
         HttpModule,
         AppRoutingModule,
-        ReadingModule,
         RspanModule
     ],
     declarations: [

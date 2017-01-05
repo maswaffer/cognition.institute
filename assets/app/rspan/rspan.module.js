@@ -15,6 +15,8 @@ const rspan_routing_module_1 = require("./rspan-routing.module");
 const letterGrid_component_1 = require("../letterRecall/letterGrid/letterGrid.component");
 const letter_component_1 = require("../letterRecall/letter/letter.component");
 const recalledLetters_component_1 = require("../letterRecall/recalledLetters/recalledLetters.component");
+const sentenceDisplay_component_1 = require("../reading/sentence/sentenceDisplay.component");
+const reading_component_1 = require("../reading/reading.component");
 let RspanModule = class RspanModule {
 };
 RspanModule = __decorate([
@@ -28,7 +30,9 @@ RspanModule = __decorate([
             rspan_routing_module_1.rspanRoutedComponents,
             letterGrid_component_1.LetterGridComponent,
             letter_component_1.LetterComponent,
-            recalledLetters_component_1.RecalledLettersComponent
+            recalledLetters_component_1.RecalledLettersComponent,
+            sentenceDisplay_component_1.SentenceDisplayComponent,
+            reading_component_1.ReadingComponent
         ]
     }),
     __metadata("design:paramtypes", [])

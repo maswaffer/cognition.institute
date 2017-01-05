@@ -12,9 +12,11 @@ const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const rspan_component_1 = require("./rspan.component");
 const letterRecall_component_1 = require("../letterRecall/letterRecall.component");
+const reading_component_1 = require("../reading/reading.component");
 const routes = [
     { path: 'rspan', component: rspan_component_1.RspanComponent },
     { path: 'letters', component: letterRecall_component_1.LetterRecallComponent },
+    { path: 'reading', component: reading_component_1.ReadingComponent },
 ];
 let RspanRoutingModule = class RspanRoutingModule {
 };
@@ -28,6 +30,7 @@ RspanRoutingModule = __decorate([
 exports.RspanRoutingModule = RspanRoutingModule;
 exports.rspanRoutedComponents = [
     rspan_component_1.RspanComponent,
-    letterRecall_component_1.LetterRecallComponent
+    letterRecall_component_1.LetterRecallComponent,
+    reading_component_1.ReadingComponent
 ];
 //# sourceMappingURL=rspan-routing.module.js.map

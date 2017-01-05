@@ -13,7 +13,6 @@ const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
 const app_component_1 = require("./app.component");
 const app_routing_module_1 = require("./app-routing.module");
-const reading_module_1 = require("./reading/reading.module");
 const rspan_module_1 = require("./rspan/rspan.module");
 let AppModule = class AppModule {
 };
@@ -23,7 +22,6 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
             app_routing_module_1.AppRoutingModule,
-            reading_module_1.ReadingModule,
             rspan_module_1.RspanModule
         ],
         declarations: [

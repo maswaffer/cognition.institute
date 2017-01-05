@@ -8,6 +8,8 @@ import { LetterRecallComponent } from '../letterRecall/letterRecall.component';
 import { LetterGridComponent } from '../letterRecall/letterGrid/letterGrid.component';
 import { LetterComponent } from '../letterRecall/letter/letter.component';
 import { RecalledLettersComponent } from '../letterRecall/recalledLetters/recalledLetters.component';
+import { SentenceDisplayComponent } from '../reading/sentence/sentenceDisplay.component'
+import { ReadingComponent } from '../reading/reading.component'
 
 @NgModule({
     imports: [
@@ -19,7 +21,9 @@ import { RecalledLettersComponent } from '../letterRecall/recalledLetters/recall
         rspanRoutedComponents,
         LetterGridComponent,
         LetterComponent,
-        RecalledLettersComponent
+        RecalledLettersComponent,
+        SentenceDisplayComponent,
+        ReadingComponent
     ]
 })
 export class RspanModule { }

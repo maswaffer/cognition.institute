@@ -18,7 +18,7 @@ let RspanComponent = class RspanComponent {
 };
 RspanComponent = __decorate([
     core_1.Component({
-        selector: 'reading-portion',
+        selector: 'rspan',
         templateUrl: 'app/rspan/rspan.component.html',
         providers: [
             sentence_service_js_1.SentenceService,
