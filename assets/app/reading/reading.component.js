@@ -13,27 +13,24 @@ const sentence_service_js_1 = require("../services/sentence.service.js");
 const letters_service_js_1 = require("../services/letters.service.js");
 const rspan_model_js_1 = require("../rspan/rspan.model.js");
 let ReadingComponent = class ReadingComponent {
-    constructor(sentenceService, lettersService, tk) {
-        this.sentenceService = sentenceService;
-        this.lettersService = lettersService;
-        this.tk = tk;
-    }
-    ngOnInit() {
-        console.log('on init');
-        this.tk.loadTrials(this.sentenceService, this.lettersService);
-        console.log('done with init');
+    constructor() {
+        this.currentTrial = new rspan_model_js_1.Trial();
     }
     next() {
-        this.tk.next();
+        this.currentTrial.next();
     }
     answer(response) {
-        this.tk.next();
+        this.currentTrial.next();
         this.delayForLetter();
     }
     delayForLetter() {
-        setTimeout(() => this.tk.next(), 1000);
+        setTimeout(() => this.currentTrial.next(), 1000);
     }
 };
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], ReadingComponent.prototype, "currentTrial", void 0);
 ReadingComponent = __decorate([
     core_1.Component({
         selector: 'reading-portion',
@@ -46,7 +43,7 @@ ReadingComponent = __decorate([
             rspan_model_js_1.TrialKeeper
         ]
     }),
-    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService, rspan_model_js_1.TrialKeeper])
+    __metadata("design:paramtypes", [])
 ], ReadingComponent);
 exports.ReadingComponent = ReadingComponent;
 //# sourceMappingURL=reading.component.js.map

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Sentence, SentenceService } from '../services/sentence.service.js';
 import { Letters, LettersService } from '../services/letters.service.js';
-import { Trial, TrialFactory, TrialKeeper} from '../app.model.js';
+import { Trial, TrialFactory, TrialKeeper} from './rspan.model.js';
 
 @Component({
     selector: 'rspan',
@@ -16,7 +16,19 @@ import { Trial, TrialFactory, TrialKeeper} from '../app.model.js';
 })
 
 export class RspanComponent implements OnInit{
-     ngOnInit() {
-        
+    
+    currentTrial = new Trial();
+
+    constructor(private sentenceService: SentenceService, private lettersService: LettersService, private tk: TrialKeeper) {}
+
+    ngOnInit() {
+        console.log('on init');
+        this.tk.loaded = () => this.setTrial();
+        this.tk.loadTrials(this.sentenceService, this.lettersService);
+        console.log('done with init');
+    }
+
+    setTrial(){
+        this.currentTrial = this.tk.currentTrial;
     }
 }

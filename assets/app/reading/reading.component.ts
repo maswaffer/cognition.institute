@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Sentence, SentenceService } from '../services/sentence.service.js';
 import { Letters, LettersService } from '../services/letters.service.js';
 import { Trial, TrialFactory, TrialKeeper} from '../rspan/rspan.model.js';
@@ -15,29 +15,21 @@ import { Trial, TrialFactory, TrialKeeper} from '../rspan/rspan.model.js';
     ]
 })
 
-export class ReadingComponent implements OnInit{
-
+export class ReadingComponent {
+    @Input() currentTrial = new Trial();
     errorMessage: string;
 
-    constructor(private sentenceService: SentenceService, private lettersService: LettersService, private tk: TrialKeeper) {}
-
-    ngOnInit() {
-        console.log('on init');
-        this.tk.loadTrials(this.sentenceService, this.lettersService);
-        console.log('done with init');
-    }
-
     next() {
-       this.tk.next();
+       this.currentTrial.next();
     }
 
     answer(response: boolean){
-        this.tk.next();
+        this.currentTrial.next();
         this.delayForLetter();
     }
 
     delayForLetter(){
-       setTimeout(() => this.tk.next(), 1000);
+       setTimeout(() => this.currentTrial.next(), 1000);
     }
 
    

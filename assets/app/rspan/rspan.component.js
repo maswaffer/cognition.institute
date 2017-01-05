@@ -11,9 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const sentence_service_js_1 = require("../services/sentence.service.js");
 const letters_service_js_1 = require("../services/letters.service.js");
-const app_model_js_1 = require("../app.model.js");
+const rspan_model_js_1 = require("./rspan.model.js");
 let RspanComponent = class RspanComponent {
+    constructor(sentenceService, lettersService, tk) {
+        this.sentenceService = sentenceService;
+        this.lettersService = lettersService;
+        this.tk = tk;
+        this.currentTrial = new rspan_model_js_1.Trial();
+    }
     ngOnInit() {
+        console.log('on init');
+        this.tk.loaded = () => this.setTrial();
+        this.tk.loadTrials(this.sentenceService, this.lettersService);
+        console.log('done with init');
+    }
+    setTrial() {
+        this.currentTrial = this.tk.currentTrial;
     }
 };
 RspanComponent = __decorate([
@@ -23,12 +36,12 @@ RspanComponent = __decorate([
         providers: [
             sentence_service_js_1.SentenceService,
             letters_service_js_1.LettersService,
-            app_model_js_1.Trial,
-            app_model_js_1.TrialFactory,
-            app_model_js_1.TrialKeeper
+            rspan_model_js_1.Trial,
+            rspan_model_js_1.TrialFactory,
+            rspan_model_js_1.TrialKeeper
         ]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService, rspan_model_js_1.TrialKeeper])
 ], RspanComponent);
 exports.RspanComponent = RspanComponent;
 //# sourceMappingURL=rspan.component.js.map

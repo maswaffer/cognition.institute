@@ -6,15 +6,14 @@ class TrialKeeper {
         this.trial = 0;
     }
     loadTrials(sentenceService, lettersService) {
-        //let tf = new TrialFactory();
         this.tf.finished = () => this.loadCurrentTrial();
         this.tf.loadModels(sentenceService, lettersService);
-        //this.trials = this.tf.trials;
     }
     loadCurrentTrial() {
         console.log('callback: loadCurrentTrial');
         this.trials = this.tf.trials;
         this.currentTrial = this.trials[0];
+        this.loaded();
         console.log(this.currentTrial.letters.text);
     }
     next() {

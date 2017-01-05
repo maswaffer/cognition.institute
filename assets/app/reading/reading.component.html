@@ -1,20 +1,20 @@
-<div id="stage1-sentence" *ngIf="tk.currentTrial?.stage == 0">
-    <sentence-display [sentence]="tk.currentTrial?.currentSentence"></sentence-display>
+<div id="stage1-sentence" *ngIf="currentTrial?.stage == 0">
+    <sentence-display [sentence]="currentTrial?.currentSentence"></sentence-display>
     <br/>
     <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next</button>
 </div>
 
-<div id="stage2-response" *ngIf="tk.currentTrial?.stage == 1">
+<div id="stage2-response" *ngIf="currentTrial?.stage == 1">
     <p>This sentence makes sense</p>
     <button (click)="answer(true)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">True</button>
     <button (click)="answer(false)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">False</button>
 </div>
 
-<div id="stage3-letter" *ngIf="tk.currentTrial?.stage ==2">
-    <h1 >{{tk.currentTrial?.currentLetter}}</h1>
+<div id="stage3-letter" *ngIf="currentTrial?.stage ==2">
+    <h1 >{{currentTrial?.currentLetter}}</h1>
 </div>
 <hr/>
 <p>
-    Stage: {{tk.currentTrial?.stage}} <br/>
+    Stage: {{currentTrial?.stage}} <br/>
     Error: {{errorMessage}}
 </p>
