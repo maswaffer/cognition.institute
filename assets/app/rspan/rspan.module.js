@@ -12,6 +12,9 @@ const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
 const rspan_routing_module_1 = require("./rspan-routing.module");
+const letterGrid_component_1 = require("../letterRecall/letterGrid/letterGrid.component");
+const letter_component_1 = require("../letterRecall/letter/letter.component");
+const recalledLetters_component_1 = require("../letterRecall/recalledLetters/recalledLetters.component");
 let RspanModule = class RspanModule {
 };
 RspanModule = __decorate([
@@ -23,6 +26,9 @@ RspanModule = __decorate([
         ],
         declarations: [
             rspan_routing_module_1.rspanRoutedComponents,
+            letterGrid_component_1.LetterGridComponent,
+            letter_component_1.LetterComponent,
+            recalledLetters_component_1.RecalledLettersComponent
         ]
     }),
     __metadata("design:paramtypes", [])

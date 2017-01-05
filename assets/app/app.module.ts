@@ -3,11 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { LetterRecallComponent } from './letterRecall/letterRecall.component';
-import { LetterGridComponent } from './letterRecall/letterGrid/letterGrid.component';
-import { LetterComponent } from './letterRecall/letter/letter.component';
-import { RecalledLettersComponent } from './letterRecall/recalledLetters/recalledLetters.component';
-import { AppRoutingModule, routedComponents } from './app-routing.module';
+
+import { AppRoutingModule,  } from './app-routing.module';
 import { ReadingModule } from './reading/reading.module';
 import { RspanModule } from './rspan/rspan.module';
 
@@ -20,11 +17,7 @@ import { RspanModule } from './rspan/rspan.module';
         RspanModule
     ],
     declarations: [
-        AppComponent,
-        routedComponents,
-        LetterGridComponent,
-        LetterComponent,
-        RecalledLettersComponent
+        AppComponent
     ],
     bootstrap: [AppComponent],
 })

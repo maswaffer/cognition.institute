@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const rspan_component_1 = require("./rspan.component");
+const letterRecall_component_1 = require("../letterRecall/letterRecall.component");
 const routes = [
     { path: 'rspan', component: rspan_component_1.RspanComponent },
+    { path: 'letters', component: letterRecall_component_1.LetterRecallComponent },
 ];
 let RspanRoutingModule = class RspanRoutingModule {
 };
@@ -25,6 +27,7 @@ RspanRoutingModule = __decorate([
 ], RspanRoutingModule);
 exports.RspanRoutingModule = RspanRoutingModule;
 exports.rspanRoutedComponents = [
-    rspan_component_1.RspanComponent
+    rspan_component_1.RspanComponent,
+    letterRecall_component_1.LetterRecallComponent
 ];
 //# sourceMappingURL=rspan-routing.module.js.map

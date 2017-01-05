@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RspanComponent } from './rspan.component';
+import { LetterRecallComponent } from '../letterRecall/letterRecall.component';
 
 const routes: Routes = [
     { path: 'rspan', component: RspanComponent },
+    { path: 'letters', component: LetterRecallComponent },
 ];
 
 @NgModule({
@@ -11,8 +13,9 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class RspanRoutingModule{}
+export class RspanRoutingModule { }
 
 export const rspanRoutedComponents = [
-    RspanComponent
+    RspanComponent,
+    LetterRecallComponent
 ]

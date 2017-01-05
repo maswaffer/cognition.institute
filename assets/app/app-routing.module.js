@@ -10,10 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
-const letterRecall_component_1 = require("./letterRecall/letterRecall.component");
-const routes = [
-    { path: 'letters', component: letterRecall_component_1.LetterRecallComponent },
-];
+const routes = [];
 let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = __decorate([
@@ -24,7 +21,6 @@ AppRoutingModule = __decorate([
     __metadata("design:paramtypes", [])
 ], AppRoutingModule);
 exports.AppRoutingModule = AppRoutingModule;
-exports.routedComponents = [
-    letterRecall_component_1.LetterRecallComponent
-];
+// export const routedComponents = [
+// ] 
 //# sourceMappingURL=app-routing.module.js.map
