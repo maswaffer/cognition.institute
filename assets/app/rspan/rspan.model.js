@@ -113,4 +113,4 @@ class TrialFactory {
     }
 }
 exports.TrialFactory = TrialFactory;
-//# sourceMappingURL=reading.model.js.map
+//# sourceMappingURL=rspan.model.js.map

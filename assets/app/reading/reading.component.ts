@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Sentence, SentenceService } from '../services/sentence.service.js';
 import { Letters, LettersService } from '../services/letters.service.js';
-import { Trial, TrialFactory, TrialKeeper} from './reading.model.js';
+import { Trial, TrialFactory, TrialKeeper} from '../rspan/rspan.model.js';
 
 @Component({
     selector: 'reading-portion',

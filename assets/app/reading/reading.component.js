@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const sentence_service_js_1 = require("../services/sentence.service.js");
 const letters_service_js_1 = require("../services/letters.service.js");
-const reading_model_js_1 = require("./reading.model.js");
+const rspan_model_js_1 = require("../rspan/rspan.model.js");
 let ReadingComponent = class ReadingComponent {
     constructor(sentenceService, lettersService, tk) {
         this.sentenceService = sentenceService;
@@ -41,12 +41,12 @@ ReadingComponent = __decorate([
         providers: [
             sentence_service_js_1.SentenceService,
             letters_service_js_1.LettersService,
-            reading_model_js_1.Trial,
-            reading_model_js_1.TrialFactory,
-            reading_model_js_1.TrialKeeper
+            rspan_model_js_1.Trial,
+            rspan_model_js_1.TrialFactory,
+            rspan_model_js_1.TrialKeeper
         ]
     }),
-    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService, reading_model_js_1.TrialKeeper])
+    __metadata("design:paramtypes", [sentence_service_js_1.SentenceService, letters_service_js_1.LettersService, rspan_model_js_1.TrialKeeper])
 ], ReadingComponent);
 exports.ReadingComponent = ReadingComponent;
 //# sourceMappingURL=reading.component.js.map
