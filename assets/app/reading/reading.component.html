@@ -1,20 +1,16 @@
-<div id="stage1-sentence" *ngIf="currentTrial?.stage == 0">
-    <sentence-display [sentence]="currentTrial?.currentSentence"></sentence-display>
-    <br/>
-    <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next</button>
-</div>
+<div style="width:100%; text-align:center;">
+    <div id="stage1-sentence" *ngIf="currentTrial?.stage == 0">
+        <sentence-display [sentence]="currentTrial?.currentSentence"></sentence-display>
+        <br/>
+        <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next</button>
+    </div>
+    <div id="stage2-response" *ngIf="currentTrial?.stage == 1">
+        <p style="margin-bottom: 10em;">This sentence makes sense</p>
+        <button (click)="answer(true)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">True</button>
+        <button (click)="answer(false)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">False</button>
+    </div>
 
-<div id="stage2-response" *ngIf="currentTrial?.stage == 1">
-    <p>This sentence makes sense</p>
-    <button (click)="answer(true)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">True</button>
-    <button (click)="answer(false)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">False</button>
+    <div id="stage3-letter" *ngIf="currentTrial?.stage ==2">
+        <h1>{{currentTrial?.currentLetter}}</h1>
+    </div>
 </div>
-
-<div id="stage3-letter" *ngIf="currentTrial?.stage ==2">
-    <h1 >{{currentTrial?.currentLetter}}</h1>
-</div>
-<hr/>
-<p>
-    Stage: {{currentTrial?.stage}} <br/>
-    Error: {{errorMessage}}
-</p>

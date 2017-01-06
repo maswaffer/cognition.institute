@@ -14,7 +14,7 @@ export class TrialKeeper {
 
     stage = TestStage.trial;
 
-    loaded: { (): void; };
+    trialLoaded: { (): void; };
 
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
         this.tf.finished = () => this.loadFirstTrial();
@@ -25,17 +25,22 @@ export class TrialKeeper {
         this.trials = this.tf.trials;
         this.currentTrial = this.trials[0];
         this.currentTrial.completed = () => this.collectResponse();
-        this.loaded();
+        this.trialLoaded();
     }
 
     collectResponse(){
         this.stage = TestStage.response;
     }
 
+    recordResponse(letters:string){
+        this.nextTrial();
+    }
+
     nextTrial(){
-        console.log("next trial");
         this.currentTrial = this.trials[++this.trial];
-        this.currentTrial.completed = () => this.nextTrial();
+        this.currentTrial.completed = () => this.collectResponse();
+        this.stage = TestStage.trial;
+        this.trialLoaded();
     }
 }
 
@@ -153,12 +158,12 @@ export class TrialFactory {
             this.trials = [];
             let si = 0;
             for (let i in this.letters) {
-                let lettersLength = this.letters[i].text.length;
-                let theseSentences = this.sentences.slice(si, si + lettersLength);
+                let l = this.letters[i];
+                let theseSentences = this.sentences.slice(si, si + l.text.length);
                 let t = new Trial();
-                t.populate(theseSentences, this.letters[i]);
+                t.populate(theseSentences, l);
                 this.trials.push(t);
-                si = si + lettersLength + 1;
+                si = si + l.text.length;
             }
             console.log('done with trials' + this.trials.length);
             this.finished();

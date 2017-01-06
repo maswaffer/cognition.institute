@@ -21,12 +21,16 @@ let RspanComponent = class RspanComponent {
     }
     ngOnInit() {
         console.log('on init');
-        this.tk.loaded = () => this.setTrial();
+        this.tk.trialLoaded = () => this.setTrial();
         this.tk.loadTrials(this.sentenceService, this.lettersService);
         console.log('done with init: stage=' + this.tk.stage);
     }
     setTrial() {
         this.currentTrial = this.tk.currentTrial;
+    }
+    recalledLetters(letters) {
+        console.log('letters recalled' + letters);
+        this.tk.recordResponse(letters);
     }
 };
 RspanComponent = __decorate([
