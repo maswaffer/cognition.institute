@@ -7,6 +7,7 @@ enum TestStage {
 }
 
 export class TrialKeeper {
+    trialLengths: number[] = [2,2,3,3,4,4,5,5];
     trials: Trial[];
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
@@ -18,7 +19,7 @@ export class TrialKeeper {
 
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
         this.tf.finished = () => this.loadFirstTrial();
-        this.tf.loadModels(sentenceService, lettersService);
+        this.tf.loadModels(sentenceService, lettersService, this.trialLengths);
     }
 
     loadFirstTrial() {
@@ -123,9 +124,9 @@ export class TrialFactory {
         this.trials = [];
     }
 
-    loadModels(sentenceService: SentenceService, lettersService: LettersService) {
+    loadModels(sentenceService: SentenceService, lettersService: LettersService, trialLengths: number[]) {
         this.getSentences(sentenceService);
-        this.getLetters(lettersService);
+        this.getLetters(lettersService, trialLengths);
     }
 
     private getSentences(sentenceService: SentenceService) {
@@ -140,16 +141,10 @@ export class TrialFactory {
             );
     }
 
-    private getLetters(lettersService: LettersService) {
-        lettersService.getLetters()
-            .subscribe(
-            letters => {
-                this.letters = letters;
-                this.lettersLoaded = true;
-                this.createTrials();
-            },
-            error => this.errorMessage = <any>error
-            );
+    private getLetters(lettersService: LettersService, trialLengths: number[]) {
+        this.letters = lettersService.getLetters(trialLengths);
+        this.lettersLoaded = true;
+        this.createTrials();
     }
 
     private createTrials() {

@@ -1,31 +1,37 @@
-import{Injectable} from '@angular/core';
-import{Http, Response} from '@angular/http';
-import{Observable} from 'rxjs/Observable';
-import 'rxjs/Rx';
+import { Injectable } from '@angular/core';
 
-export class Letters{
+export class Letters {
     text: string;
-    createdAt: string;
-    updatedAt: string;
-    id: number;
-    constructor( text: string, createdAt: string, updatedAt:string, id: number){}
 }
 
 @Injectable()
-export class LettersService{
-    constructor(private http: Http){}
+export class LettersService {
 
-    getLetters(){
-        return this.http
-            .get('/api/v1/letters')
-            .map((response: Response) => <Letters[]>response.json())
-            .do(data => console.log('letter data:' + data))
-            .catch(this.handleError);
+    theLetters: string[] = ["F", "H", "J", "K", "L", "N", "P", "Q", "R", "S", "T", "Y"];
+
+    getLetters(numLetters: number[]) {
+        let ls = [];
+        var shuffledNumbers = this.shuffleArray(numLetters);
+        for (var i = 0; i < numLetters.length; i++) {
+            var shuffled = this.shuffleArray(this.theLetters);
+            var chars = shuffledNumbers[i];
+            var theseLetters = shuffled.slice(0, chars);
+            var l = new Letters();
+            l.text = theseLetters.join('');
+            ls.push(l);
+        }
+        return ls;
     }
 
-    handleError(error: Response){
-        console.error(error);
-        let msg = `Error status code ${error.status} at $error.url}`;
-        return Observable.throw(msg);
+    shuffleArray(array: any) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
+
 }
+

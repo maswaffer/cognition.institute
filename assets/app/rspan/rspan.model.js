@@ -7,13 +7,14 @@ var TestStage;
 })(TestStage || (TestStage = {}));
 class TrialKeeper {
     constructor() {
+        this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5];
         this.tf = new TrialFactory();
         this.trial = 0;
         this.stage = TestStage.trial;
     }
     loadTrials(sentenceService, lettersService) {
         this.tf.finished = () => this.loadFirstTrial();
-        this.tf.loadModels(sentenceService, lettersService);
+        this.tf.loadModels(sentenceService, lettersService, this.trialLengths);
     }
     loadFirstTrial() {
         this.trials = this.tf.trials;
@@ -93,9 +94,9 @@ class TrialFactory {
         this.letters = [];
         this.trials = [];
     }
-    loadModels(sentenceService, lettersService) {
+    loadModels(sentenceService, lettersService, trialLengths) {
         this.getSentences(sentenceService);
-        this.getLetters(lettersService);
+        this.getLetters(lettersService, trialLengths);
     }
     getSentences(sentenceService) {
         sentenceService.getSentences()
@@ -105,13 +106,10 @@ class TrialFactory {
             this.createTrials();
         }, error => this.errorMessage = error);
     }
-    getLetters(lettersService) {
-        lettersService.getLetters()
-            .subscribe(letters => {
-            this.letters = letters;
-            this.lettersLoaded = true;
-            this.createTrials();
-        }, error => this.errorMessage = error);
+    getLetters(lettersService, trialLengths) {
+        this.letters = lettersService.getLetters(trialLengths);
+        this.lettersLoaded = true;
+        this.createTrials();
     }
     createTrials() {
         if (this.sentencesLoaded && this.lettersLoaded) {

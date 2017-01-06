@@ -9,33 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-const http_1 = require("@angular/http");
-const Observable_1 = require("rxjs/Observable");
-require("rxjs/Rx");
 class Letters {
-    constructor(text, createdAt, updatedAt, id) { }
 }
 exports.Letters = Letters;
 let LettersService = class LettersService {
-    constructor(http) {
-        this.http = http;
+    constructor() {
+        this.theLetters = ["F", "H", "J", "K", "L", "N", "P", "Q", "R", "S", "T", "Y"];
     }
-    getLetters() {
-        return this.http
-            .get('/api/v1/letters')
-            .map((response) => response.json())
-            .do(data => console.log('letter data:' + data))
-            .catch(this.handleError);
+    getLetters(numLetters) {
+        let ls = [];
+        var shuffledNumbers = this.shuffleArray(numLetters);
+        for (var i = 0; i < numLetters.length; i++) {
+            var shuffled = this.shuffleArray(this.theLetters);
+            var chars = shuffledNumbers[i];
+            var theseLetters = shuffled.slice(0, chars);
+            var l = new Letters();
+            l.text = theseLetters.join('');
+            ls.push(l);
+        }
+        return ls;
     }
-    handleError(error) {
-        console.error(error);
-        let msg = `Error status code ${error.status} at $error.url}`;
-        return Observable_1.Observable.throw(msg);
+    shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
 };
 LettersService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [])
 ], LettersService);
 exports.LettersService = LettersService;
 //# sourceMappingURL=letters.service.js.map
