@@ -23,7 +23,7 @@ let RspanComponent = class RspanComponent {
         console.log('on init');
         this.tk.loaded = () => this.setTrial();
         this.tk.loadTrials(this.sentenceService, this.lettersService);
-        console.log('done with init');
+        console.log('done with init: stage=' + this.tk.stage);
     }
     setTrial() {
         this.currentTrial = this.tk.currentTrial;

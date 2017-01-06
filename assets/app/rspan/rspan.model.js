@@ -1,23 +1,33 @@
 "use strict";
 const sentence_service_js_1 = require("../services/sentence.service.js");
+var TestStage;
+(function (TestStage) {
+    TestStage[TestStage["trial"] = 0] = "trial";
+    TestStage[TestStage["response"] = 1] = "response";
+})(TestStage || (TestStage = {}));
 class TrialKeeper {
     constructor() {
         this.tf = new TrialFactory();
         this.trial = 0;
+        this.stage = TestStage.trial;
     }
     loadTrials(sentenceService, lettersService) {
-        this.tf.finished = () => this.loadCurrentTrial();
+        this.tf.finished = () => this.loadFirstTrial();
         this.tf.loadModels(sentenceService, lettersService);
     }
-    loadCurrentTrial() {
-        console.log('callback: loadCurrentTrial');
+    loadFirstTrial() {
         this.trials = this.tf.trials;
         this.currentTrial = this.trials[0];
+        this.currentTrial.completed = () => this.collectResponse();
         this.loaded();
-        console.log(this.currentTrial.letters.text);
     }
-    next() {
-        this.currentTrial.next();
+    collectResponse() {
+        this.stage = TestStage.response;
+    }
+    nextTrial() {
+        console.log("next trial");
+        this.currentTrial = this.trials[++this.trial];
+        this.currentTrial.completed = () => this.nextTrial();
     }
 }
 exports.TrialKeeper = TrialKeeper;
@@ -40,17 +50,22 @@ class Trial {
         this.stage = TrialStage.sentence;
     }
     next() {
-        this.rachet();
-        switch (this.stage) {
-            case TrialStage.sentence:
-                this.currentSentence = this.sentences[this.round];
-                break;
-            case TrialStage.response:
-                break;
-            case TrialStage.letter:
-                this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
-                this.round++;
-                break;
+        if (this.round >= this.letters.text.length) {
+            this.completed();
+        }
+        else {
+            this.rachet();
+            switch (this.stage) {
+                case TrialStage.sentence:
+                    this.currentSentence = this.sentences[this.round];
+                    break;
+                case TrialStage.response:
+                    break;
+                case TrialStage.letter:
+                    this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+                    this.round++;
+                    break;
+            }
         }
     }
     rachet() {
