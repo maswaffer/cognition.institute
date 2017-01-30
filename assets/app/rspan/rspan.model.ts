@@ -2,9 +2,17 @@ import { Sentence, SentenceService } from '../services/sentence.service.js';
 import { Letters, LettersService } from '../services/letters.service.js';
 
 enum TestStage {
-    trial,
-    response,
-    score
+    start  = 1,
+    instructions1 = 2,
+    practiceLetters = 3,
+    instructions2 = 4,
+    practiceSentences = 5,
+    instructions3 = 6,
+    practiceCombined = 7,
+    trial = 8,
+    response = 9,
+    score = 10,
+    final = 11
 }
 
 //This should be refactored to be TestManager
@@ -15,9 +23,13 @@ export class TrialKeeper {
     tf: TrialFactory = new TrialFactory();
     trial = 0;
 
-    stage = TestStage.trial;
+    stage = TestStage.start;
 
     trialLoaded: { (): void; };
+
+    start(){
+        this.stage = TestStage.trial;
+    }
 
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
         this.tf.finished = () => this.loadFirstTrial();

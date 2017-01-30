@@ -22,7 +22,7 @@ export class RspanComponent implements OnInit{
     constructor(private sentenceService: SentenceService, private lettersService: LettersService, private tk: TrialKeeper) {}
 
     ngOnInit() {
-        console.log('on init');
+        console.log('on init updated');
         this.tk.trialLoaded = () => this.setTrial();
         this.tk.loadTrials(this.sentenceService, this.lettersService);
         console.log('done with init: stage=' + this.tk.stage);
@@ -35,5 +35,9 @@ export class RspanComponent implements OnInit{
     recalledLetters(letters: string){
         console.log('letters recalled' + letters);
         this.tk.recordResponse(letters);
+    }
+
+    start(){
+        this.tk.start();
     }
 }

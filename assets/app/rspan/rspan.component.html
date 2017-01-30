@@ -1,11 +1,17 @@
 <h3>RSPAN</h3>
-<reading-portion *ngIf="tk?.stage == 0" [currentTrial] = 'currentTrial'></reading-portion>
+<!--Start-->
+<div id="start" *ngIf="tk?.stage == 1">
+    <button (click)="start()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Start RSPAN</button>
+</div>
 
-<letter-recall (response) = "recalledLetters($event)" *ngIf="tk?.stage == 1"></letter-recall>
+<!--Trial-->
+<reading-portion *ngIf="tk?.stage == 8" [currentTrial] = 'currentTrial'></reading-portion>
 
-<div id="score-display" *ngIf="tk?.stage==2">
+<!--Response -->
+<letter-recall (response) = "recalledLetters($event)" *ngIf="tk?.stage ==9"></letter-recall>
+
+<!--Score -->
+<div id="score-display" *ngIf="tk?.stage==10">
     <p>You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences correctly.</p>
     <p>You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters correctly.</p>
-  
-    
 </div>

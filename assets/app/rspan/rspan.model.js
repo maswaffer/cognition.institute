@@ -2,9 +2,17 @@
 const sentence_service_js_1 = require("../services/sentence.service.js");
 var TestStage;
 (function (TestStage) {
-    TestStage[TestStage["trial"] = 0] = "trial";
-    TestStage[TestStage["response"] = 1] = "response";
-    TestStage[TestStage["score"] = 2] = "score";
+    TestStage[TestStage["start"] = 1] = "start";
+    TestStage[TestStage["instructions1"] = 2] = "instructions1";
+    TestStage[TestStage["practiceLetters"] = 3] = "practiceLetters";
+    TestStage[TestStage["instructions2"] = 4] = "instructions2";
+    TestStage[TestStage["practiceSentences"] = 5] = "practiceSentences";
+    TestStage[TestStage["instructions3"] = 6] = "instructions3";
+    TestStage[TestStage["practiceCombined"] = 7] = "practiceCombined";
+    TestStage[TestStage["trial"] = 8] = "trial";
+    TestStage[TestStage["response"] = 9] = "response";
+    TestStage[TestStage["score"] = 10] = "score";
+    TestStage[TestStage["final"] = 11] = "final";
 })(TestStage || (TestStage = {}));
 //This should be refactored to be TestManager
 class TrialKeeper {
@@ -12,6 +20,9 @@ class TrialKeeper {
         this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5];
         this.tf = new TrialFactory();
         this.trial = 0;
+        this.stage = TestStage.start;
+    }
+    start() {
         this.stage = TestStage.trial;
     }
     loadTrials(sentenceService, lettersService) {
