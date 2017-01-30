@@ -4,6 +4,8 @@ import{Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 export class Sentence{
+    text: string;
+    response: boolean;
     constructor();
     constructor( text?: string, response?: boolean, createdAt?: string, updatedAt?:string, id?: number){}
 }

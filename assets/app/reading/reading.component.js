@@ -20,6 +20,7 @@ let ReadingComponent = class ReadingComponent {
         this.currentTrial.next();
     }
     answer(response) {
+        this.currentTrial.sentenceResponse(response);
         this.currentTrial.next();
         this.delayForLetter();
     }

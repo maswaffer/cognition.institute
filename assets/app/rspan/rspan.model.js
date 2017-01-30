@@ -4,7 +4,9 @@ var TestStage;
 (function (TestStage) {
     TestStage[TestStage["trial"] = 0] = "trial";
     TestStage[TestStage["response"] = 1] = "response";
+    TestStage[TestStage["score"] = 2] = "score";
 })(TestStage || (TestStage = {}));
+//This should be refactored to be TestManager
 class TrialKeeper {
     constructor() {
         this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5];
@@ -26,7 +28,12 @@ class TrialKeeper {
         this.stage = TestStage.response;
     }
     recordResponse(letters) {
-        this.nextTrial();
+        this.currentTrial.calculatePartialCreditUnitScore(letters);
+        this.displayScore();
+    }
+    displayScore() {
+        this.stage = TestStage.score;
+        setTimeout(() => this.nextTrial(), 2000);
     }
     nextTrial() {
         this.currentTrial = this.trials[++this.trial];
@@ -36,6 +43,7 @@ class TrialKeeper {
     }
 }
 exports.TrialKeeper = TrialKeeper;
+//Trial should move to reading model
 var TrialStage;
 (function (TrialStage) {
     TrialStage[TrialStage["sentence"] = 0] = "sentence";
@@ -46,6 +54,13 @@ class Trial {
     constructor() {
         this.currentSentence = new sentence_service_js_1.Sentence();
         this.round = 0;
+        this.scores = {
+            sentenceTotal: 0,
+            sentenceCorrect: 0,
+            lettersTotal: 0,
+            lettersCorrect: 0,
+            PCUS: 0
+        };
     }
     populate(s, l) {
         this.sentences = s;
@@ -53,6 +68,12 @@ class Trial {
         this.currentSentence = s[0];
         this.currentLetter = l.text.substring(0, 1);
         this.stage = TrialStage.sentence;
+    }
+    sentenceResponse(answer) {
+        this.scores.sentenceTotal++;
+        if (this.currentSentence.response == answer) {
+            this.scores.sentenceCorrect++;
+        }
     }
     next() {
         if (this.round >= this.letters.text.length) {
@@ -73,6 +94,18 @@ class Trial {
             }
         }
     }
+    calculatePartialCreditUnitScore(entry) {
+        var entered = entry.split('');
+        var score = 0;
+        for (let l of entered) {
+            if (this.letters.text.includes(l)) {
+                this.scores.lettersCorrect++;
+                score++;
+            }
+        }
+        this.scores.lettersTotal = this.letters.text.length;
+        this.scores.PCUS = score / this.letters.text.length;
+    }
     rachet() {
         switch (this.stage) {
             case TrialStage.sentence:
@@ -88,6 +121,7 @@ class Trial {
     }
 }
 exports.Trial = Trial;
+//This needs to be a service 
 class TrialFactory {
     constructor() {
         this.sentences = [];

@@ -1,3 +1,11 @@
-<h1>RSPAN</h1>
+<h3>RSPAN</h3>
 <reading-portion *ngIf="tk?.stage == 0" [currentTrial] = 'currentTrial'></reading-portion>
+
 <letter-recall (response) = "recalledLetters($event)" *ngIf="tk?.stage == 1"></letter-recall>
+
+<div id="score-display" *ngIf="tk?.stage==2">
+    <p>You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences correctly.</p>
+    <p>You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters correctly.</p>
+  
+    
+</div>

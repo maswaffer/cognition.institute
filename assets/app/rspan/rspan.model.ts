@@ -3,11 +3,13 @@ import { Letters, LettersService } from '../services/letters.service.js';
 
 enum TestStage {
     trial,
-    response
+    response,
+    score
 }
 
+//This should be refactored to be TestManager
 export class TrialKeeper {
-    trialLengths: number[] = [2,2,3,3,4,4,5,5];
+    trialLengths: number[] = [2, 2, 3, 3, 4, 4, 5, 5];
     trials: Trial[];
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
@@ -29,15 +31,21 @@ export class TrialKeeper {
         this.trialLoaded();
     }
 
-    collectResponse(){
+    collectResponse() {
         this.stage = TestStage.response;
     }
 
-    recordResponse(letters:string){
-        this.nextTrial();
+    recordResponse(letters: string) {
+        this.currentTrial.calculatePartialCreditUnitScore(letters);
+        this.displayScore();
     }
 
-    nextTrial(){
+    displayScore(){
+        this.stage = TestStage.score;
+        setTimeout(() => this.nextTrial(), 2000);
+    }
+
+    nextTrial() {
         this.currentTrial = this.trials[++this.trial];
         this.currentTrial.completed = () => this.collectResponse();
         this.stage = TestStage.trial;
@@ -45,6 +53,8 @@ export class TrialKeeper {
     }
 }
 
+
+//Trial should move to reading model
 enum TrialStage {
     sentence,
     response,
@@ -60,6 +70,14 @@ export class Trial {
 
     round = 0;
 
+    scores = {
+        sentenceTotal: 0,
+        sentenceCorrect: 0,
+        lettersTotal: 0,
+        lettersCorrect: 0,
+        PCUS: 0
+    }
+
     completed: { (): void; };
 
     populate(s: Sentence[], l: Letters) {
@@ -68,6 +86,13 @@ export class Trial {
         this.currentSentence = s[0];
         this.currentLetter = l.text.substring(0, 1);
         this.stage = TrialStage.sentence;
+    }
+
+    sentenceResponse(answer: boolean) {
+        this.scores.sentenceTotal ++;
+        if(this.currentSentence.response == answer){
+            this.scores.sentenceCorrect ++;
+        }
     }
 
     next() {
@@ -91,6 +116,19 @@ export class Trial {
         }
     }
 
+    calculatePartialCreditUnitScore(entry: string){
+        var entered = entry.split('');
+        var score = 0;
+        for(let l of entered){
+            if(this.letters.text.includes(l)){
+                this.scores.lettersCorrect++;
+                score++;
+            }
+        }
+        this.scores.lettersTotal = this.letters.text.length;
+        this.scores.PCUS = score / this.letters.text.length;
+    }
+
     private rachet() {
         switch (this.stage) {
             case TrialStage.sentence:
@@ -106,6 +144,7 @@ export class Trial {
     }
 }
 
+//This needs to be a service 
 export class TrialFactory {
 
     sentences: Sentence[];

@@ -24,6 +24,7 @@ export class ReadingComponent {
     }
 
     answer(response: boolean){
+        this.currentTrial.sentenceResponse(response);
         this.currentTrial.next();
         this.delayForLetter();
     }
