@@ -23,16 +23,20 @@ class TrialKeeper {
         this.isPractice = true;
         this.practice = 0;
         this.stage = TestStage.start;
+        this.steps = new Array(2);
     }
     start() {
-        this.showLetterInstructions();
+        //Push?????
+        this.steps.push(() => this.showLetterInstructions());
+        this.steps.push(() => this.startLetterPractice());
+        this.nextStep();
+    }
+    nextStep() {
+        let next = this.steps.shift();
+        next();
     }
     showLetterInstructions() {
-        this.onFinish = () => this.startLetterPractice();
         this.stage = TestStage.instructions1;
-    }
-    finish() {
-        this.onFinish();
     }
     startLetterPractice() {
         this.isPractice = true;

@@ -15,6 +15,7 @@ enum TestStage {
     final = 11
 }
 
+type Step = () => void;
 //This should be refactored to be TestManager
 export class TrialKeeper {
     trialLengths: number[] = [2, 2, 3, 3, 4, 4, 5, 5];
@@ -28,19 +29,24 @@ export class TrialKeeper {
     stage = TestStage.start;
 
     trialLoaded: { (): void; };
-    onFinish: { (): void; };
+
+    steps = new Array<Step>(2);
+    step: 0;
 
     start(){
-        this.showLetterInstructions();
+        //Push?????
+        this.steps.push(() => this.showLetterInstructions());
+        this.steps.push(() => this.startLetterPractice());
+        this.nextStep();
+    }
+
+    nextStep(){
+        let next = this.steps.shift();
+        next();
     }
 
     showLetterInstructions(){
-        this.onFinish = () => this.startLetterPractice();
         this.stage = TestStage.instructions1;
-    }
-
-    finish(){
-        this.onFinish();
     }
 
     startLetterPractice(){
