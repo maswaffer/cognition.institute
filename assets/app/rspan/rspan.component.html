@@ -4,6 +4,30 @@
     <button (click)="start()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Start RSPAN</button>
 </div>
 
+<!--Instructions1-->
+<div id="instructions1" *ngIf="tk?.stage == 2">
+    <p>
+        We will start with practice using the interface. Here are the instructions for this part:
+    </p>
+        <ol>
+            <li>After you begin, a letter will appear on the screen</li>
+            <li>After a few moments, the letter will disappear and be replaced by another</li>
+            <li>Remember the letters that appear</li>
+            <li>After several letters have appeared, you will be presented a grid of letters</li>
+            <li>Click on the letters you remember in the order you remember them</li>
+        </ol>
+    <p>
+        When you are ready to start, please press "Begin practice"
+    </p>
+    <button (click)="finish()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Begin practice</button>    
+</div>
+
+<!--PracticeLetters -->
+<div id="PracticeLetters" *ngIf="tk?.stage == 3">
+    <p>Letter practice</p>
+    <reading-portion [currentTrial] = 'currentTrial'></reading-portion>
+</div>
+
 <!--Trial-->
 <reading-portion *ngIf="tk?.stage == 8" [currentTrial] = 'currentTrial'></reading-portion>
 

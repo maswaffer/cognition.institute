@@ -20,10 +20,24 @@ class TrialKeeper {
         this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5];
         this.tf = new TrialFactory();
         this.trial = 0;
+        this.isPractice = true;
+        this.practice = 0;
         this.stage = TestStage.start;
     }
     start() {
-        this.stage = TestStage.trial;
+        this.showLetterInstructions();
+    }
+    showLetterInstructions() {
+        this.onFinish = () => this.startLetterPractice();
+        this.stage = TestStage.instructions1;
+    }
+    finish() {
+        this.onFinish();
+    }
+    startLetterPractice() {
+        this.isPractice = true;
+        this.stage = TestStage.practiceLetters;
+        this.currentTrial.startLetterPractice();
     }
     loadTrials(sentenceService, lettersService) {
         this.tf.finished = () => this.loadFirstTrial();
@@ -49,7 +63,15 @@ class TrialKeeper {
     nextTrial() {
         this.currentTrial = this.trials[++this.trial];
         this.currentTrial.completed = () => this.collectResponse();
-        this.stage = TestStage.trial;
+        if (this.isPractice && this.practice < 2) {
+            this.practice++;
+            this.stage = TestStage.practiceLetters;
+            this.currentTrial.startLetterPractice();
+        }
+        else {
+            this.isPractice = false;
+            this.stage = TestStage.trial;
+        }
         this.trialLoaded();
     }
 }
@@ -86,9 +108,22 @@ class Trial {
             this.scores.sentenceCorrect++;
         }
     }
+    startLetterPractice() {
+        this.isLetterPractice = true;
+        this.stage = TrialStage.letter;
+        this.next();
+    }
+    nextDelay(delay) {
+        setTimeout(() => this.next(), delay);
+    }
     next() {
         if (this.round >= this.letters.text.length) {
             this.completed();
+        }
+        else if (this.isLetterPractice) {
+            this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+            this.round++;
+            this.nextDelay(1000);
         }
         else {
             this.rachet();

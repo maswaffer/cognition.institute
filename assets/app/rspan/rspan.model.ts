@@ -22,13 +22,31 @@ export class TrialKeeper {
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
     trial = 0;
+    isPractice = true;
+    practice = 0;
 
     stage = TestStage.start;
 
     trialLoaded: { (): void; };
+    onFinish: { (): void; };
 
     start(){
-        this.stage = TestStage.trial;
+        this.showLetterInstructions();
+    }
+
+    showLetterInstructions(){
+        this.onFinish = () => this.startLetterPractice();
+        this.stage = TestStage.instructions1;
+    }
+
+    finish(){
+        this.onFinish();
+    }
+
+    startLetterPractice(){
+        this.isPractice = true;
+        this.stage = TestStage.practiceLetters;
+        this.currentTrial.startLetterPractice();
     }
 
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
@@ -60,7 +78,14 @@ export class TrialKeeper {
     nextTrial() {
         this.currentTrial = this.trials[++this.trial];
         this.currentTrial.completed = () => this.collectResponse();
-        this.stage = TestStage.trial;
+        if(this.isPractice && this.practice < 2){
+            this.practice++;
+            this.stage = TestStage.practiceLetters;
+            this.currentTrial.startLetterPractice();
+        }else{
+            this.isPractice = false;
+            this.stage = TestStage.trial;
+        }
         this.trialLoaded();
     }
 }
@@ -79,6 +104,7 @@ export class Trial {
     currentSentence = new Sentence();
     currentLetter: string;
     stage: TrialStage;
+    isLetterPractice: Boolean;
 
     round = 0;
 
@@ -107,10 +133,25 @@ export class Trial {
         }
     }
 
+    startLetterPractice(){
+        this.isLetterPractice = true;
+        this.stage = TrialStage.letter;
+        this.next();
+    }
+
+    nextDelay(delay: number){
+        setTimeout(()=>this.next(), delay);
+    }
+
     next() {
         if (this.round >= this.letters.text.length) {
             this.completed();
-        } else {
+        } else if(this.isLetterPractice){
+            this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+            this.round++;
+            this.nextDelay(1000);
+        }
+        else {
             this.rachet();
             switch (this.stage) {
                 case TrialStage.sentence:

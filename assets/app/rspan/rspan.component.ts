@@ -40,4 +40,12 @@ export class RspanComponent implements OnInit{
     start(){
         this.tk.start();
     }
+
+    finish(){
+        this.tk.finish();
+    }
+
+    startPractice(){
+        this.tk.startLetterPractice();
+    }
 }
