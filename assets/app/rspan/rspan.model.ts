@@ -24,18 +24,26 @@ export class TrialKeeper {
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
     trial = 0;
-
     stage = TestStage.start;
-
     trialLoaded: { (): void; };
-
     steps = new Array<Step>();
-    step: 0;
+
+    totalscores = {
+        sentenceTotal: 0,
+        sentenceCorrect: 0,
+        lettersTotal: 0,
+        lettersCorrect: 0,
+        PCUS: 0,
+        trials: 0
+    }
+
+    practiceRounds = 1;
+    trialRounds = 2;
 
     start(){
         //Letter practice
         this.steps.push(() => this.showLetterInstructions());
-        for(var i=0; i<2;i++){
+        for(var i=0; i<this.practiceRounds;i++){
             this.steps.push(() => this.startLetterPractice());
             this.steps.push(() => this.collectResponse());
         }
@@ -47,14 +55,14 @@ export class TrialKeeper {
 
         //Combined practice
         this.steps.push(() => this.showCombinedInstructions());
-        for(var i=0; i<2;i++){
+        for(var i=0; i<this.practiceRounds;i++){
             this.steps.push(() => this.startCombinedPractice());
             this.steps.push(() => this.collectResponse());
         }
 
         //Trials
         this.steps.push(() => this.showTrialInstructions()); 
-        for(var i=0; i<2;i++){
+        for(var i=0; i<this.trialRounds;i++){
             this.steps.push(() => this.startTrial());
             this.steps.push(() => this.collectResponse());
         }
@@ -132,7 +140,22 @@ export class TrialKeeper {
 
     recordResponse(letters: string) {
         this.currentTrial.calculatePartialCreditUnitScore(letters);
+        console.log('practice ' + this.currentTrial.isSentencePractice);
+
+        //this is coming back undefined .....   
+        if(!(this.currentTrial.isLetterPractice || this.currentTrial.isSentencePractice)){
+            this.recordTrialScore();
+        }
         this.displayScore();
+    }
+
+    recordTrialScore(){
+        this.totalscores.trials++;
+        this.totalscores.sentenceTotal += this.currentTrial.scores.sentenceTotal;
+        this.totalscores.sentenceCorrect += this.currentTrial.scores.sentenceCorrect;
+        this.totalscores.lettersCorrect += this.currentTrial.scores.lettersCorrect;
+        this.totalscores.lettersTotal += this.currentTrial.scores.lettersTotal;
+        this.totalscores.PCUS += this.currentTrial.scores.PCUS;
     }
 
     loadNextTrial() {
@@ -141,6 +164,7 @@ export class TrialKeeper {
         this.trialLoaded();
         this.nextStep();
     }
+   
 }
 
 
