@@ -9,10 +9,11 @@ var TestStage;
     TestStage[TestStage["practiceSentences"] = 5] = "practiceSentences";
     TestStage[TestStage["instructions3"] = 6] = "instructions3";
     TestStage[TestStage["practiceCombined"] = 7] = "practiceCombined";
-    TestStage[TestStage["trial"] = 8] = "trial";
-    TestStage[TestStage["response"] = 9] = "response";
-    TestStage[TestStage["score"] = 10] = "score";
-    TestStage[TestStage["final"] = 11] = "final";
+    TestStage[TestStage["instructions4"] = 8] = "instructions4";
+    TestStage[TestStage["trial"] = 9] = "trial";
+    TestStage[TestStage["response"] = 10] = "response";
+    TestStage[TestStage["score"] = 11] = "score";
+    TestStage[TestStage["final"] = 12] = "final";
 })(TestStage || (TestStage = {}));
 //This should be refactored to be TestManager
 class TrialKeeper {
@@ -26,20 +27,28 @@ class TrialKeeper {
     start() {
         //Letter practice
         this.steps.push(() => this.showLetterInstructions());
-        this.steps.push(() => this.startLetterPractice());
-        this.steps.push(() => this.collectResponse());
-        this.steps.push(() => this.startLetterPractice());
-        this.steps.push(() => this.collectResponse());
+        for (var i = 0; i < 2; i++) {
+            this.steps.push(() => this.startLetterPractice());
+            this.steps.push(() => this.collectResponse());
+        }
         //Sentence practice
         this.steps.push(() => this.showSentenceInstructions());
         this.steps.push(() => this.startSentencePractice());
         this.steps.push(() => this.displayScore());
         //Combined practice
         this.steps.push(() => this.showCombinedInstructions());
-        this.steps.push(() => this.startCombinedPractice());
-        this.steps.push(() => this.collectResponse());
-        this.steps.push(() => this.startCombinedPractice());
-        this.steps.push(() => this.collectResponse());
+        for (var i = 0; i < 2; i++) {
+            this.steps.push(() => this.startCombinedPractice());
+            this.steps.push(() => this.collectResponse());
+        }
+        //Trials
+        this.steps.push(() => this.showTrialInstructions());
+        for (var i = 0; i < 2; i++) {
+            this.steps.push(() => this.startTrial());
+            this.steps.push(() => this.collectResponse());
+        }
+        this.steps.push(() => this.showFinalScreen());
+        //Kick things off
         this.nextStep();
     }
     nextStep() {
@@ -73,8 +82,14 @@ class TrialKeeper {
         this.stage = TestStage.score;
         setTimeout(() => this.loadNextTrial(), 2000);
     }
+    showTrialInstructions() {
+        this.stage = TestStage.instructions4;
+    }
     startTrial() {
         this.stage = TestStage.trial;
+    }
+    showFinalScreen() {
+        this.stage = TestStage.final;
     }
     //Init functions
     loadTrials(sentenceService, lettersService) {

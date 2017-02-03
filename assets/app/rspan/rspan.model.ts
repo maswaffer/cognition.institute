@@ -9,10 +9,11 @@ enum TestStage {
     practiceSentences = 5,
     instructions3 = 6,
     practiceCombined = 7,
-    trial = 8,
-    response = 9,
-    score = 10,
-    final = 11
+    instructions4 = 8,
+    trial = 9,
+    response = 10,
+    score = 11,
+    final = 12
 }
 
 type Step = () => void;
@@ -34,21 +35,33 @@ export class TrialKeeper {
     start(){
         //Letter practice
         this.steps.push(() => this.showLetterInstructions());
-        this.steps.push(() => this.startLetterPractice());
-        this.steps.push(() => this.collectResponse());
-        this.steps.push(() => this.startLetterPractice());
-        this.steps.push(() => this.collectResponse());
+        for(var i=0; i<2;i++){
+            this.steps.push(() => this.startLetterPractice());
+            this.steps.push(() => this.collectResponse());
+        }
+
         //Sentence practice
         this.steps.push(() => this.showSentenceInstructions());
         this.steps.push(() => this.startSentencePractice());
         this.steps.push(() => this.displayScore());
+
         //Combined practice
         this.steps.push(() => this.showCombinedInstructions());
-        this.steps.push(() => this.startCombinedPractice());
-        this.steps.push(() => this.collectResponse());
-        this.steps.push(() => this.startCombinedPractice());
-        this.steps.push(() => this.collectResponse());
+        for(var i=0; i<2;i++){
+            this.steps.push(() => this.startCombinedPractice());
+            this.steps.push(() => this.collectResponse());
+        }
 
+        //Trials
+        this.steps.push(() => this.showTrialInstructions()); 
+        for(var i=0; i<2;i++){
+            this.steps.push(() => this.startTrial());
+            this.steps.push(() => this.collectResponse());
+        }
+
+        this.steps.push(() => this.showFinalScreen());
+
+        //Kick things off
         this.nextStep();
     }
 
@@ -92,8 +105,16 @@ export class TrialKeeper {
         setTimeout(() => this.loadNextTrial(), 2000);
     }
 
+    showTrialInstructions(){
+        this.stage = TestStage.instructions4;
+    }
+
     startTrial(){
         this.stage = TestStage.trial;
+    }
+
+    showFinalScreen(){
+        this.stage = TestStage.final;
     }
 
     //Init functions

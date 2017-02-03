@@ -82,14 +82,38 @@
     <reading-portion [currentTrial] = 'currentTrial'></reading-portion>
 </div>
 
+<!--Instructions3-->
+<div id="instructions3" *ngIf="tk?.stage == 8">
+    <p>
+        Now we will start the RSPAN. Keep the following things in mind:
+    </p>
+        <ol>
+            <li>This phase will be just like the last practice phase</li>
+            <li>During the practice phase, we determined how quickly on average you read the sentences</li>
+            <li>If you pause for too long while reading a sentence, the application will move on and that sentence will be scored as incorrect</li>
+            <li>The key as before is to make sure you answer as many of the sentences correctly as possible.</li>
+        </ol>
+    <p>
+        When you are ready to start, please press "Begin practice"
+    </p>
+    <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Begin practice</button>    
+</div>
+
 <!--Trial-->
-<reading-portion *ngIf="tk?.stage == 8" [currentTrial] = 'currentTrial'></reading-portion>
+<div id="trial" *ngIf="tk?.stage==9">
+    <reading-portion [currentTrial] = 'currentTrial'></reading-portion>
+</div>
 
 <!--Response -->
-<letter-recall (response) = "recalledLetters($event)" *ngIf="tk?.stage ==9"></letter-recall>
+<letter-recall (response) = "recalledLetters($event)" *ngIf="tk?.stage ==10"></letter-recall>
 
 <!--Score -->
-<div id="score-display" *ngIf="tk?.stage==10">
+<div id="score-display" *ngIf="tk?.stage==11">
     <p>You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences correctly.</p>
     <p>You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters correctly.</p>
+</div>
+
+<!--Final-->
+<div id="Final" *ngIf="tk?.stage == 12">
+    <p>Test Complete</p>
 </div>
