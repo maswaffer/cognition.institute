@@ -23,20 +23,34 @@ export class TrialKeeper {
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
     trial = 0;
-    isPractice = true;
-    practice = 0;
 
     stage = TestStage.start;
 
     trialLoaded: { (): void; };
 
-    steps = new Array<Step>(2);
+    steps = new Array<Step>();
     step: 0;
 
     start(){
-        //Push?????
+        //Letter practice
         this.steps.push(() => this.showLetterInstructions());
         this.steps.push(() => this.startLetterPractice());
+        this.steps.push(() => this.collectResponse());
+        this.steps.push(() => this.startLetterPractice());
+        this.steps.push(() => this.collectResponse());
+        //Sentence practice
+        this.steps.push(() => this.showSentenceInstructions());
+        this.steps.push(() => this.startSentencePractice());
+        this.steps.push(() => this.displayScore());
+        //Combined practice
+        this.steps.push(() => this.showCombinedInstructions());
+        this.steps.push(() => this.startCombinedPractice());
+        this.steps.push(() => this.collectResponse());
+        this.steps.push(() => this.displayScore());
+        this.steps.push(() => this.startCombinedPractice());
+        this.steps.push(() => this.collectResponse());
+        this.steps.push(() => this.displayScore());
+
         this.nextStep();
     }
 
@@ -50,11 +64,41 @@ export class TrialKeeper {
     }
 
     startLetterPractice(){
-        this.isPractice = true;
         this.stage = TestStage.practiceLetters;
         this.currentTrial.startLetterPractice();
     }
 
+    showSentenceInstructions(){
+        this.stage = TestStage.instructions2;
+    }
+
+    startSentencePractice(){
+        this.stage = TestStage.practiceSentences;
+        this.currentTrial.startSentencePractice();
+    }
+
+    showCombinedInstructions(){
+        this.stage = TestStage.instructions3;
+    }
+
+    startCombinedPractice(){
+        this.stage = TestStage.practiceCombined;
+    }
+
+    collectResponse() {
+        this.stage = TestStage.response;
+    }
+
+    displayScore(){
+        this.stage = TestStage.score;
+        setTimeout(() => this.loadNextTrial(), 2000);
+    }
+
+    startTrial(){
+        this.stage = TestStage.trial;
+    }
+
+    //Init functions
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
         this.tf.finished = () => this.loadFirstTrial();
         this.tf.loadModels(sentenceService, lettersService, this.trialLengths);
@@ -63,12 +107,8 @@ export class TrialKeeper {
     loadFirstTrial() {
         this.trials = this.tf.trials;
         this.currentTrial = this.trials[0];
-        this.currentTrial.completed = () => this.collectResponse();
+        this.currentTrial.completed = () => this.nextStep();
         this.trialLoaded();
-    }
-
-    collectResponse() {
-        this.stage = TestStage.response;
     }
 
     recordResponse(letters: string) {
@@ -76,23 +116,11 @@ export class TrialKeeper {
         this.displayScore();
     }
 
-    displayScore(){
-        this.stage = TestStage.score;
-        setTimeout(() => this.nextTrial(), 2000);
-    }
-
-    nextTrial() {
+    loadNextTrial() {
         this.currentTrial = this.trials[++this.trial];
-        this.currentTrial.completed = () => this.collectResponse();
-        if(this.isPractice && this.practice < 2){
-            this.practice++;
-            this.stage = TestStage.practiceLetters;
-            this.currentTrial.startLetterPractice();
-        }else{
-            this.isPractice = false;
-            this.stage = TestStage.trial;
-        }
+        this.currentTrial.completed = () => this.nextStep();
         this.trialLoaded();
+        this.nextStep();
     }
 }
 
@@ -111,6 +139,7 @@ export class Trial {
     currentLetter: string;
     stage: TrialStage;
     isLetterPractice: Boolean;
+    isSentencePractice: Boolean;
 
     round = 0;
 
@@ -145,8 +174,15 @@ export class Trial {
         this.next();
     }
 
-    nextDelay(delay: number){
-        setTimeout(()=>this.next(), delay);
+    startSentencePractice(){
+        this.isLetterPractice = false;
+        this.isSentencePractice = true;
+    }
+
+    nextLetterDelay(delay: number){
+        if(!this.isSentencePractice){
+            setTimeout(()=>this.next(), delay);
+        }
     }
 
     next() {
@@ -155,18 +191,21 @@ export class Trial {
         } else if(this.isLetterPractice){
             this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
             this.round++;
-            this.nextDelay(1000);
-        }
+            this.nextLetterDelay(1000);
+        } 
         else {
             this.rachet();
             switch (this.stage) {
                 case TrialStage.sentence:
                     this.currentSentence = this.sentences[this.round];
                     break;
-
                 case TrialStage.response:
+                    //This is ugly
+                    if(this.isSentencePractice){
+                        console.log('increment round');
+                        this.round++;
+                    }
                     break;
-
                 case TrialStage.letter:
                     this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
                     this.round++;
@@ -194,7 +233,11 @@ export class Trial {
                 this.stage = TrialStage.response;
                 break;
             case TrialStage.response:
-                this.stage = TrialStage.letter;
+                if(this.isSentencePractice){
+                    this.stage = TrialStage.sentence;
+                }else{
+                    this.stage = TrialStage.letter;
+                }
                 break;
             case TrialStage.letter:
                 this.stage = TrialStage.sentence;

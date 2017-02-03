@@ -19,12 +19,66 @@
     <p>
         When you are ready to start, please press "Begin practice"
     </p>
-    <button (click)="finish()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Begin practice</button>    
+    <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Begin practice</button>    
 </div>
 
 <!--PracticeLetters -->
 <div id="PracticeLetters" *ngIf="tk?.stage == 3">
     <p>Letter practice</p>
+    <reading-portion [currentTrial] = 'currentTrial'></reading-portion>
+</div>
+
+<!--Instructions2-->
+<div id="instructions2" *ngIf="tk?.stage == 4">
+    <p>
+        Next we will practice with sentences. Here are the instructions for this part:
+    </p>
+        <ol>
+            <li>After you begin, a sentence will appear on the screen</li>
+            <li>Read the sentence to determine if it makes sense or not</li>
+            <li>When ready, click the next button, try to work quickly if you can</li>
+            <li>On the next screen, you will see the statement "This sentence makes sense"</li>
+            <li>Click "true" if the sentence on the previous screen made sense. Click "false" if it did not</li>
+            <li>For example, the sentence "The sun is very bright today" makes sense</li>
+            <li>The sentence "The sun is very loud today" does not make sense</li>
+        </ol>
+    <p>
+        When you are ready to start, please press "Begin practice"
+    </p>
+    <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Begin practice</button>    
+</div>
+
+<!--PracticeSentences -->
+<div id="PracticeSentences" *ngIf="tk?.stage == 5">
+    <p>Sentence practice</p>
+    <reading-portion [currentTrial] = 'currentTrial'></reading-portion>
+</div>
+
+<!--Instructions3-->
+<div id="instructions3" *ngIf="tk?.stage == 6">
+    <p>
+        Next we will practice with both parts combined. Here are the instructions for this part:
+    </p>
+        <ol>
+            <li>After you begin, a sentence will appear on the screen as before</li>
+            <li>Read the sentence to determine if it makes sense or not</li>
+            <li>When ready, click the next button, try to work quickly if you can</li>
+            <li>On the next screen, you will see the statement "This sentence makes sense"</li>
+            <li>Click "true" if the sentence on the previous screen made sense. Click "false" if it did not</li>
+            <li>Next, a letter will appear on the screen for a moment</li>
+            <li>Remember all the letters in order</li>
+            <li>When you have completed several rounds, you will be asked to recall all the letters in the proper order</li>
+            <li>The key for this part of the test is to make sure you answer as many of the sentences correctly as possible.</li>
+        </ol>
+    <p>
+        When you are ready to start, please press "Begin practice"
+    </p>
+    <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Begin practice</button>    
+</div>
+
+<!--Practice Combined-->
+<div id="PracticeLetters" *ngIf="tk?.stage == 7">
+    <p>Combined practice</p>
     <reading-portion [currentTrial] = 'currentTrial'></reading-portion>
 </div>
 

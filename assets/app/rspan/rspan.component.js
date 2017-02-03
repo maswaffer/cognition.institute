@@ -35,11 +35,8 @@ let RspanComponent = class RspanComponent {
     start() {
         this.tk.start();
     }
-    finish() {
+    next() {
         this.tk.nextStep();
-    }
-    startPractice() {
-        this.tk.startLetterPractice();
     }
 };
 RspanComponent = __decorate([
