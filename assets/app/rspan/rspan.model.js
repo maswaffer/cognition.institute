@@ -192,11 +192,13 @@ class Trial {
     calculatePartialCreditUnitScore(entry) {
         var entered = entry.split('');
         var score = 0;
+        var p = 0;
         for (let l of entered) {
-            if (this.letters.text.includes(l)) {
+            if (p < this.letters.text.length && l == this.letters.text[p]) {
                 this.scores.lettersCorrect++;
                 score++;
             }
+            p++;
         }
         this.scores.lettersTotal = this.letters.text.length;
         this.scores.PCUS = score / this.letters.text.length;
