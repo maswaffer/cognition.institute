@@ -38,10 +38,8 @@ class TrialKeeper {
         this.steps.push(() => this.showCombinedInstructions());
         this.steps.push(() => this.startCombinedPractice());
         this.steps.push(() => this.collectResponse());
-        this.steps.push(() => this.displayScore());
         this.steps.push(() => this.startCombinedPractice());
         this.steps.push(() => this.collectResponse());
-        this.steps.push(() => this.displayScore());
         this.nextStep();
     }
     nextStep() {

@@ -33,7 +33,6 @@ export class RspanComponent implements OnInit{
     }
 
     recalledLetters(letters: string){
-        console.log('letters recalled' + letters);
         this.tk.recordResponse(letters);
     }
 

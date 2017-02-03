@@ -29,7 +29,6 @@ let RspanComponent = class RspanComponent {
         this.currentTrial = this.tk.currentTrial;
     }
     recalledLetters(letters) {
-        console.log('letters recalled' + letters);
         this.tk.recordResponse(letters);
     }
     start() {
