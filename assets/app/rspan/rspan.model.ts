@@ -1,5 +1,6 @@
 import { Sentence, SentenceService } from '../services/sentence.service.js';
 import { Letters, LettersService } from '../services/letters.service.js';
+import { ScoreService } from '../services/score.service.js'
 
 enum TestStage {
     start  = 1,
@@ -27,8 +28,10 @@ export class TrialKeeper {
     stage = TestStage.start;
     trialLoaded: { (): void; };
     steps = new Array<Step>();
+    scoreService: ScoreService;
 
     totalscores = {
+        participantId: 'test',
         sentenceTotal: 0,
         sentenceCorrect: 0,
         sentenceProportion: 0,
@@ -125,6 +128,7 @@ export class TrialKeeper {
     }
 
     showFinalScreen(){
+        this.saveScores();
         this.stage = TestStage.final;
     }
 
@@ -147,6 +151,10 @@ export class TrialKeeper {
             this.recordTrialScore();
         }
         this.displayScore();
+    }
+
+    saveScores(){
+        this.scoreService.saveSentences(this.saveScores);
     }
 
     recordTrialScore(){

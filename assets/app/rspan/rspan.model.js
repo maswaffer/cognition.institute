@@ -24,6 +24,7 @@ class TrialKeeper {
         this.stage = TestStage.start;
         this.steps = new Array();
         this.totalscores = {
+            participantId: 'test',
             sentenceTotal: 0,
             sentenceCorrect: 0,
             sentenceProportion: 0,
@@ -102,6 +103,7 @@ class TrialKeeper {
         this.stage = TestStage.trial;
     }
     showFinalScreen() {
+        this.saveScores();
         this.stage = TestStage.final;
     }
     //Init functions
@@ -121,6 +123,9 @@ class TrialKeeper {
             this.recordTrialScore();
         }
         this.displayScore();
+    }
+    saveScores() {
+        this.scoreService.saveSentences(this.saveScores);
     }
     recordTrialScore() {
         this.totalscores.trials++;
