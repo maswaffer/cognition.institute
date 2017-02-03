@@ -22,10 +22,8 @@ export class RspanComponent implements OnInit{
     constructor(private sentenceService: SentenceService, private lettersService: LettersService, private tk: TrialKeeper) {}
 
     ngOnInit() {
-        console.log('on init updated');
         this.tk.trialLoaded = () => this.setTrial();
         this.tk.loadTrials(this.sentenceService, this.lettersService);
-        console.log('done with init: stage=' + this.tk.stage);
     }
 
     setTrial(){

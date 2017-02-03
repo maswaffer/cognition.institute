@@ -23,8 +23,7 @@ RecalledLettersComponent = __decorate([
         selector: 'recalled-letters',
         templateUrl: 'app/letterRecall/recalledLetters/recalledLetters.component.html',
         styleUrls: ['app/letterRecall/recalledLetters/recalledLetters.component.css']
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], RecalledLettersComponent);
 exports.RecalledLettersComponent = RecalledLettersComponent;
 //# sourceMappingURL=recalledLetters.component.js.map

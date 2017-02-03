@@ -1,14 +1,13 @@
-
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--3-col"></div>
     <div class="mdl-cell mdl-cell--6-col">
-        
+
         <!--Start-->
         <div id="start" *ngIf="tk?.stage == 1">
             <h3>RSPAN</h3>
             <p>
-                Welcome to the Reading Span assessment. Viewing this test in full screen provides the best experience. If you are not already in 
-                full screen mode in your browser, press 'F11' on your keyboard to enter full screen mode now. 
+                Welcome to the Reading Span assessment. Viewing this test in full screen provides the best experience. If you are not already
+                in full screen mode in your browser, press 'F11' on your keyboard to enter full screen mode now.
             </p>
             <p>
                 When you are ready click the Start RSPAN button to read the instructions for this portion of the study.
@@ -127,10 +126,12 @@
         <!--Score -->
         <div id="score-display" *ngIf="tk?.stage==11">
             <h4>Scores</h4>
-            <p>You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences
+            <p  *ngIf="tk?.currentTrial.isSentencePractice || tk?.currentTrial.isCombinedPractice || !tk?.currentTrial.isPractice()">
+                You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences
                 correctly.
             </p>
-            <p>You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters
+            <p *ngIf="tk?.currentTrial.isLetterPractice || tk?.currentTrial.isCombinedPractice || !tk?.currentTrial.isPractice()">
+                You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters
                 correctly.
             </p>
         </div>
@@ -139,15 +140,25 @@
         <div id="Final" *ngIf="tk?.stage == 12">
             <h4>Test Complete</h4>
             <p>
-                You completed {{tk?.totalscores.trials}} trials.
+                Here are your results
             </p>
-            <p>You answered {{tk?.totalscores.sentenceCorrect}} out of {{tk?.totalscores.sentenceTotal}} sentences
-                correctly.
-            </p>
-            <p>You answered {{tk?.totalscores.lettersCorrect}} out of {{tk?.totalscores.lettersTotal}} letters
-                correctly.
-            </p>
-            <p>Your total partial credit unit score (PCUS) for letter recall was {{tk?.totalscores.PCUS}}</p>
+            <ul>
+                <li>
+                    You completed {{tk?.totalscores.trials}} trials.
+                </li>
+                <li>
+                    You answered {{tk?.totalscores.sentenceCorrect}} out of {{tk?.totalscores.sentenceTotal}} sentences correctly.
+                </li>
+                <li>
+                    Correct sentence percentage: {{tk?.totalscores.sentenceProportion | percent : '1.1-1'}}
+                </li>
+                <li>
+                    You answered {{tk?.totalscores.lettersCorrect}} out of {{tk?.totalscores.lettersTotal}} letters correctly.
+                </li>
+                <li>
+                    Your partial credit unit score (PCUS) for letter recall was {{tk?.totalscores.PCUS | number : '1.2-2'}}
+                </li>
+            </ul>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col"></div>

@@ -1,4 +1,4 @@
-﻿$lines = Get-Content D:\ScriptTest\sentences.txt
+﻿$lines = Get-Content D:\Source\Github\cognition.insitute\cognition.institute\scripts\sentences.txt
 foreach($l in $lines){
     $p = $l.Split("`t");
     $url = ("http://localhost:1337/api/v1/sentence/create?text=" + $p[0] + "&response=" + $p[1].ToLower());

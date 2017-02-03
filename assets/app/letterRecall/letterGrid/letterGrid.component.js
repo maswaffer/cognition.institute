@@ -26,8 +26,7 @@ LetterGridComponent = __decorate([
         selector: 'letter-grid',
         templateUrl: 'app/letterRecall/letterGrid/letterGrid.component.html',
         styleUrls: ['app/letterRecall/letterGrid/letterGrid.component.css']
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], LetterGridComponent);
 exports.LetterGridComponent = LetterGridComponent;
 //# sourceMappingURL=letterGrid.component.js.map

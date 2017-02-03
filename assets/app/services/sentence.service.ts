@@ -18,7 +18,7 @@ export class SentenceService{
         return this.http
             .get('/api/v1/sentence')
             .map((response: Response) => <Sentence[]>response.json())
-            .do(data => console.log('sentence data:' + data))
+            //.do(data => console.log('sentence data:' + data))
             .catch(this.handleError);
     }
 

@@ -24,7 +24,6 @@ let SentenceService = class SentenceService {
         return this.http
             .get('/api/v1/sentence')
             .map((response) => response.json())
-            .do(data => console.log('sentence data:' + data))
             .catch(this.handleError);
     }
     handleError(error) {

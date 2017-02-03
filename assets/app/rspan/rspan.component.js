@@ -20,10 +20,8 @@ let RspanComponent = class RspanComponent {
         this.currentTrial = new rspan_model_js_1.Trial();
     }
     ngOnInit() {
-        console.log('on init updated');
         this.tk.trialLoaded = () => this.setTrial();
         this.tk.loadTrials(this.sentenceService, this.lettersService);
-        console.log('done with init: stage=' + this.tk.stage);
     }
     setTrial() {
         this.currentTrial = this.tk.currentTrial;

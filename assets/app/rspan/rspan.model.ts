@@ -31,8 +31,10 @@ export class TrialKeeper {
     totalscores = {
         sentenceTotal: 0,
         sentenceCorrect: 0,
+        sentenceProportion: 0,
         lettersTotal: 0,
         lettersCorrect: 0,
+        partial: 0,
         PCUS: 0,
         trials: 0
     }
@@ -102,6 +104,7 @@ export class TrialKeeper {
 
     startCombinedPractice(){
         this.stage = TestStage.practiceCombined;
+        this.currentTrial.startCombinedPractice();
     }
 
     collectResponse() {
@@ -139,11 +142,8 @@ export class TrialKeeper {
     }
 
     recordResponse(letters: string) {
-        this.currentTrial.calculatePartialCreditUnitScore(letters);
-        console.log('practice ' + this.currentTrial.isSentencePractice);
-
-        //this is coming back undefined .....   
-        if(!(this.currentTrial.isLetterPractice || this.currentTrial.isSentencePractice)){
+        this.currentTrial.calculatePartialCreditScore(letters);
+        if(!this.currentTrial.isPractice()){
             this.recordTrialScore();
         }
         this.displayScore();
@@ -155,7 +155,10 @@ export class TrialKeeper {
         this.totalscores.sentenceCorrect += this.currentTrial.scores.sentenceCorrect;
         this.totalscores.lettersCorrect += this.currentTrial.scores.lettersCorrect;
         this.totalscores.lettersTotal += this.currentTrial.scores.lettersTotal;
-        this.totalscores.PCUS += this.currentTrial.scores.PCUS;
+        this.totalscores.partial += this.currentTrial.scores.proportion;
+        //Calculations
+        this.totalscores.PCUS = this.totalscores.partial / this.totalscores.trials;
+        this.totalscores.sentenceProportion = this.totalscores.sentenceCorrect / this.totalscores.sentenceTotal;
     }
 
     loadNextTrial() {
@@ -183,6 +186,7 @@ export class Trial {
     stage: TrialStage;
     isLetterPractice: Boolean;
     isSentencePractice: Boolean;
+    isCombinedPractice: Boolean;
 
     round = 0;
 
@@ -191,7 +195,7 @@ export class Trial {
         sentenceCorrect: 0,
         lettersTotal: 0,
         lettersCorrect: 0,
-        PCUS: 0
+        proportion: 0
     }
 
     completed: { (): void; };
@@ -222,6 +226,12 @@ export class Trial {
         this.isSentencePractice = true;
     }
 
+    startCombinedPractice(){
+        this.isLetterPractice = false;
+        this.isSentencePractice = false;
+        this.isCombinedPractice = true;
+    }
+
     nextLetterDelay(delay: number){
         if(!this.isSentencePractice){
             setTimeout(()=>this.next(), delay);
@@ -245,7 +255,6 @@ export class Trial {
                 case TrialStage.response:
                     //This is ugly
                     if(this.isSentencePractice){
-                        console.log('increment round');
                         this.round++;
                     }
                     break;
@@ -257,7 +266,7 @@ export class Trial {
         }
     }
 
-    calculatePartialCreditUnitScore(entry: string){
+    calculatePartialCreditScore(entry: string){
         var entered = entry.split('');
         var score = 0;
         var p = 0;
@@ -269,7 +278,23 @@ export class Trial {
             p++;
         }
         this.scores.lettersTotal = this.letters.text.length;
-        this.scores.PCUS = score / this.letters.text.length;
+        this.scores.proportion = score / this.letters.text.length;
+    }
+
+    isPractice(){
+        var isPractice = false;
+        if(this.isLetterPractice){
+            isPractice = true;
+        }
+        if(this.isSentencePractice){
+            isPractice = true;
+        }
+        if(this.isCombinedPractice){
+            isPractice = true;
+        }
+        
+        
+        return isPractice;
     }
 
     private rachet() {
@@ -346,7 +371,6 @@ export class TrialFactory {
                 this.trials.push(t);
                 si = si + l.text.length;
             }
-            console.log('done with trials' + this.trials.length);
             this.finished();
         }
     }
