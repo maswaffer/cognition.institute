@@ -24,7 +24,7 @@ class TrialKeeper {
         this.stage = TestStage.start;
         this.steps = new Array();
         this.totalscores = {
-            participantId: 'test',
+            participantId: '',
             sentenceTotal: 0,
             sentenceCorrect: 0,
             sentenceProportion: 0,

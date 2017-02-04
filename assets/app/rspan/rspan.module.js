@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
+const forms_1 = require("@angular/forms");
 const rspan_routing_module_1 = require("./rspan-routing.module");
 const letterGrid_component_1 = require("../letterRecall/letterGrid/letterGrid.component");
 const letter_component_1 = require("../letterRecall/letter/letter.component");
@@ -24,7 +25,8 @@ RspanModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
-            rspan_routing_module_1.RspanRoutingModule
+            rspan_routing_module_1.RspanRoutingModule,
+            forms_1.FormsModule
         ],
         declarations: [
             rspan_routing_module_1.rspanRoutedComponents,

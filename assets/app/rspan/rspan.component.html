@@ -10,6 +10,12 @@
                 in full screen mode in your browser, press 'F11' on your keyboard to enter full screen mode now.
             </p>
             <p>
+                You should have been given a Participant ID to begin this assessment. Please enter it in the space below:
+            </p>
+            <p>
+                <input class="mdl-textfield__input" [(ngModel)]="tk?.totalscores.participantId" type="text" pattern="^\d{4}(?!.)" id="participantId">
+            </p>
+            <p>
                 When you are ready click the Start RSPAN button to read the instructions for this portion of the study.
             </p>
             <button (click)="start()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Start RSPAN</button>
@@ -126,13 +132,11 @@
         <!--Score -->
         <div id="score-display" *ngIf="tk?.stage==11">
             <h4>Scores</h4>
-            <p  *ngIf="tk?.currentTrial.isSentencePractice || tk?.currentTrial.isCombinedPractice || !tk?.currentTrial.isPractice()">
-                You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences
-                correctly.
+            <p *ngIf="tk?.currentTrial.isSentencePractice || tk?.currentTrial.isCombinedPractice || !tk?.currentTrial.isPractice()">
+                You answered {{tk?.currentTrial.scores.sentenceCorrect}} out of {{tk?.currentTrial.scores.sentenceTotal}} sentences correctly.
             </p>
             <p *ngIf="tk?.currentTrial.isLetterPractice || tk?.currentTrial.isCombinedPractice || !tk?.currentTrial.isPractice()">
-                You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters
-                correctly.
+                You answered {{tk?.currentTrial.scores.lettersCorrect}} out of {{tk?.currentTrial.scores.lettersTotal}} letters correctly.
             </p>
         </div>
 

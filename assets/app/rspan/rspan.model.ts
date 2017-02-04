@@ -31,7 +31,7 @@ export class TrialKeeper {
     scoreService: ScoreService;
 
     totalscores = {
-        participantId: 'test',
+        participantId: '',
         sentenceTotal: 0,
         sentenceCorrect: 0,
         sentenceProportion: 0,
