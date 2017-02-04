@@ -11,10 +11,10 @@ export class LettersService {
 
     getLetters(numLetters: number[]) {
         let ls = [];
-        var shuffledNumbers = this.shuffleArray(numLetters);
+        //var shuffledNumbers = this.shuffleArray(numLetters);
         for (var i = 0; i < numLetters.length; i++) {
             var shuffled = this.shuffleArray(this.theLetters);
-            var chars = shuffledNumbers[i];
+            var chars = numLetters[i];
             var theseLetters = shuffled.slice(0, chars);
             var l = new Letters();
             l.text = theseLetters.join('');

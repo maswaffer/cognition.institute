@@ -18,7 +18,7 @@ var TestStage;
 //This should be refactored to be TestManager
 class TrialKeeper {
     constructor() {
-        this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5];
+        this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
         this.tf = new TrialFactory();
         this.trial = 0;
         this.stage = TestStage.start;
@@ -38,22 +38,22 @@ class TrialKeeper {
         this.trialRounds = 2;
     }
     start() {
-        // //Letter practice
-        // this.steps.push(() => this.showLetterInstructions());
-        // for(var i=0; i<this.practiceRounds;i++){
-        //     this.steps.push(() => this.startLetterPractice());
-        //     this.steps.push(() => this.collectResponse());
-        // }
-        // //Sentence practice
-        // this.steps.push(() => this.showSentenceInstructions());
-        // this.steps.push(() => this.startSentencePractice());
-        // this.steps.push(() => this.displayScore());
-        // //Combined practice
-        // this.steps.push(() => this.showCombinedInstructions());
-        // for(var i=0; i<this.practiceRounds;i++){
-        //     this.steps.push(() => this.startCombinedPractice());
-        //     this.steps.push(() => this.collectResponse());
-        // }
+        //Letter practice
+        this.steps.push(() => this.showLetterInstructions());
+        for (var i = 0; i < this.practiceRounds; i++) {
+            this.steps.push(() => this.startLetterPractice());
+            this.steps.push(() => this.collectResponse());
+        }
+        //Sentence practice
+        this.steps.push(() => this.showSentenceInstructions());
+        this.steps.push(() => this.startSentencePractice());
+        this.steps.push(() => this.displayScore());
+        //Combined practice
+        this.steps.push(() => this.showCombinedInstructions());
+        for (var i = 0; i < this.practiceRounds; i++) {
+            this.steps.push(() => this.startCombinedPractice());
+            this.steps.push(() => this.collectResponse());
+        }
         //Trials
         this.steps.push(() => this.showTrialInstructions());
         for (var i = 0; i < this.trialRounds; i++) {

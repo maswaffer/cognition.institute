@@ -20,7 +20,7 @@ enum TestStage {
 type Step = () => void;
 //This should be refactored to be TestManager
 export class TrialKeeper {
-    trialLengths: number[] = [2, 2, 3, 3, 4, 4, 5, 5];
+    trialLengths: number[] = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
     trials: Trial[];
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
@@ -46,24 +46,24 @@ export class TrialKeeper {
     trialRounds = 2;
 
     start(){
-        // //Letter practice
-        // this.steps.push(() => this.showLetterInstructions());
-        // for(var i=0; i<this.practiceRounds;i++){
-        //     this.steps.push(() => this.startLetterPractice());
-        //     this.steps.push(() => this.collectResponse());
-        // }
+        //Letter practice
+        this.steps.push(() => this.showLetterInstructions());
+        for(var i=0; i<this.practiceRounds;i++){
+            this.steps.push(() => this.startLetterPractice());
+            this.steps.push(() => this.collectResponse());
+        }
 
-        // //Sentence practice
-        // this.steps.push(() => this.showSentenceInstructions());
-        // this.steps.push(() => this.startSentencePractice());
-        // this.steps.push(() => this.displayScore());
+        //Sentence practice
+        this.steps.push(() => this.showSentenceInstructions());
+        this.steps.push(() => this.startSentencePractice());
+        this.steps.push(() => this.displayScore());
 
-        // //Combined practice
-        // this.steps.push(() => this.showCombinedInstructions());
-        // for(var i=0; i<this.practiceRounds;i++){
-        //     this.steps.push(() => this.startCombinedPractice());
-        //     this.steps.push(() => this.collectResponse());
-        // }
+        //Combined practice
+        this.steps.push(() => this.showCombinedInstructions());
+        for(var i=0; i<this.practiceRounds;i++){
+            this.steps.push(() => this.startCombinedPractice());
+            this.steps.push(() => this.collectResponse());
+        }
 
         //Trials
         this.steps.push(() => this.showTrialInstructions()); 
