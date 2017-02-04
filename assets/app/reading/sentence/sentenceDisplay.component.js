@@ -23,7 +23,8 @@ SentenceDisplayComponent = __decorate([
     core_1.Component({
         selector: 'sentence-display',
         templateUrl: 'app/reading/sentence/sentenceDisplay.component.html'
-    })
+    }),
+    __metadata("design:paramtypes", [])
 ], SentenceDisplayComponent);
 exports.SentenceDisplayComponent = SentenceDisplayComponent;
 //# sourceMappingURL=sentenceDisplay.component.js.map

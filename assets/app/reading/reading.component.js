@@ -43,7 +43,8 @@ ReadingComponent = __decorate([
             rspan_model_js_1.TrialFactory,
             rspan_model_js_1.TrialKeeper
         ]
-    })
+    }),
+    __metadata("design:paramtypes", [])
 ], ReadingComponent);
 exports.ReadingComponent = ReadingComponent;
 //# sourceMappingURL=reading.component.js.map

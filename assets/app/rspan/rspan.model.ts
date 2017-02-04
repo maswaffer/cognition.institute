@@ -46,24 +46,24 @@ export class TrialKeeper {
     trialRounds = 2;
 
     start(){
-        //Letter practice
-        this.steps.push(() => this.showLetterInstructions());
-        for(var i=0; i<this.practiceRounds;i++){
-            this.steps.push(() => this.startLetterPractice());
-            this.steps.push(() => this.collectResponse());
-        }
+        // //Letter practice
+        // this.steps.push(() => this.showLetterInstructions());
+        // for(var i=0; i<this.practiceRounds;i++){
+        //     this.steps.push(() => this.startLetterPractice());
+        //     this.steps.push(() => this.collectResponse());
+        // }
 
-        //Sentence practice
-        this.steps.push(() => this.showSentenceInstructions());
-        this.steps.push(() => this.startSentencePractice());
-        this.steps.push(() => this.displayScore());
+        // //Sentence practice
+        // this.steps.push(() => this.showSentenceInstructions());
+        // this.steps.push(() => this.startSentencePractice());
+        // this.steps.push(() => this.displayScore());
 
-        //Combined practice
-        this.steps.push(() => this.showCombinedInstructions());
-        for(var i=0; i<this.practiceRounds;i++){
-            this.steps.push(() => this.startCombinedPractice());
-            this.steps.push(() => this.collectResponse());
-        }
+        // //Combined practice
+        // this.steps.push(() => this.showCombinedInstructions());
+        // for(var i=0; i<this.practiceRounds;i++){
+        //     this.steps.push(() => this.startCombinedPractice());
+        //     this.steps.push(() => this.collectResponse());
+        // }
 
         //Trials
         this.steps.push(() => this.showTrialInstructions()); 
@@ -154,7 +154,11 @@ export class TrialKeeper {
     }
 
     saveScores(){
-        this.scoreService.saveSentences(this.saveScores);
+        this.scoreService.saveSentences(this.totalscores)
+            .subscribe(
+                response => {                },
+                error => console.log(<any>error)
+            );;
     }
 
     recordTrialScore(){

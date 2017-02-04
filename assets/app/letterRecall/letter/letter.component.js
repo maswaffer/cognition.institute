@@ -31,7 +31,8 @@ LetterComponent = __decorate([
         selector: 'letter',
         templateUrl: 'app/letterRecall/letter/letter.component.html',
         styleUrls: ['app/letterRecall/letter/letter.component.css']
-    })
+    }),
+    __metadata("design:paramtypes", [])
 ], LetterComponent);
 exports.LetterComponent = LetterComponent;
 //# sourceMappingURL=letter.component.js.map

@@ -17,12 +17,18 @@ let ScoreService = class ScoreService {
         this.http = http;
     }
     saveSentences(data) {
-        let jsonData = JSON.stringify(data);
-        this.http
-            .post('/api/v1/score', jsonData)
+        var jsonData = JSON.stringify(data);
+        console.log('saving scores ' + data);
+        console.log('saving scores ' + jsonData);
+        let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        let options = new http_1.RequestOptions({ headers: headers });
+        return this.http
+            .post('/api/v1/score/', jsonData, options)
+            .map((response) => response.json())
             .catch(this.handleError);
     }
     handleError(error) {
+        console.log('caught error');
         console.error(error);
         let msg = `Error status code ${error.status} at $error.url}`;
         return Observable_1.Observable.throw(msg);
