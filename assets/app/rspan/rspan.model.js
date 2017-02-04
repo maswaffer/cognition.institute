@@ -23,6 +23,7 @@ class TrialKeeper {
         this.trial = 0;
         this.stage = TestStage.start;
         this.steps = new Array();
+        this.practiceSentenceTimes = new Array();
         this.totalscores = {
             participantId: '',
             sentenceTotal: 0,
@@ -32,7 +33,8 @@ class TrialKeeper {
             lettersCorrect: 0,
             partial: 0,
             PCUS: 0,
-            trials: 0
+            trials: 0,
+            sentenceDuration: 0
         };
         this.practiceRounds = 1;
         this.trialRounds = 2;
@@ -93,6 +95,9 @@ class TrialKeeper {
         this.stage = TestStage.response;
     }
     displayScore() {
+        if (this.currentTrial.isPractice()) {
+            this.practiceSentenceTimes = this.practiceSentenceTimes.concat(this.currentTrial.practiceSentenceTimes);
+        }
         this.stage = TestStage.score;
         setTimeout(() => this.loadNextTrial(), 2000);
     }
@@ -100,7 +105,12 @@ class TrialKeeper {
         this.stage = TestStage.instructions4;
     }
     startTrial() {
+        var meanSentenceTime = ss.mean(this.practiceSentenceTimes);
+        var meanSD = ss.standardDeviation(this.practiceSentenceTimes);
+        this.totalscores.sentenceDuration = meanSentenceTime + (2 * meanSD);
+        this.currentTrial.sentenceDuration = this.totalscores.sentenceDuration;
         this.stage = TestStage.trial;
+        this.currentTrial.startTrial();
     }
     showFinalScreen() {
         this.saveScores();
@@ -143,6 +153,7 @@ class TrialKeeper {
     loadNextTrial() {
         this.currentTrial = this.trials[++this.trial];
         this.currentTrial.completed = () => this.nextStep();
+        this.currentTrial.sentenceDuration = this.totalscores.sentenceDuration;
         this.trialLoaded();
         this.nextStep();
     }
@@ -158,6 +169,8 @@ var TrialStage;
 class Trial {
     constructor() {
         this.currentSentence = new sentence_service_js_1.Sentence();
+        this.practiceSentenceTimes = new Array();
+        this.letterDelay = 1000;
         this.round = 0;
         this.scores = {
             sentenceTotal: 0,
@@ -188,16 +201,28 @@ class Trial {
     startSentencePractice() {
         this.isLetterPractice = false;
         this.isSentencePractice = true;
+        this.startSentenceTime = Date.now();
     }
     startCombinedPractice() {
         this.isLetterPractice = false;
         this.isSentencePractice = false;
         this.isCombinedPractice = true;
+        this.startSentenceTime = Date.now();
     }
-    nextLetterDelay(delay) {
+    startTrial() {
+        setTimeout(() => this.timerSkip(), this.sentenceDuration);
+    }
+    nextLetterDelay() {
         if (!this.isSentencePractice) {
-            setTimeout(() => this.next(), delay);
+            setTimeout(() => this.next(), this.letterDelay);
         }
+    }
+    timerSkip() {
+        this.scores.sentenceTotal++; //Don't give credit for skipped sentences
+        this.stage = TrialStage.letter; //Skip response stage
+        this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+        this.round++;
+        this.nextLetterDelay(); //Go straight to letter
     }
     next() {
         if (this.round >= this.letters.text.length) {
@@ -206,16 +231,21 @@ class Trial {
         else if (this.isLetterPractice) {
             this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
             this.round++;
-            this.nextLetterDelay(1000);
+            this.nextLetterDelay();
         }
         else {
             this.rachet();
             switch (this.stage) {
                 case TrialStage.sentence:
+                    console.log('round: ' + this.round);
                     this.currentSentence = this.sentences[this.round];
+                    if (!this.isPractice()) {
+                        this.sentenceDurationTimer = setTimeout(() => this.timerSkip(), this.sentenceDuration);
+                    }
                     break;
                 case TrialStage.response:
-                    //This is ugly
+                    clearTimeout(this.sentenceDurationTimer);
+                    //TODO: fix this...this is ugly -- hack to skip letter
                     if (this.isSentencePractice) {
                         this.round++;
                     }
@@ -257,10 +287,12 @@ class Trial {
     rachet() {
         switch (this.stage) {
             case TrialStage.sentence:
+                this.practiceSentenceTimes.push(Date.now() - this.startSentenceTime);
                 this.stage = TrialStage.response;
                 break;
             case TrialStage.response:
                 if (this.isSentencePractice) {
+                    this.startSentenceTime = Date.now();
                     this.stage = TrialStage.sentence;
                 }
                 else {
@@ -268,6 +300,7 @@ class Trial {
                 }
                 break;
             case TrialStage.letter:
+                this.startSentenceTime = Date.now();
                 this.stage = TrialStage.sentence;
                 break;
         }

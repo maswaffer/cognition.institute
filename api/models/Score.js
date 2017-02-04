@@ -36,6 +36,9 @@ module.exports = {
     },
     pcus: {
       type: 'float'
+    },
+    sentenceDuration: {
+      type: 'float'
     }
   }
 };

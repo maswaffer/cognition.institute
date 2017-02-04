@@ -25,7 +25,7 @@ let ReadingComponent = class ReadingComponent {
         this.delayForLetter();
     }
     delayForLetter() {
-        this.currentTrial.nextLetterDelay(1000);
+        this.currentTrial.nextLetterDelay();
     }
 };
 __decorate([

@@ -30,7 +30,7 @@ export class ReadingComponent {
     }
 
     delayForLetter(){
-       this.currentTrial.nextLetterDelay(1000);
+       this.currentTrial.nextLetterDelay();
     }
 
    
