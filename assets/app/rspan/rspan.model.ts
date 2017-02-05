@@ -3,7 +3,7 @@ import { Letters, LettersService } from '../services/letters.service.js';
 import { ScoreService } from '../services/score.service.js'
 
 enum TestStage {
-    start  = 1,
+    start = 1,
     instructions1 = 2,
     practiceLetters = 3,
     instructions2 = 4,
@@ -47,10 +47,10 @@ export class TrialKeeper {
     practiceRounds = 1;
     trialRounds = 2;
 
-    start(){
+    start() {
         //Letter practice
         this.steps.push(() => this.showLetterInstructions());
-        for(var i=0; i<this.practiceRounds;i++){
+        for (var i = 0; i < this.practiceRounds; i++) {
             this.steps.push(() => this.startLetterPractice());
             this.steps.push(() => this.collectResponse());
         }
@@ -62,14 +62,14 @@ export class TrialKeeper {
 
         //Combined practice
         this.steps.push(() => this.showCombinedInstructions());
-        for(var i=0; i<this.practiceRounds;i++){
+        for (var i = 0; i < this.practiceRounds; i++) {
             this.steps.push(() => this.startCombinedPractice());
             this.steps.push(() => this.collectResponse());
         }
 
         //Trials
-        this.steps.push(() => this.showTrialInstructions()); 
-        for(var i=0; i<this.trialRounds;i++){
+        this.steps.push(() => this.showTrialInstructions());
+        for (var i = 0; i < this.trialRounds; i++) {
             this.steps.push(() => this.startTrial());
             this.steps.push(() => this.collectResponse());
         }
@@ -80,34 +80,34 @@ export class TrialKeeper {
         this.nextStep();
     }
 
-    nextStep(){
+    nextStep() {
         let next = this.steps.shift();
         next();
     }
 
-    showLetterInstructions(){
+    showLetterInstructions() {
         this.stage = TestStage.instructions1;
     }
 
-    startLetterPractice(){
+    startLetterPractice() {
         this.stage = TestStage.practiceLetters;
         this.currentTrial.startLetterPractice();
     }
 
-    showSentenceInstructions(){
+    showSentenceInstructions() {
         this.stage = TestStage.instructions2;
     }
 
-    startSentencePractice(){
+    startSentencePractice() {
         this.stage = TestStage.practiceSentences;
         this.currentTrial.startSentencePractice();
     }
 
-    showCombinedInstructions(){
+    showCombinedInstructions() {
         this.stage = TestStage.instructions3;
     }
 
-    startCombinedPractice(){
+    startCombinedPractice() {
         this.stage = TestStage.practiceCombined;
         this.currentTrial.startCombinedPractice();
     }
@@ -116,19 +116,19 @@ export class TrialKeeper {
         this.stage = TestStage.response;
     }
 
-    displayScore(){
-        if(this.currentTrial.isPractice()){
+    displayScore() {
+        if (this.currentTrial.isPractice()) {
             this.practiceSentenceTimes = this.practiceSentenceTimes.concat(this.currentTrial.practiceSentenceTimes);
         }
         this.stage = TestStage.score;
         setTimeout(() => this.loadNextTrial(), 2000);
     }
 
-    showTrialInstructions(){
+    showTrialInstructions() {
         this.stage = TestStage.instructions4;
     }
 
-    startTrial(){
+    startTrial() {
         var meanSentenceTime = ss.mean(this.practiceSentenceTimes);
         var meanSD = ss.standardDeviation(this.practiceSentenceTimes);
         this.totalscores.sentenceDuration = meanSentenceTime + (2 * meanSD);
@@ -137,7 +137,7 @@ export class TrialKeeper {
         this.currentTrial.startTrial();
     }
 
-    showFinalScreen(){
+    showFinalScreen() {
         this.saveScores();
         this.stage = TestStage.final;
     }
@@ -157,21 +157,21 @@ export class TrialKeeper {
 
     recordResponse(letters: string) {
         this.currentTrial.calculatePartialCreditScore(letters);
-        if(!this.currentTrial.isPractice()){
+        if (!this.currentTrial.isPractice()) {
             this.recordTrialScore();
         }
         this.displayScore();
     }
 
-    saveScores(){
+    saveScores() {
         this.scoreService.saveSentences(this.totalscores)
             .subscribe(
-                response => {                },
-                error => console.log(<any>error)
+            response => { },
+            error => console.log(<any>error)
             );;
     }
 
-    recordTrialScore(){
+    recordTrialScore() {
         this.totalscores.trials++;
         this.totalscores.sentenceTotal += this.currentTrial.scores.sentenceTotal;
         this.totalscores.sentenceCorrect += this.currentTrial.scores.sentenceCorrect;
@@ -190,7 +190,7 @@ export class TrialKeeper {
         this.trialLoaded();
         this.nextStep();
     }
-   
+
 }
 
 
@@ -236,73 +236,76 @@ export class Trial {
     }
 
     sentenceResponse(answer: boolean) {
-        this.scores.sentenceTotal ++;
-        if(this.currentSentence.response == answer){
-            this.scores.sentenceCorrect ++;
+        this.scores.sentenceTotal++;
+        if (this.currentSentence.response == answer) {
+            this.scores.sentenceCorrect++;
         }
     }
 
-    startLetterPractice(){
+    startLetterPractice() {
         this.isLetterPractice = true;
         this.stage = TrialStage.letter;
         this.next();
     }
 
-    startSentencePractice(){
+    startSentencePractice() {
         this.isLetterPractice = false;
         this.isSentencePractice = true;
         this.startSentenceTime = Date.now();
     }
 
-    startCombinedPractice(){
+    startCombinedPractice() {
         this.isLetterPractice = false;
         this.isSentencePractice = false;
         this.isCombinedPractice = true;
-        this.startSentenceTime = Date.now();        
+        this.startSentenceTime = Date.now();
     }
 
-    startTrial(){
-        setTimeout(()=>this.timerSkip(), this.sentenceDuration);
+    startTrial() {
+        setTimeout(() => this.timerSkip(), this.sentenceDuration);
     }
 
-    nextLetterDelay(){
-        if(!this.isSentencePractice){
-            setTimeout(()=>this.next(), this.letterDelay);
+    nextLetterDelay() {
+        if (!this.isSentencePractice) {
+            setTimeout(() => this.next(), this.letterDelay);
         }
     }
 
-    timerSkip(){
-        this.scores.sentenceTotal++;        //Don't give credit for skipped sentences
-        this.stage = TrialStage.letter;   //Skip response stage
-        this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
-        this.round++;
-        this.nextLetterDelay();             //Go straight to letter
+    timerSkip() {
+        //Double check the stage...make sure the user didn't click in that xMS long window
+        if (this.stage == TrialStage.sentence) {
+            this.scores.sentenceTotal++;        //Don't give credit for skipped sentences
+            this.stage = TrialStage.letter;   //Skip response stage
+            this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+            this.round++;
+            this.nextLetterDelay();             //Go straight to letter
+        }
     }
 
-    private sentenceDurationTimer : number;
+    private sentenceDurationTimer: number;
 
     next() {
         if (this.round >= this.letters.text.length) {
             this.completed();
-        } else if(this.isLetterPractice){
+        } else if (this.isLetterPractice) {
             this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
             this.round++;
             this.nextLetterDelay();
-        } 
+        }
         else {
             this.rachet();
             switch (this.stage) {
                 case TrialStage.sentence:
                     console.log('round: ' + this.round);
                     this.currentSentence = this.sentences[this.round];
-                    if(!this.isPractice()){
-                        this.sentenceDurationTimer = setTimeout(()=> this.timerSkip(), this.sentenceDuration);
+                    if (!this.isPractice()) {
+                        this.sentenceDurationTimer = setTimeout(() => this.timerSkip(), this.sentenceDuration);
                     }
                     break;
                 case TrialStage.response:
                     clearTimeout(this.sentenceDurationTimer);
                     //TODO: fix this...this is ugly -- hack to skip letter
-                    if(this.isSentencePractice){
+                    if (this.isSentencePractice) {
                         this.round++;
                     }
                     break;
@@ -314,12 +317,12 @@ export class Trial {
         }
     }
 
-    calculatePartialCreditScore(entry: string){
+    calculatePartialCreditScore(entry: string) {
         var entered = entry.split('');
         var score = 0;
         var p = 0;
-        for(let l of entered){
-            if(p < this.letters.text.length && l == this.letters.text[p]){
+        for (let l of entered) {
+            if (p < this.letters.text.length && l == this.letters.text[p]) {
                 this.scores.lettersCorrect++;
                 score++;
             }
@@ -329,19 +332,19 @@ export class Trial {
         this.scores.proportion = score / this.letters.text.length;
     }
 
-    isPractice(){
+    isPractice() {
         var isPractice = false;
-        if(this.isLetterPractice){
+        if (this.isLetterPractice) {
             isPractice = true;
         }
-        if(this.isSentencePractice){
+        if (this.isSentencePractice) {
             isPractice = true;
         }
-        if(this.isCombinedPractice){
+        if (this.isCombinedPractice) {
             isPractice = true;
         }
-        
-        
+
+
         return isPractice;
     }
 
@@ -352,10 +355,10 @@ export class Trial {
                 this.stage = TrialStage.response;
                 break;
             case TrialStage.response:
-                if(this.isSentencePractice){
+                if (this.isSentencePractice) {
                     this.startSentenceTime = Date.now();
                     this.stage = TrialStage.sentence;
-                }else{
+                } else {
                     this.stage = TrialStage.letter;
                 }
                 break;
