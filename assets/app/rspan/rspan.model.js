@@ -188,6 +188,7 @@ class Trial {
         this.stage = TrialStage.sentence;
     }
     sentenceResponse(answer) {
+        clearTimeout(this.sentenceDurationTimer);
         this.scores.sentenceTotal++;
         if (this.currentSentence.response == answer) {
             this.scores.sentenceCorrect++;
@@ -218,11 +219,14 @@ class Trial {
         }
     }
     timerSkip() {
-        this.scores.sentenceTotal++; //Don't give credit for skipped sentences
-        this.stage = TrialStage.letter; //Skip response stage
-        this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
-        this.round++;
-        this.nextLetterDelay(); //Go straight to letter
+        //Double check the stage...make sure the user didn't click in that xMS long window
+        if (this.stage == TrialStage.sentence) {
+            this.scores.sentenceTotal++; //Don't give credit for skipped sentences
+            this.stage = TrialStage.letter; //Skip response stage
+            this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
+            this.round++;
+            this.nextLetterDelay(); //Go straight to letter
+        }
     }
     next() {
         if (this.round >= this.letters.text.length) {
@@ -244,7 +248,6 @@ class Trial {
                     }
                     break;
                 case TrialStage.response:
-                    clearTimeout(this.sentenceDurationTimer);
                     //TODO: fix this...this is ugly -- hack to skip letter
                     if (this.isSentencePractice) {
                         this.round++;

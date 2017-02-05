@@ -236,6 +236,7 @@ export class Trial {
     }
 
     sentenceResponse(answer: boolean) {
+        clearTimeout(this.sentenceDurationTimer);
         this.scores.sentenceTotal++;
         if (this.currentSentence.response == answer) {
             this.scores.sentenceCorrect++;
@@ -284,7 +285,7 @@ export class Trial {
 
     private sentenceDurationTimer: number;
 
-    next() {
+    next() {        
         if (this.round >= this.letters.text.length) {
             this.completed();
         } else if (this.isLetterPractice) {
@@ -303,7 +304,6 @@ export class Trial {
                     }
                     break;
                 case TrialStage.response:
-                    clearTimeout(this.sentenceDurationTimer);
                     //TODO: fix this...this is ugly -- hack to skip letter
                     if (this.isSentencePractice) {
                         this.round++;
