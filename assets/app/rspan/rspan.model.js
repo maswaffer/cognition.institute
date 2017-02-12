@@ -18,7 +18,9 @@ var TestStage;
 //This should be refactored to be TestManager
 class TrialKeeper {
     constructor() {
-        this.trialLengths = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+        this.letterPracticeRounds = [2, 3];
+        this.sentencePracticeRounds = [2, 3];
+        this.trialRounds = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
         this.tf = new TrialFactory();
         this.trial = 0;
         this.stage = TestStage.start;
@@ -36,29 +38,31 @@ class TrialKeeper {
             trials: 0,
             sentenceDuration: 0
         };
-        this.practiceRounds = 1;
-        this.trialRounds = 2;
     }
+    //practiceRounds = 2;
+    //trialRounds = 10;
     start() {
         //Letter practice
         this.steps.push(() => this.showLetterInstructions());
-        for (var i = 0; i < this.practiceRounds; i++) {
+        for (var i = 0; i < this.letterPracticeRounds.length; i++) {
             this.steps.push(() => this.startLetterPractice());
             this.steps.push(() => this.collectResponse());
         }
         //Sentence practice
         this.steps.push(() => this.showSentenceInstructions());
-        this.steps.push(() => this.startSentencePractice());
-        this.steps.push(() => this.displayScore());
+        for (var i = 0; i < this.sentencePracticeRounds.length; i++) {
+            this.steps.push(() => this.startSentencePractice());
+            this.steps.push(() => this.displayScore());
+        }
         //Combined practice
         this.steps.push(() => this.showCombinedInstructions());
-        for (var i = 0; i < this.practiceRounds; i++) {
+        for (var i = 0; i < this.sentencePracticeRounds.length; i++) {
             this.steps.push(() => this.startCombinedPractice());
             this.steps.push(() => this.collectResponse());
         }
         //Trials
         this.steps.push(() => this.showTrialInstructions());
-        for (var i = 0; i < this.trialRounds; i++) {
+        for (var i = 0; i < this.trialRounds.length; i++) {
             this.steps.push(() => this.startTrial());
             this.steps.push(() => this.collectResponse());
         }
@@ -118,6 +122,12 @@ class TrialKeeper {
     }
     //Init functions
     loadTrials(sentenceService, lettersService) {
+        // Add letters and plain sentence practice
+        this.trialLengths = this.letterPracticeRounds.concat(this.sentencePracticeRounds);
+        // Add combined sentence
+        this.trialLengths = this.trialLengths.concat(this.sentencePracticeRounds);
+        // Add Trials
+        this.trialLengths = this.trialLengths.concat(this.trialRounds);
         this.tf.finished = () => this.loadFirstTrial();
         this.tf.loadModels(sentenceService, lettersService, this.trialLengths);
     }

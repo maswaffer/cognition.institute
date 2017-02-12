@@ -20,7 +20,10 @@ enum TestStage {
 type Step = () => void;
 //This should be refactored to be TestManager
 export class TrialKeeper {
-    trialLengths: number[] = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+    letterPracticeRounds: number[] = [2, 3];
+    sentencePracticeRounds: number[] = [2, 3];
+    trialRounds: number[] = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]
+    trialLengths: number[];
     trials: Trial[];
     currentTrial: Trial;
     tf: TrialFactory = new TrialFactory();
@@ -44,32 +47,35 @@ export class TrialKeeper {
         sentenceDuration: 0
     }
 
-    practiceRounds = 1;
-    trialRounds = 2;
+    //practiceRounds = 2;
+    //trialRounds = 10;
 
     start() {
+
         //Letter practice
         this.steps.push(() => this.showLetterInstructions());
-        for (var i = 0; i < this.practiceRounds; i++) {
+        for (var i = 0; i < this.letterPracticeRounds.length; i++) {
             this.steps.push(() => this.startLetterPractice());
             this.steps.push(() => this.collectResponse());
         }
 
         //Sentence practice
         this.steps.push(() => this.showSentenceInstructions());
-        this.steps.push(() => this.startSentencePractice());
-        this.steps.push(() => this.displayScore());
+        for (var i = 0; i < this.sentencePracticeRounds.length; i++) {
+            this.steps.push(() => this.startSentencePractice());
+            this.steps.push(() => this.displayScore());
+        }
 
         //Combined practice
         this.steps.push(() => this.showCombinedInstructions());
-        for (var i = 0; i < this.practiceRounds; i++) {
+        for (var i = 0; i < this.sentencePracticeRounds.length; i++) {
             this.steps.push(() => this.startCombinedPractice());
             this.steps.push(() => this.collectResponse());
         }
 
         //Trials
         this.steps.push(() => this.showTrialInstructions());
-        for (var i = 0; i < this.trialRounds; i++) {
+        for (var i = 0; i < this.trialRounds.length; i++) {
             this.steps.push(() => this.startTrial());
             this.steps.push(() => this.collectResponse());
         }
@@ -144,6 +150,12 @@ export class TrialKeeper {
 
     //Init functions
     loadTrials(sentenceService: SentenceService, lettersService: LettersService) {
+        // Add letters and plain sentence practice
+        this.trialLengths = this.letterPracticeRounds.concat(this.sentencePracticeRounds)
+        // Add combined sentence
+        this.trialLengths = this.trialLengths.concat(this.sentencePracticeRounds)
+        // Add Trials
+        this.trialLengths = this.trialLengths.concat(this.trialRounds);
         this.tf.finished = () => this.loadFirstTrial();
         this.tf.loadModels(sentenceService, lettersService, this.trialLengths);
     }
@@ -286,9 +298,9 @@ export class Trial {
 
     private sentenceDurationTimer: number;
 
-    next() { 
+    next() {
         clearTimeout(this.sentenceDurationTimer);
-               
+
         if (this.round >= this.letters.text.length) {
             this.completed();
         } else if (this.isLetterPractice) {
