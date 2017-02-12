@@ -213,7 +213,7 @@ export class Trial {
     practiceSentenceTimes = new Array<number>();
     sentenceDuration: number;
     private startSentenceTime: number;
-    private letterDelay = 1000;
+    private letterDelay = 1250;
 
     round = 0;
 
@@ -241,6 +241,7 @@ export class Trial {
         if (this.currentSentence.response == answer) {
             this.scores.sentenceCorrect++;
         }
+        this.next();
     }
 
     startLetterPractice() {
@@ -285,7 +286,9 @@ export class Trial {
 
     private sentenceDurationTimer: number;
 
-    next() {        
+    next() { 
+        clearTimeout(this.sentenceDurationTimer);
+               
         if (this.round >= this.letters.text.length) {
             this.completed();
         } else if (this.isLetterPractice) {
@@ -312,6 +315,7 @@ export class Trial {
                 case TrialStage.letter:
                     this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
                     this.round++;
+                    this.nextLetterDelay();
                     break;
             }
         }

@@ -21,11 +21,7 @@ let ReadingComponent = class ReadingComponent {
     }
     answer(response) {
         this.currentTrial.sentenceResponse(response);
-        this.currentTrial.next();
-        this.delayForLetter();
-    }
-    delayForLetter() {
-        this.currentTrial.nextLetterDelay();
+        //Automatically presents letter.
     }
 };
 __decorate([

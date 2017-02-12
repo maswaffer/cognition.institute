@@ -170,7 +170,7 @@ class Trial {
     constructor() {
         this.currentSentence = new sentence_service_js_1.Sentence();
         this.practiceSentenceTimes = new Array();
-        this.letterDelay = 1000;
+        this.letterDelay = 1250;
         this.round = 0;
         this.scores = {
             sentenceTotal: 0,
@@ -193,6 +193,7 @@ class Trial {
         if (this.currentSentence.response == answer) {
             this.scores.sentenceCorrect++;
         }
+        this.next();
     }
     startLetterPractice() {
         this.isLetterPractice = true;
@@ -229,6 +230,7 @@ class Trial {
         }
     }
     next() {
+        clearTimeout(this.sentenceDurationTimer);
         if (this.round >= this.letters.text.length) {
             this.completed();
         }
@@ -256,6 +258,7 @@ class Trial {
                 case TrialStage.letter:
                     this.currentLetter = this.letters.text.substring(this.round, this.round + 1);
                     this.round++;
+                    this.nextLetterDelay();
                     break;
             }
         }
