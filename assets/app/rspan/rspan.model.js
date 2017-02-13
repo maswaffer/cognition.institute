@@ -128,6 +128,7 @@ class TrialKeeper {
         this.trialLengths = this.trialLengths.concat(this.sentencePracticeRounds);
         // Add Trials
         this.trialLengths = this.trialLengths.concat(this.trialRounds);
+        console.log('total trials: ' + this.trialLengths.length);
         this.tf.finished = () => this.loadFirstTrial();
         this.tf.loadModels(sentenceService, lettersService, this.trialLengths);
     }
@@ -161,10 +162,16 @@ class TrialKeeper {
         this.totalscores.sentenceProportion = this.totalscores.sentenceCorrect / this.totalscores.sentenceTotal;
     }
     loadNextTrial() {
-        this.currentTrial = this.trials[++this.trial];
-        this.currentTrial.completed = () => this.nextStep();
-        this.currentTrial.sentenceDuration = this.totalscores.sentenceDuration;
-        this.trialLoaded();
+        if (this.trial + 1 < this.trials.length) {
+            this.currentTrial = this.trials[++this.trial];
+            console.log('loading Round 1 of trial # ' + (this.trial + 1));
+            this.currentTrial.completed = () => this.nextStep();
+            this.currentTrial.sentenceDuration = this.totalscores.sentenceDuration;
+            this.trialLoaded();
+        }
+        else {
+            console.log('No more trials to load');
+        }
         this.nextStep();
     }
 }
@@ -253,7 +260,7 @@ class Trial {
             this.rachet();
             switch (this.stage) {
                 case TrialStage.sentence:
-                    console.log('round: ' + this.round);
+                    console.log('Round: ' + (this.round + 1));
                     this.currentSentence = this.sentences[this.round];
                     if (!this.isPractice()) {
                         this.sentenceDurationTimer = setTimeout(() => this.timerSkip(), this.sentenceDuration);

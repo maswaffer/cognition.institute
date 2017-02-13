@@ -22,7 +22,7 @@ let SentenceService = class SentenceService {
     }
     getSentences() {
         return this.http
-            .get('/api/v1/sentence')
+            .get('/api/v1/sentence?limit=100')
             .map((response) => response.json())
             .catch(this.handleError);
     }

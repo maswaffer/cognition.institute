@@ -16,7 +16,7 @@ export class SentenceService{
 
     getSentences(){
         return this.http
-            .get('/api/v1/sentence')
+            .get('/api/v1/sentence?limit=100')
             .map((response: Response) => <Sentence[]>response.json())
             //.do(data => console.log('sentence data:' + data))
             .catch(this.handleError);
