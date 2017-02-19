@@ -11,27 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
-const app_component_1 = require("./app.component");
-const app_routing_module_1 = require("./app-routing.module");
-const rspan_module_1 = require("./rspan/rspan.module");
-const content_module_1 = require("./content/content.module");
-let AppModule = class AppModule {
+const forms_1 = require("@angular/forms");
+const content_routing_module_1 = require("./content-routing.module");
+let ContentModule = class ContentModule {
 };
-AppModule = __decorate([
+ContentModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
-            app_routing_module_1.AppRoutingModule,
-            rspan_module_1.RspanModule,
-            content_module_1.ContentModule
+            forms_1.FormsModule,
+            content_routing_module_1.ContentRoutingModule
         ],
         declarations: [
-            app_component_1.AppComponent
-        ],
-        bootstrap: [app_component_1.AppComponent],
+            content_routing_module_1.contentRoutedComponents
+        ]
     }),
     __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], ContentModule);
+exports.ContentModule = ContentModule;
+//# sourceMappingURL=content.module.js.map

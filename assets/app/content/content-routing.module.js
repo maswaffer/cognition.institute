@@ -9,29 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-const platform_browser_1 = require("@angular/platform-browser");
-const http_1 = require("@angular/http");
-const app_component_1 = require("./app.component");
-const app_routing_module_1 = require("./app-routing.module");
-const rspan_module_1 = require("./rspan/rspan.module");
-const content_module_1 = require("./content/content.module");
-let AppModule = class AppModule {
+const router_1 = require("@angular/router");
+const content_component_1 = require("./content.component");
+const routes = [
+    { path: 'content/:pid', component: content_component_1.ContentComponent }
+];
+let ContentRoutingModule = class ContentRoutingModule {
 };
-AppModule = __decorate([
+ContentRoutingModule = __decorate([
     core_1.NgModule({
-        imports: [
-            platform_browser_1.BrowserModule,
-            http_1.HttpModule,
-            app_routing_module_1.AppRoutingModule,
-            rspan_module_1.RspanModule,
-            content_module_1.ContentModule
-        ],
-        declarations: [
-            app_component_1.AppComponent
-        ],
-        bootstrap: [app_component_1.AppComponent],
+        imports: [router_1.RouterModule.forChild(routes)],
+        exports: [router_1.RouterModule]
     }),
     __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], ContentRoutingModule);
+exports.ContentRoutingModule = ContentRoutingModule;
+exports.contentRoutedComponents = [
+    content_component_1.ContentComponent
+];
+//# sourceMappingURL=content-routing.module.js.map

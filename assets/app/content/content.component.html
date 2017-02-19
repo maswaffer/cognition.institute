@@ -1,0 +1,13 @@
+<h2>Content goes here</h2>
+<h3>ID = {{model.participantId}}
+<p>
+    Group info:
+        {{model.currentGroup.id}} {{model.currentGroup.pid}} {{model.currentGroup.gid}}
+</p>
+<p *ngFor="let c of model.myTopics">
+        {{c}}
+</p>
+
+<p>
+    {{model.currentConditions[0]?.fileNames[0]}}
+</p>

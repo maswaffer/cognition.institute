@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule,  } from './app-routing.module';
 import { RspanModule } from './rspan/rspan.module';
+import { ContentModule } from './content/content.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpModule,
         AppRoutingModule,
-        RspanModule
+        RspanModule,
+        ContentModule
     ],
     declarations: [
         AppComponent
