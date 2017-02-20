@@ -6,7 +6,6 @@
 
         <!--Text-->
         <div id="text" *ngIf="model?.currentState == 1">
-            <p>{{model.currentFilename}}</p>
             <text-display [fileName]="model.currentFilename"></text-display>
         </div>
         <!--Image-->
@@ -19,6 +18,8 @@
         </div>
 
         <div *ngIf="model?.showTestUrl">
+            <hr/>
+            <h5>Study complete!</h5>
             <p>
                 You have completed studying this content. When you are ready, please click on the link below to take the test.
             </p>
@@ -27,7 +28,7 @@
             </p>
         </div>
 
-        <div>
+        <div style="margin-top: 3em">
 
             <button (click)="previous()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Previous Page</button>
             <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next Page</button>
