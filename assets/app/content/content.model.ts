@@ -10,6 +10,7 @@ export class ContentModel {
     showTestUrl = false;
     currentCondition = new Condition();
     currentFilename: string;
+    canPrevious: boolean;
     
 
     myFileIndex = 0;
@@ -36,11 +37,22 @@ export class ContentModel {
             this.myFileIndex--;
             this.showTestUrl = true;
         }
+        this.setButtonFlags();
     }
 
     previous() {
         this.myFileIndex--;
         this.currentFilename = this.currentCondition.fileNames[this.myFileIndex];
+        this.setButtonFlags();
+    }
+
+    setButtonFlags(){
+        if(this.myFileIndex == 0){
+            this.canPrevious = false;
+        }else{
+            this.canPrevious = true;
+        }
+        
     }
 
     setGroups(groups: Group[]) {
@@ -70,6 +82,7 @@ export class ContentModel {
         this.currentCondition = this.myConditions[this.currentState - 1];
         this.currentFilename = this.currentCondition.fileNames[0];
         this.testUrl = this.currentCondition.testUrl + "&lastStage=" + this.currentState + "&pid=" + this.participantId;
+        this.setButtonFlags();
         console.log("url " + this.testUrl);
     }
 

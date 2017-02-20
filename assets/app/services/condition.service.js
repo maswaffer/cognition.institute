@@ -56,7 +56,8 @@ let ConditionService = class ConditionService {
                         "l1.png",
                         "l2.png",
                         "l3.png",
-                        "l4.png"
+                        "l4.png",
+                        "l5.png"
                     ]
                 },
                 2: {

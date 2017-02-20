@@ -24,13 +24,13 @@
                 You have completed studying this content. When you are ready, please click on the link below to take the test.
             </p>
             <p>
-                <a href="{{model.testUrl}}">Go to test</a>
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{model.testUrl}}">Click here to go to test</a>
             </p>
         </div>
 
         <div style="margin-top: 3em">
 
-            <button (click)="previous()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Previous Page</button>
+            <button *ngIf="model?.canPrevious" (click)="previous()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Previous Page</button>
             <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next Page</button>
 
         </div>
