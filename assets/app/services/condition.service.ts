@@ -4,6 +4,7 @@ export class Condition {
     id: number;
     title: string;
     fileNames: string[];
+    testUrl: string;
 }
 
 @Injectable()
@@ -15,16 +16,19 @@ export class ConditionService {
         let text = new Condition();
         text.id = topics[0];
         text.title = this.definitions.Text[topics[0]].Title;
+        text.testUrl = this.definitions.Text[topics[0]].TestURL;
         text.fileNames = this.definitions.Text[topics[0]].Files;
 
         let image = new Condition();
         image.id = topics[1];
         image.title = this.definitions.Images[topics[1]].Title;
+        image.testUrl = this.definitions.Images[topics[1]].TestURL;
         image.fileNames = this.definitions.Images[topics[1]].Files;
         
         let anim = new Condition();
         anim.id = topics[2];
         anim.title = this.definitions.Animation[topics[2]].Title;
+        anim.testUrl = this.definitions.Animation[topics[2]].TestURL;
         anim.fileNames = this.definitions.Animation[topics[2]].Files;
 
         ls.push(text);
@@ -37,7 +41,8 @@ export class ConditionService {
     private definitions = {
         "Text": {
             1: {
-                "Title": "Lightning - A",
+                "Title": "1: Causes of Lightning",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "l1.txt",
                     "l2.txt",
@@ -46,7 +51,8 @@ export class ConditionService {
                 ]
             },
             2: {
-                "Title": "Ice Ages - A",
+                "Title": "1: Causes of Ice Ages",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "ia1.txt",
                     "ia2.txt",
@@ -55,7 +61,8 @@ export class ConditionService {
                 ]
             },
             3: {
-                "Title": "fMRI - A",
+                "Title": "1: How fMRI works",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "fmri1.txt",
                     "fmri2.txt",
@@ -66,7 +73,8 @@ export class ConditionService {
         },
         "Images": {
             1: {
-                "Title": "Lightning - B",
+                "Title": "2: Causes of Lightning",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "l1.png",
                     "l2.png",
@@ -75,7 +83,8 @@ export class ConditionService {
                 ]
             },
             2: {
-                "Title": "Ice Ages - B",
+                "Title": "2: Causes of Ice Ages",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "ia1.png",
                     "ia2.png",
@@ -84,7 +93,8 @@ export class ConditionService {
                 ]
             },
             3: {
-                "Title": "fMRI - B",
+                "Title": "2: How fMRI works",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "fmri1.html",
                     "fmri2.html",
@@ -95,25 +105,28 @@ export class ConditionService {
         },
         "Animation": {
             1: {
-                "Title": "Lightning - C",
+                "Title": "3: Causes of Lightning",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
-                    "l1.txt",
-                    "l2.txt",
-                    "l3.txt",
-                    "l4.txt"
+                    "l1.html",
+                    "l2.html",
+                    "l3.html",
+                    "l4.html"
                 ]
             },
             2: {
-                "Title": "Ice Ages - C",
+                "Title": "3: Causes of Ice Ages",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
-                    "ia1.png",
-                    "ia2.png",
-                    "ia3.png",
-                    "ia4.png"
+                    "ia1.html",
+                    "ia2.html",
+                    "ia3.html",
+                    "ia4.html"
                 ]
             },
             3: {
-                "Title": "fMRI - C",
+                "Title": "3: How fMRI works",
+                "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
                     "fmri1.html",
                     "fmri2.html",

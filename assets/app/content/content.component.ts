@@ -27,12 +27,21 @@ export class ContentComponent implements OnInit {
         this.getParticipantId();
     }
 
+    next(){
+        this.model.next();
+    }
+
+    previous(){
+        this.model.previous();
+    }
+
     private loadGroups() {
         this.groupService.getGroups()
             .subscribe(
                 groups => {
                     this.model.setGroups(groups);
                     this.loadConditions();
+                    this.getLastCondition();
                 },
                 error => this.errorMessage = <any>error
             );
@@ -45,4 +54,22 @@ export class ContentComponent implements OnInit {
     private getParticipantId(){
         this.model.participantId = this.route.snapshot.params['pid'];
     }
+
+    private getLastCondition(){
+        let lastCondition = 0;
+        var p = this.route.snapshot.params['lastStage'];
+        //var p = this.route.snapshot.queryParams['lastStage'];
+        if(p == null){
+            console.log("no last condition param");
+        }else{
+            console.log("last condition " + p);
+            lastCondition = +p;
+        }
+        this.model.setCurrentStage(lastCondition);
+    }
+
+     
+
+    
+
 }

@@ -1,13 +1,51 @@
-<h2>Content goes here</h2>
-<h3>ID = {{model.participantId}}
-<p>
-    Group info:
-        {{model.currentGroup.id}} {{model.currentGroup.pid}} {{model.currentGroup.gid}}
-</p>
-<p *ngFor="let c of model.myTopics">
-        {{c}}
-</p>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col"></div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <!--Title-->
+        <h3>{{model.currentCondition?.title}}</h3>
 
-<p>
-    {{model.currentConditions[0]?.fileNames[0]}}
-</p>
+        <!--Text-->
+        <div id="text" *ngIf="model?.currentState == 1">
+            <p>{{model.currentFilename}}</p>
+
+        </div>
+        <!--Image-->
+        <div id="image" *ngIf="model?.currentState == 2">
+            <p>{{model.currentFilename}}</p>
+        </div>
+        <!--Animation-->
+        <div id="animation" *ngIf="model?.currentState == 3">
+            <p>{{model.currentFilename}}</p>
+        </div>
+
+        <div *ngIf="model?.showTestUrl">
+            <p>
+                You have completed studying this content. When you are ready, please click on the link below to take the test.
+            </p>
+            <p>
+                <a href="{{model.testUrl}}">Go to test</a>
+            </p>
+        </div>
+
+        <div>
+
+            <button (click)="previous()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Previous Page</button>
+            <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next Page</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--<p>
+        Group info: {{model.currentGroup.id}} {{model.currentGroup.pid}} {{model.currentGroup.gid}}
+    </p>
+    <p *ngFor="let c of model.myTopics">
+        {{c}}
+    </p>
+
+    <p>
+        {{model.myConditions[0]?.fileNames[0]}}
+    </p>-->

@@ -12,7 +12,8 @@ const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const content_component_1 = require("./content.component");
 const routes = [
-    { path: 'content/:pid', component: content_component_1.ContentComponent }
+    { path: 'content/:pid', component: content_component_1.ContentComponent },
+    { path: 'content/:pid/:lastStage', component: content_component_1.ContentComponent }
 ];
 let ContentRoutingModule = class ContentRoutingModule {
 };

@@ -24,11 +24,18 @@ let ContentComponent = class ContentComponent {
         this.loadGroups();
         this.getParticipantId();
     }
+    next() {
+        this.model.next();
+    }
+    previous() {
+        this.model.previous();
+    }
     loadGroups() {
         this.groupService.getGroups()
             .subscribe(groups => {
             this.model.setGroups(groups);
             this.loadConditions();
+            this.getLastCondition();
         }, error => this.errorMessage = error);
     }
     loadConditions() {
@@ -36,6 +43,19 @@ let ContentComponent = class ContentComponent {
     }
     getParticipantId() {
         this.model.participantId = this.route.snapshot.params['pid'];
+    }
+    getLastCondition() {
+        let lastCondition = 0;
+        var p = this.route.snapshot.params['lastStage'];
+        //var p = this.route.snapshot.queryParams['lastStage'];
+        if (p == null) {
+            console.log("no last condition param");
+        }
+        else {
+            console.log("last condition " + p);
+            lastCondition = +p;
+        }
+        this.model.setCurrentStage(lastCondition);
     }
 };
 ContentComponent = __decorate([

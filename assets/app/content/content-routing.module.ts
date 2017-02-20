@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentComponent} from './content.component';
 
 const routes: Routes=[
-    {path: 'content/:pid', component: ContentComponent}
+    {path: 'content/:pid', component: ContentComponent},
+    {path: 'content/:pid/:lastStage', component: ContentComponent}
 ]
 
 @NgModule({
