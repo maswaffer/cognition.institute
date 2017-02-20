@@ -9,27 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
-const forms_1 = require("@angular/forms");
-const content_routing_module_1 = require("./content-routing.module");
-const text_display_component_1 = require("./text/text-display.component");
-let ContentModule = class ContentModule {
+const Observable_1 = require("rxjs/Observable");
+require("rxjs/Rx");
+class TextContent {
+    constructor(text) { }
+}
+exports.TextContent = TextContent;
+let TextService = class TextService {
+    constructor(http) {
+        this.http = http;
+    }
+    getText(fileName) {
+        return this.http
+            .get('/c/' + fileName)
+            .map((response) => response.text())
+            .catch(this.handleError);
+    }
+    handleError(error) {
+        console.error(error);
+        let msg = `Error status code ${error.status} at $error.url}`;
+        return Observable_1.Observable.throw(msg);
+    }
 };
-ContentModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            platform_browser_1.BrowserModule,
-            http_1.HttpModule,
-            forms_1.FormsModule,
-            content_routing_module_1.ContentRoutingModule
-        ],
-        declarations: [
-            content_routing_module_1.contentRoutedComponents,
-            text_display_component_1.TextDisplayComponent
-        ]
-    }),
-    __metadata("design:paramtypes", [])
-], ContentModule);
-exports.ContentModule = ContentModule;
-//# sourceMappingURL=content.module.js.map
+TextService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], TextService);
+exports.TextService = TextService;
+//# sourceMappingURL=text.service.js.map

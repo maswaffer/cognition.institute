@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router';
 import { ContentRoutingModule, contentRoutedComponents} from './content-routing.module';
+import { TextDisplayComponent } from './text/text-display.component';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { ContentRoutingModule, contentRoutedComponents} from './content-routing.
         ContentRoutingModule
     ],
     declarations: [
-        contentRoutedComponents
+        contentRoutedComponents,
+        TextDisplayComponent
     ]
 })
 

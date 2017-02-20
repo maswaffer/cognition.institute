@@ -7,7 +7,7 @@
         <!--Text-->
         <div id="text" *ngIf="model?.currentState == 1">
             <p>{{model.currentFilename}}</p>
-
+            <text-display [fileName]="model.currentFilename"></text-display>
         </div>
         <!--Image-->
         <div id="image" *ngIf="model?.currentState == 2">
