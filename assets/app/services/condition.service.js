@@ -18,7 +18,7 @@ let ConditionService = class ConditionService {
             "Text": {
                 1: {
                     "Title": "1: Causes of Lightning",
-                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
+                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "l1.txt",
                         "l2.txt",
@@ -39,7 +39,7 @@ let ConditionService = class ConditionService {
                 },
                 3: {
                     "Title": "1: How fMRI works",
-                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
+                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
                         "fmri1.txt",
                         "fmri2.txt",
@@ -51,7 +51,7 @@ let ConditionService = class ConditionService {
             "Images": {
                 1: {
                     "Title": "2: Causes of Lightning",
-                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
+                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "l1.png",
                         "l2.png",
@@ -72,7 +72,7 @@ let ConditionService = class ConditionService {
                 },
                 3: {
                     "Title": "2: How fMRI works ",
-                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
+                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
                         "fmri1.png",
                         "fmri2.png",
@@ -85,7 +85,7 @@ let ConditionService = class ConditionService {
             "Animation": {
                 1: {
                     "Title": "3: Causes of Lightning",
-                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
+                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "l1.html",
                         "l2.html",
@@ -105,7 +105,7 @@ let ConditionService = class ConditionService {
                 },
                 3: {
                     "Title": "3: How fMRI works",
-                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
+                    "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
                         "fmri1.html",
                         "fmri2.html",
