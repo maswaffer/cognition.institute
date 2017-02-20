@@ -10,7 +10,7 @@
         </div>
         <!--Image-->
         <div id="image" *ngIf="model?.currentState == 2">
-            <p>{{model.currentFilename}}</p>
+            <image-display [fileName] = "model.currentFilename"></image-display>
         </div>
         <!--Animation-->
         <div id="animation" *ngIf="model?.currentState == 3">

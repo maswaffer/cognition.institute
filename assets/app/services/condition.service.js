@@ -70,13 +70,14 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 3: {
-                    "Title": "2: How fMRI works",
+                    "Title": "2: How fMRI works ",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                     "Files": [
-                        "fmri1.html",
-                        "fmri2.html",
-                        "fmri3.html",
-                        "fmri4.html"
+                        "fmri1.png",
+                        "fmri2.png",
+                        "fmri3.png",
+                        "fmri4.png",
+                        "fmri5.png"
                     ]
                 },
             },

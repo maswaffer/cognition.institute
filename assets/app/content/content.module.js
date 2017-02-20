@@ -14,6 +14,7 @@ const http_1 = require("@angular/http");
 const forms_1 = require("@angular/forms");
 const content_routing_module_1 = require("./content-routing.module");
 const text_display_component_1 = require("./text/text-display.component");
+const image_display_component_1 = require("./image/image-display.component");
 let ContentModule = class ContentModule {
 };
 ContentModule = __decorate([
@@ -26,7 +27,8 @@ ContentModule = __decorate([
         ],
         declarations: [
             content_routing_module_1.contentRoutedComponents,
-            text_display_component_1.TextDisplayComponent
+            text_display_component_1.TextDisplayComponent,
+            image_display_component_1.ImageDisplayComponent
         ]
     }),
     __metadata("design:paramtypes", [])

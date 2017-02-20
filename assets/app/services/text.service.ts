@@ -15,7 +15,7 @@ export class TextService{
 
     getText(fileName: string){
         return this.http
-            .get('/c/'+fileName)
+            .get('/c/t/'+fileName)
             .map((response: Response) => <string>response.text())
             //.do(data => console.log('sentence data:' + data))
             .catch(this.handleError);

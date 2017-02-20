@@ -22,7 +22,7 @@ let TextService = class TextService {
     }
     getText(fileName) {
         return this.http
-            .get('/c/' + fileName)
+            .get('/c/t/' + fileName)
             .map((response) => response.text())
             .catch(this.handleError);
     }

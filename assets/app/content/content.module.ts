@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router';
 import { ContentRoutingModule, contentRoutedComponents} from './content-routing.module';
 import { TextDisplayComponent } from './text/text-display.component';
+import { ImageDisplayComponent } from './image/image-display.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { TextDisplayComponent } from './text/text-display.component';
     ],
     declarations: [
         contentRoutedComponents,
-        TextDisplayComponent
+        TextDisplayComponent,
+        ImageDisplayComponent
     ]
 })
 
