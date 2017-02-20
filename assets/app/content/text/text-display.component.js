@@ -18,10 +18,15 @@ let TextDisplayComponent = class TextDisplayComponent {
         this.loadFile();
     }
     loadFile() {
-        this.textService.getText(this.fileName)
-            .subscribe(text => {
-            this.formatText(text);
-        }, error => this.errorMessage = error);
+        if (this.fileName == null) {
+        }
+        else {
+            console.log("looking for file" + this.fileName);
+            this.textService.getText(this.fileName)
+                .subscribe(text => {
+                this.formatText(text);
+            }, error => this.errorMessage = error);
+        }
     }
     formatText(text) {
         this.text = text.split('\n');

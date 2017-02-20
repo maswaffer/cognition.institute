@@ -21,6 +21,10 @@ export class TextDisplayComponent implements OnChanges{
     }
 
     loadFile(){
+        if(this.fileName == null){
+
+        }else{
+        console.log("looking for file" + this.fileName);
         this.textService.getText(this.fileName)
             .subscribe(
                 text => {
@@ -28,6 +32,7 @@ export class TextDisplayComponent implements OnChanges{
                 },
                 error => this.errorMessage = <any>error
             );
+        }
     }
 
     formatText(text: string){
