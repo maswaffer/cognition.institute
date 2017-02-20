@@ -17,6 +17,20 @@
             <p>{{model.currentFilename}}</p>
         </div>
 
+        <!--Finished-->
+        <div id="finished" *ngIf="model?.currentState == 4">
+            <p>
+                Thank you for participating in our study. Please alert the research assistant that you are now finished. 
+            </p>
+            <p>
+                If you have any questions or concerns about this study, please see the contact information on the consent form you signed
+                prior to beginning this study. 
+            </p>
+            <p>
+                This research is intended to improve the design of learning interventions using electronic medium.
+            </p>
+        </div>
+
         <div *ngIf="model?.showTestUrl">
             <hr/>
             <h5>Study complete!</h5>
@@ -29,10 +43,8 @@
         </div>
 
         <div style="margin-top: 3em">
-
             <button *ngIf="model?.canPrevious" (click)="previous()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Previous Page</button>
             <button (click)="next()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Next Page</button>
-
         </div>
     </div>
 </div>
