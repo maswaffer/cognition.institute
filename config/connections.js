@@ -62,7 +62,7 @@ module.exports.connections = {
     port: 27017,
     // user: 'wmc', //optional
     // password: 'w0rk1ng', //optional
-    database: 'iceages' //optional
+    database: 's2017' //optional
   },
 
   /***************************************************************************
