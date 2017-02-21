@@ -15,61 +15,59 @@ import { ContentModel } from './content.model';
 
 export class ContentComponent implements OnInit {
 
-    model = new ContentModel();
+    model: ContentModel;
     errorMessage: string;
 
-    constructor(private groupService: GroupService, 
-                private conditionService: ConditionService,
-                private route: ActivatedRoute){}
+    constructor(private groupService: GroupService,
+        private conditionService: ConditionService,
+        private route: ActivatedRoute) {
+        this.model = new ContentModel(conditionService);
+    }
 
-    ngOnInit(){
+    ngOnInit() {
+        this.model.CreateCombinations();
         this.loadGroups();
         this.getParticipantId();
     }
 
-    next(){
+    next() {
         this.model.next();
     }
 
-    previous(){
+    previous() {
         this.model.previous();
     }
 
     private loadGroups() {
         this.groupService.getGroups()
             .subscribe(
-                groups => {
-                    this.model.setGroups(groups);
-                    this.loadConditions();
-                    this.getLastCondition();
-                },
-                error => this.errorMessage = <any>error
+            groups => {
+                this.model.setGroups(groups);
+                this.getLastCondition();
+            },
+            error => this.errorMessage = <any>error
             );
     }
 
-    private loadConditions(){
-        this.model.setConditions(this.conditionService.getConditions(this.model.myTopics));
-    }
-
-    private getParticipantId(){
+    private getParticipantId() {
         this.model.participantId = this.route.snapshot.params['pid'];
     }
 
-    private getLastCondition(){
+    private getLastCondition() {
         let lastCondition = 0;
         var p = this.route.snapshot.params['lastStage'];
         //var p = this.route.snapshot.queryParams['lastStage'];
-        if(p == null){
+        if (p == null) {
             console.log("no last condition param");
-        }else{
+        } else {
             console.log("last condition " + p);
             lastCondition = +p;
         }
         this.model.setCurrentStage(lastCondition);
     }
 
-     
 
-    
+
+
 
 }

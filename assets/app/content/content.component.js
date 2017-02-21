@@ -18,9 +18,10 @@ let ContentComponent = class ContentComponent {
         this.groupService = groupService;
         this.conditionService = conditionService;
         this.route = route;
-        this.model = new content_model_1.ContentModel();
+        this.model = new content_model_1.ContentModel(conditionService);
     }
     ngOnInit() {
+        this.model.CreateCombinations();
         this.loadGroups();
         this.getParticipantId();
     }
@@ -34,12 +35,8 @@ let ContentComponent = class ContentComponent {
         this.groupService.getGroups()
             .subscribe(groups => {
             this.model.setGroups(groups);
-            this.loadConditions();
             this.getLastCondition();
         }, error => this.errorMessage = error);
-    }
-    loadConditions() {
-        this.model.setConditions(this.conditionService.getConditions(this.model.myTopics));
     }
     getParticipantId() {
         this.model.participantId = this.route.snapshot.params['pid'];

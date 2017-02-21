@@ -22,7 +22,7 @@ type Step = () => void;
 export class TrialKeeper {
     letterPracticeRounds: number[] = [2, 3];
     sentencePracticeRounds: number[] = [2, 3];
-    trialRounds: number[] = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]
+    trialRounds: number[] = [2, 3, 2, 3, 4, 5, 4, 5, 6, 7, 6, 7]
     //trialRounds: number[] = [2, 2]
     trialLengths: number[];
     trials: Trial[];

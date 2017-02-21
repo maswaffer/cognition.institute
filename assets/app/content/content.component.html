@@ -5,15 +5,15 @@
         <h3>{{model.currentCondition?.title}}</h3>
 
         <!--Text-->
-        <div id="text" *ngIf="model?.currentState == 1">
+        <div id="text" *ngIf="model?.currentMode == 0">
             <text-display [fileName]="model.currentFilename"></text-display>
         </div>
         <!--Image-->
-        <div id="image" *ngIf="model?.currentState == 2">
+        <div id="image" *ngIf="model?.currentMode == 1">
             <image-display [fileName] = "model.currentFilename"></image-display>
         </div>
         <!--Animation-->
-        <div id="animation" *ngIf="model?.currentState == 3">
+        <div id="animation" *ngIf="model?.currentMode == 2">
             <p>{{model.currentFilename}}</p>
         </div>
 

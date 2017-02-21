@@ -20,7 +20,7 @@ class TrialKeeper {
     constructor() {
         this.letterPracticeRounds = [2, 3];
         this.sentencePracticeRounds = [2, 3];
-        this.trialRounds = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+        this.trialRounds = [2, 3, 2, 3, 4, 5, 4, 5, 6, 7, 6, 7];
         this.tf = new TrialFactory();
         this.trial = 0;
         this.stage = TestStage.start;

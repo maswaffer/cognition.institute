@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 export class Condition {
-    id: number;
     title: string;
     fileNames: string[];
     testUrl: string;
@@ -11,36 +10,18 @@ export class Condition {
 export class ConditionService {
 
     
-    getConditions(topics: number[]) {
-        let ls = new Array<Condition>();
-        let text = new Condition();
-        text.id = topics[0];
-        text.title = this.definitions.Text[topics[0]].Title;
-        text.testUrl = this.definitions.Text[topics[0]].TestURL;
-        text.fileNames = this.definitions.Text[topics[0]].Files;
+    getConditions(mode: number, topic: number) {
+        let c = new Condition();
+        c.title = this.definitions[mode][topic].Title;
+        c.testUrl = this.definitions[mode][topic].TestURL;
+        c.fileNames = this.definitions[mode][topic].Files;
 
-        let image = new Condition();
-        image.id = topics[1];
-        image.title = this.definitions.Images[topics[1]].Title;
-        image.testUrl = this.definitions.Images[topics[1]].TestURL;
-        image.fileNames = this.definitions.Images[topics[1]].Files;
-        
-        let anim = new Condition();
-        anim.id = topics[2];
-        anim.title = this.definitions.Animation[topics[2]].Title;
-        anim.testUrl = this.definitions.Animation[topics[2]].TestURL;
-        anim.fileNames = this.definitions.Animation[topics[2]].Files;
-
-        ls.push(text);
-        ls.push(image);
-        ls.push(anim);
-
-        return ls;
+        return c;
     }
 
     private definitions = {
-        "Text": {
-            1: {
+        0: {
+            0: {
                 "Title": "1: Causes of Lightning",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                 "Files": [
@@ -51,7 +32,7 @@ export class ConditionService {
                     "l5.txt"
                 ]
             },
-            2: {
+            1: {
                 "Title": "1: Causes of Ice Ages",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
@@ -61,7 +42,7 @@ export class ConditionService {
                     "ia4.txt"
                 ]
             },
-            3: {
+            2: {
                 "Title": "1: How fMRI works",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                 "Files": [
@@ -72,8 +53,8 @@ export class ConditionService {
                 ]
             },
         },
-        "Images": {
-            1: {
+        1: {
+            0: {
                 "Title": "2: Causes of Lightning",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                 "Files": [
@@ -84,7 +65,7 @@ export class ConditionService {
                     "l5.png"
                 ]
             },
-            2: {
+            1: {
                 "Title": "2: Causes of Ice Ages",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
@@ -94,7 +75,7 @@ export class ConditionService {
                     "ia4.png"
                 ]
             },
-            3: {
+            2: {
                 "Title": "2: How fMRI works ",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                 "Files": [
@@ -106,8 +87,8 @@ export class ConditionService {
                 ]
             },
         },
-        "Animation": {
-            1: {
+        2: {
+            0: {
                 "Title": "3: Causes of Lightning",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                 "Files": [
@@ -117,7 +98,7 @@ export class ConditionService {
                     "l4.html"
                 ]
             },
-            2: {
+            1: {
                 "Title": "3: Causes of Ice Ages",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
@@ -127,7 +108,7 @@ export class ConditionService {
                     "ia4.html"
                 ]
             },
-            3: {
+            2: {
                 "Title": "3: How fMRI works",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                 "Files": [
