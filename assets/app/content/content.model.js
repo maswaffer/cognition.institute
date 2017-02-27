@@ -41,12 +41,16 @@ class ContentModel {
         this.currentGroup = groups.filter(g => g.pid == this.participantId)[0];
         this.myModes = this.allModes[this.currentGroup.gid - 1];
         this.myTopics = this.allTopics[this.currentGroup.gid - 1];
+        console.log('GID: ' + this.currentGroup.gid);
+        console.log('Group: ' + (this.currentGroup.gid - 1));
     }
     setCurrentStage(lastCondition) {
         this.currentState = lastCondition + 1;
         if (this.currentState < 4) {
             var topicIndex = this.myTopics[this.currentState - 1];
             var modeIndex = this.myModes[this.currentState - 1];
+            console.log('Mode: ' + modeIndex);
+            console.log('Topic: ' + topicIndex);
             this.currentCondition = this.conditionService.getConditions(modeIndex, topicIndex);
             this.currentMode = modeIndex;
             this.currentFilename = this.currentCondition.fileNames[0];
@@ -78,6 +82,7 @@ class ContentModel {
             var topicIndex = i % 6;
             var offset = Math.floor(i / 6);
             var modeIndex = topicIndex + offset < 6 ? topicIndex + offset : topicIndex + (offset - 6);
+            //console.log("i: " + i + " t: " + topicIndex + " m: " + modeIndex);  
             this.allModes[i] = modes[modeIndex];
             this.allTopics[i] = topics[topicIndex];
         }

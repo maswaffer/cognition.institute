@@ -92,7 +92,7 @@ export class ConditionService {
                 "Title": "3: Causes of Lightning",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                 "Files": [
-                    "l1.html",
+                    "lightning/Panel1.html",
                     "l2.html",
                     "l3.html",
                     "l4.html"

@@ -14,7 +14,7 @@
         </div>
         <!--Animation-->
         <div id="animation" *ngIf="model?.currentMode == 2">
-            <p>{{model.currentFilename}}</p>
+            <iframe [src] = "model.currentFilename | safe"></iframe>
         </div>
 
         <!--Finished-->
