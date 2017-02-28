@@ -13,6 +13,9 @@ let AnimationDisplayComponent = class AnimationDisplayComponent {
     ngOnChanges(...args) {
         this.fullFilename = "/c/a/" + this.fileName;
     }
+    replay() {
+        this.fullFilename = "/c/a/" + this.fileName + "?time=" + (new Date()).getTime();
+    }
 };
 __decorate([
     core_1.Input(),

@@ -13,4 +13,8 @@ export class AnimationDisplayComponent implements OnChanges {
         this.fullFilename = "/c/a/" + this.fileName;
     }
 
+    replay(){
+        this.fullFilename = "/c/a/" + this.fileName + "?time=" + (new Date()).getTime();
+    }
+
 }

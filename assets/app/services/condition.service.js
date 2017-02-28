@@ -17,7 +17,7 @@ let ConditionService = class ConditionService {
         this.definitions = {
             0: {
                 0: {
-                    "Title": "1: Causes of Lightning",
+                    "Title": "Causes of Lightning",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "l1.txt",
@@ -28,7 +28,7 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 1: {
-                    "Title": "1: Causes of Ice Ages",
+                    "Title": "Causes of Ice Ages",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                     "Files": [
                         "ia1.txt",
@@ -38,7 +38,7 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 2: {
-                    "Title": "1: How fMRI works",
+                    "Title": "How fMRI works",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
                         "fmri1.txt",
@@ -50,7 +50,7 @@ let ConditionService = class ConditionService {
             },
             1: {
                 0: {
-                    "Title": "2: Causes of Lightning",
+                    "Title": "Causes of Lightning",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "l1.png",
@@ -61,7 +61,7 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 1: {
-                    "Title": "2: Causes of Ice Ages",
+                    "Title": "Causes of Ice Ages",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                     "Files": [
                         "ia1.png",
@@ -71,7 +71,7 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 2: {
-                    "Title": "2: How fMRI works ",
+                    "Title": "How fMRI works ",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
                         "fmri1.png",
@@ -84,7 +84,7 @@ let ConditionService = class ConditionService {
             },
             2: {
                 0: {
-                    "Title": "3: Causes of Lightning",
+                    "Title": "Causes of Lightning",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "lightning/Panel1.html",
@@ -94,7 +94,7 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 1: {
-                    "Title": "3: Causes of Ice Ages",
+                    "Title": "Causes of Ice Ages",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                     "Files": [
                         "ia1.html",
@@ -104,7 +104,7 @@ let ConditionService = class ConditionService {
                     ]
                 },
                 2: {
-                    "Title": "3: How fMRI works",
+                    "Title": "How fMRI works",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
                         "fmri1.html",
