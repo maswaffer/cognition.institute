@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ContentRoutingModule, contentRoutedComponents} from './content-routing.module';
 import { TextDisplayComponent } from './text/text-display.component';
 import { ImageDisplayComponent } from './image/image-display.component';
+import { AnimationDisplayComponent } from './animation/animation-display.component';
 import { SafePipe } from '../pipes/safe-pipe';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SafePipe } from '../pipes/safe-pipe';
         contentRoutedComponents,
         TextDisplayComponent,
         ImageDisplayComponent,
+        AnimationDisplayComponent,
         SafePipe
     ]
 })
