@@ -88,9 +88,10 @@ let ConditionService = class ConditionService {
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                     "Files": [
                         "lightning/Panel1.html",
-                        "l2.html",
-                        "l3.html",
-                        "l4.html"
+                        "lightning/Panel2.html",
+                        "lightning/Panel3.html",
+                        "lightning/Panel4.html",
+                        "lightning/Panel5.html"
                     ]
                 },
                 1: {
