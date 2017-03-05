@@ -98,20 +98,21 @@ let ConditionService = class ConditionService {
                     "Title": "Causes of Ice Ages",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                     "Files": [
-                        "ia1.html",
-                        "ia2.html",
-                        "ia3.html",
-                        "ia4.html"
+                        "iceages/Panel1.html",
+                        "iceages/Panel2.html",
+                        "iceages/Panel3.html",
+                        "iceages/Panel4.html"
                     ]
                 },
                 2: {
                     "Title": "How fMRI works",
                     "TestURL": "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                     "Files": [
-                        "fmri1.html",
-                        "fmri2.html",
-                        "fmri3.html",
-                        "fmri4.html"
+                        "fmri/Panel1.html",
+                        "fmri/Panel2.html",
+                        "fmri/Panel3.html",
+                        "fmri/Panel4.html",
+                        "fmri/Panel5.html"
                     ]
                 },
             }
