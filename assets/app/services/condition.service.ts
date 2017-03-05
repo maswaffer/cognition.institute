@@ -61,6 +61,7 @@ export class ConditionService {
                 "Title": "Causes of Lightning",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_8HRsORJXbFzOKFv",
                 "Files": [
+                    "lkeyterms.png",
                     "l1.png",
                     "l2.png",
                     "l3.png",
@@ -72,6 +73,7 @@ export class ConditionService {
                 "Title": "Causes of Ice Ages",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_4MFVwHUER95OmSV",
                 "Files": [
+                    "iakeyterms.png",
                     "ia1.png",
                     "ia2.png",
                     "ia3.png",
@@ -82,6 +84,7 @@ export class ConditionService {
                 "Title": "How fMRI works ",
                 "TestURL" : "https://unco.co1.qualtrics.com/SE/?SID=SV_42W9e1doayQAY97",
                 "Files": [
+                    "fmrikeyterms.png",
                     "fmri1.png",
                     "fmri2.png",
                     "fmri3.png",
