@@ -16,9 +16,33 @@
                 <input class="mdl-textfield__input" [(ngModel)]="tk?.totalscores.participantId" type="text" pattern="^\d{4}(?!.)" id="participantId">
             </p>
             <p>
+                Sex:
+            </p>
+            <div>
+                <label   for="option-f">
+                    <input [(ngModel)]="tk?.totalscores.sex" 
+                            value="f"
+                            type="radio" id="option-f" name="options"  >
+                    <span>Female</span>
+                </label>
+                <br/>
+                <br/>
+                <label   for="option-m">
+                    <input [(ngModel)]="tk?.totalscores.sex" 
+                           value="m"
+                           type="radio" id="option-m" name="options" >
+                    <span>Male</span>
+                </label>
+            </div>
+            
+            <br/>
+            <br/>
+            <p>
                 When you are ready click the Start RSPAN button to read the instructions for this portion of the study.
             </p>
             <button (click)="start()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Start RSPAN</button>
+
+            
         </div>
 
         <!--Instructions1-->
@@ -164,8 +188,7 @@
                 </li>
             </ul>
             <p>
-                You will now begin the second phase of this study. 
-                When you are ready, please click the button below to start.
+                You will now begin the second phase of this study. When you are ready, please click the button below to start.
             </p>
             <p>
                 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="http://cognition.institute/content/{{tk?.totalscores.participantId}}">Click here to go to phase 2</a>

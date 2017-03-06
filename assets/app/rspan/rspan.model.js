@@ -28,6 +28,7 @@ class TrialKeeper {
         this.practiceSentenceTimes = new Array();
         this.totalscores = {
             participantId: '',
+            sex: '',
             sentenceTotal: 0,
             sentenceCorrect: 0,
             sentenceProportion: 0,
@@ -229,7 +230,7 @@ class Trial {
         this.startSentenceTime = Date.now();
     }
     startTrial() {
-        setTimeout(() => this.timerSkip(), this.sentenceDuration);
+        this.sentenceDurationTimer = setTimeout(() => this.timerSkip(), this.sentenceDuration);
     }
     nextLetterDelay() {
         if (!this.isSentencePractice) {

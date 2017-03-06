@@ -16,6 +16,10 @@ module.exports = {
       type: 'string',
       defaultsTo: ''
     },
+    sex: {
+      type: 'string',
+      defaultsTo: ''
+    },
     trials: {
       type: 'integer'
     },

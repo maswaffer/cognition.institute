@@ -37,6 +37,7 @@ export class TrialKeeper {
 
     totalscores = {
         participantId: '',
+        sex: '', 
         sentenceTotal: 0,
         sentenceCorrect: 0,
         sentenceProportion: 0,
@@ -284,7 +285,7 @@ export class Trial {
     }
 
     startTrial() {
-        setTimeout(() => this.timerSkip(), this.sentenceDuration);
+        this.sentenceDurationTimer = setTimeout(() => this.timerSkip(), this.sentenceDuration);
     }
 
     nextLetterDelay() {
