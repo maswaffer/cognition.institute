@@ -38,6 +38,10 @@ export class ContentComponent implements OnInit {
         this.model.previous();
     }
 
+    goToTest(){
+        window.location.href = this.model.getTestURL();
+    }
+
     private loadGroups() {
         this.groupService.getGroups()
             .subscribe(

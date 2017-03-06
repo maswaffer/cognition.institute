@@ -37,6 +37,15 @@ class ContentModel {
             this.canPrevious = true;
         }
     }
+    getTestURL() {
+        var studyTime = new Date().getTime() - this.startTime;
+        var testUrl = this.currentCondition.testUrl +
+            "&lastStage=" + this.currentState +
+            "&pid=" + this.participantId +
+            "&mode=" + this.currentMode +
+            "&studytime=" + studyTime;
+        return testUrl;
+    }
     setGroups(groups) {
         this.currentGroup = groups.filter(g => g.pid == this.participantId)[0];
         this.myModes = this.allModes[this.currentGroup.gid - 1];
@@ -54,7 +63,7 @@ class ContentModel {
             this.currentCondition = this.conditionService.getConditions(modeIndex, topicIndex);
             this.currentMode = modeIndex;
             this.currentFilename = this.currentCondition.fileNames[0];
-            this.testUrl = this.currentCondition.testUrl + "&lastStage=" + this.currentState + "&pid=" + this.participantId;
+            this.startTime = new Date().getTime();
         }
         else {
             this.currentMode = 99;

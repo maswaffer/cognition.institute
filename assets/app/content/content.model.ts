@@ -7,12 +7,11 @@ export class ContentModel {
     currentGroup = new Group();
     currentState = 1;
     currentMode = 1;
-    testUrl: string;
     showTestUrl = false;
     currentCondition = new Condition();
     currentFilename: string;
     canPrevious: boolean;
-
+    startTime: number;
 
     myFileIndex = 0;
     myModes: number[];
@@ -26,6 +25,7 @@ export class ContentModel {
     }
 
     next() {
+        
         this.myFileIndex++;
         if (this.myFileIndex < this.currentCondition.fileNames.length) {
             this.currentFilename = this.currentCondition.fileNames[this.myFileIndex];
@@ -37,6 +37,7 @@ export class ContentModel {
     }
 
     previous() {
+        
         this.myFileIndex--;
         this.currentFilename = this.currentCondition.fileNames[this.myFileIndex];
         this.setButtonFlags();
@@ -49,6 +50,16 @@ export class ContentModel {
             this.canPrevious = true;
         }
 
+    }
+
+    getTestURL(){
+        var studyTime = new Date().getTime() - this.startTime;
+        var testUrl = this.currentCondition.testUrl + 
+                            "&lastStage=" + this.currentState + 
+                            "&pid=" + this.participantId +
+                            "&mode=" + this.currentMode +
+                            "&studytime=" + studyTime;
+        return testUrl;
     }
 
     setGroups(groups: Group[]) {
@@ -71,7 +82,8 @@ export class ContentModel {
             this.currentMode = modeIndex;
 
             this.currentFilename = this.currentCondition.fileNames[0];
-            this.testUrl = this.currentCondition.testUrl + "&lastStage=" + this.currentState + "&pid=" + this.participantId;
+            
+            this.startTime = new Date().getTime();
         }else{
             this.currentMode = 99;
         }

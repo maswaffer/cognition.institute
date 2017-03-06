@@ -31,6 +31,9 @@ let ContentComponent = class ContentComponent {
     previous() {
         this.model.previous();
     }
+    goToTest() {
+        window.location.href = this.model.getTestURL();
+    }
     loadGroups() {
         this.groupService.getGroups()
             .subscribe(groups => {
