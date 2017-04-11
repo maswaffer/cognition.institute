@@ -12,14 +12,18 @@
             <p>
                 You should have been given a Participant ID to begin this assessment. Please enter it in the space below:
             </p>
-            <p>
-                <input class="mdl-textfield__input" [(ngModel)]="tk?.totalscores.participantId" type="text" pattern="^\d{4}(?!.)" id="participantId">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" [(ngModel)]="tk?.totalscores.participantId" type="text" pattern="^\d{4}(?!.)" id="participantId">
+                    <label class="mdl-textfield__label" for="participantId">ID...</label>
+                </div>
+            <p *ngIf="showParticipantError">
+                <span style="color:darkred; font-size: 2em;">Please enter the participant ID from your instruction sheet </span>
             </p>
             <p>
                 Sex:
             </p>
             <div>
-                <label   for="option-f">
+                <label for="option-f">
                     <input [(ngModel)]="tk?.totalscores.sex" 
                             value="f"
                             type="radio" id="option-f" name="options"  >
@@ -27,14 +31,14 @@
                 </label>
                 <br/>
                 <br/>
-                <label   for="option-m">
+                <label for="option-m">
                     <input [(ngModel)]="tk?.totalscores.sex" 
                            value="m"
                            type="radio" id="option-m" name="options" >
                     <span>Male</span>
                 </label>
             </div>
-            
+
             <br/>
             <br/>
             <p>
@@ -42,7 +46,7 @@
             </p>
             <button (click)="start()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Start RSPAN</button>
 
-            
+
         </div>
 
         <!--Instructions1-->

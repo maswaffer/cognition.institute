@@ -20,6 +20,7 @@ import { ScoreService } from '../services/score.service.js'
 export class RspanComponent implements OnInit{
     
     currentTrial = new Trial();
+    showParticipantError = false;
 
     constructor(private sentenceService: SentenceService, 
                 private lettersService: LettersService, 
@@ -41,7 +42,12 @@ export class RspanComponent implements OnInit{
     }
 
     start(){
-        this.tk.start();
+        this.showParticipantError = false;
+        if(this.tk.totalscores.participantId != ''){
+            this.tk.start();
+        }else{
+            this.showParticipantError = true;
+        }
     }
 
     next(){

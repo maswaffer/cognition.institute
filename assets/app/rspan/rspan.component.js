@@ -20,6 +20,7 @@ let RspanComponent = class RspanComponent {
         this.tk = tk;
         this.scoreService = scoreService;
         this.currentTrial = new rspan_model_js_1.Trial();
+        this.showParticipantError = false;
     }
     ngOnInit() {
         this.tk.trialLoaded = () => this.setTrial();
@@ -33,7 +34,13 @@ let RspanComponent = class RspanComponent {
         this.tk.recordResponse(letters);
     }
     start() {
-        this.tk.start();
+        this.showParticipantError = false;
+        if (this.tk.totalscores.participantId != '') {
+            this.tk.start();
+        }
+        else {
+            this.showParticipantError = true;
+        }
     }
     next() {
         this.tk.nextStep();
